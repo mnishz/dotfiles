@@ -1,0 +1,15 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]] # カラースキーマ
+repo = 'tomasr/molokai'
+hook_add = '''
+  set background=dark
+  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = 'let g:indent_guides_enable_on_vim_startup=1'
