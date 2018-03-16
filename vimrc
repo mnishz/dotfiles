@@ -4,7 +4,7 @@ scriptencoding utf-8
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim 7.4
 "
-" Last Change: 15-Mar-2018.
+" Last Change: 16-Mar-2018.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -289,8 +289,6 @@ filetype plugin indent on
 syntax enable
 
 "End dein Scripts-------------------------
-
-set runtimepath+=$VIM/dein/repos/github.com/Yggdroot/indentLine/after/plugin/indentLine.vim
 
 " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
 set backupdir=$VIM/tmp/bak
