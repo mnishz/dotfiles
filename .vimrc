@@ -109,5 +109,8 @@ nnoremap <f12> g<c-]>
 " 新規タブでtjumpする
 nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 
+" 改行
+nnoremap <enter> o<esc>
+
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
