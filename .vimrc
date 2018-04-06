@@ -117,5 +117,8 @@ nnoremap <c-enter> o<esc>
 " 常にvery magicで検索する
 nnoremap / /\v
 
+" 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
+nnoremap <c-h> :%s/\v
+
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
