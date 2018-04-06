@@ -74,6 +74,8 @@ set nowrapscan
 set incsearch
 set hlsearch
 
+set grepprg=grep\ -n
+
 set tabstop=4
 set expandtab
 set shiftwidth=4
