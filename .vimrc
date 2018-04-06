@@ -110,7 +110,7 @@ nnoremap <f12> g<c-]>
 nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 
 " ‰üs
-nnoremap <enter> o<esc>
+nnoremap <c-enter> o<esc>
 
 " í‚Évery magic‚ÅŒŸõ‚·‚é
 nnoremap / /\v
