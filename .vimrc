@@ -112,5 +112,8 @@ nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 " ‰üs
 nnoremap <enter> o<esc>
 
+" í‚Évery magic‚ÅŒŸõ‚·‚é
+nnoremap / /\v
+
 " ‘I‘ğ”ÍˆÍ‚ğŒŸõ‚·‚é
 vnoremap * y/<c-r>0<cr>
