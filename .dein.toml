@@ -21,4 +21,6 @@ hook_add = '''
   let g:ctrlp_lazy_update = 1
   " tags‚ª‚ ‚éêŠ‚ğroot‚Æ‚İ‚È‚·B
   let g:ctrlp_root_markers = ['tags']
+  " •\¦window‚Ìs”
+  let g:ctrlp_match_window = 'max:30'
 '''

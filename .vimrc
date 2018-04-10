@@ -74,7 +74,8 @@ syntax enable
 "End dein Scripts-------------------------
 
 " (:bro olで表示される)ファイルの履歴を30までに制限する。その他はKaoriyaのデフォルトの設定を残した。
-set viminfo='30,<50,s10,h,rA:,rB:
+" ctrlpのほうが便利そうなのでそちらを使うことにした。
+" set viminfo='30,<50,s10,h,rA:,rB:
 
 set ignorecase
 set smartcase
@@ -128,6 +129,12 @@ nnoremap / /\v
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
+
+" ファイル履歴を開く
+nnoremap mru :CtrlPMRUFiles<cr>
+
+" 現在ファイルの位置に移動する
+nnoremap cd :cd %:h<cr>:pwd<cr>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
