@@ -11,9 +11,11 @@ if !has('kaoriya')
 else
 
   " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
+  " swapファイルも追加
 
   let s:bak_path = s:cache_home . "/vim/bak"
   let s:undo_path = s:cache_home . "/vim/undo"
+  let s:swap_path = s:cache_home . "/vim/swap"
 
   if !isdirectory(s:bak_path)
 
@@ -25,8 +27,14 @@ else
     call mkdir(s:undo_path, "p")
   endif
 
+  if !isdirectory(s:swap_path)
+
+    call mkdir(s:swap_path, "p")
+  endif
+
   let &backupdir = s:bak_path
   let &undodir = s:undo_path
+  let &directory = s:swap_path
 endif
 
 "dein Scripts-----------------------------
@@ -97,7 +105,8 @@ set cmdheight=2
 
 set tags=./tags;
 
-set autochdir
+" 代わりに(:cd %:h)を使うことにした。
+" set autochdir
 
 " 3行ずつ進む、3行ずつ戻る
 nnoremap <c-j> 3<c-e>
