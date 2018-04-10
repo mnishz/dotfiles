@@ -13,3 +13,12 @@ hook_add = '''
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = 'let g:indent_guides_enable_on_vim_startup=1'
+
+[[plugins]] # deniteはpythonが必要なので会社のPCに入れるのが面倒、という後ろ向きな理由でctrlpを入れる。
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+  let g:ctrlp_clear_cache_on_exit = 0
+  let g:ctrlp_lazy_update = 1
+  " tagsがある場所をrootとみなす。
+  let g:ctrlp_root_markers = ['tags']
+'''
