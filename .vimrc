@@ -106,7 +106,7 @@ set cmdheight=2
 
 set tags=./tags;
 
-" 代わりに(:cd %:h)を使うことにした。
+" 代わりに(:Cd)を使うことにした。
 " set autochdir
 
 " 3行ずつ進む、3行ずつ戻る
@@ -122,7 +122,7 @@ nnoremap <f12> g<c-]>
 nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 
 " 改行
-nnoremap <c-enter> o<esc>
+nnoremap <c-cr> O<esc>
 
 " 常にvery magicで検索する
 nnoremap / /\v
@@ -130,11 +130,14 @@ nnoremap / /\v
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
 
-" ファイル履歴を開く
-nnoremap mru :CtrlPMRUFiles<cr>
-
-" 現在ファイルの位置に移動する
-nnoremap cd :cd %:h<cr>:pwd<cr>
+" セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
+nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
+
+" 現在ファイルの位置に移動するコマンド
+" コマンドは将来的に別ファイルにしたほうがいいかも。
+" kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
+command! -nargs=0 Cd cd %:p:h

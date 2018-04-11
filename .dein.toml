@@ -23,4 +23,7 @@ hook_add = '''
   let g:ctrlp_root_markers = ['tags']
   " 表示windowの行数
   let g:ctrlp_match_window = 'max:30'
+
+  " ファイル履歴を開く
+  nnoremap mru :CtrlPMRUFiles<cr>
 '''
