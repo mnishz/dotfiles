@@ -134,7 +134,7 @@ nnoremap / /\v
 nnoremap <c-h> :%s/\v
 
 " grep
-nnoremap <c-g> :grep -rE "" * <Bar> tab cw<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+nnoremap <c-g> :tabnew <bar> grep -rE "" * <bar> cw<left><left><left><left><left><left><left><left>
 
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
 nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
