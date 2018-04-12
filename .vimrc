@@ -133,6 +133,9 @@ nnoremap / /\v
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
 
+" grep
+nnoremap <c-g> :grep -rE "" * <Bar> tab cw<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
 nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
