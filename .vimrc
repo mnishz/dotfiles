@@ -116,13 +116,16 @@ nnoremap <c-k> 3<c-y>
 " ctrl-tabで次のtabに進む
 nnoremap <c-tab> :tabn<cr>
 nnoremap <c-s-tab> :tabp<cr>
+" ctrl-+/ctrl--でtabを隣に移動
+nnoremap <c-kPlus> :tabm+<cr>
+nnoremap <c-kMinus> :tabm-<cr>
 
 nnoremap <f12> g<c-]>
 " 新規タブでtjumpする
 nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 
 " 改行
-nnoremap <c-cr> O<esc>
+nnoremap <c-cr> o<esc>
 
 " 常にvery magicで検索する
 nnoremap / /\v
@@ -133,6 +136,8 @@ nnoremap <c-h> :%s/\v
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
 nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+
+nnoremap ctags :!ctags -R *<cr>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
