@@ -104,6 +104,9 @@ set showcmd
 set laststatus=2
 set cmdheight=2
 
+" コメントでの自動改行を抑止
+set textwidth=0
+
 set tags=./tags;
 
 " 代わりに(:Cd)を使うことにした。
@@ -149,6 +152,12 @@ nnoremap P A<c-r><c-"><esc>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
+
+" うーん、defaultの設定とどっちがいいか分からん。後で消すかも。。。
+" insert mode / search modeに入る/出るときにIMEをoffにする
+" imsearchはiminsertと同じ挙動にする -> -1で同じ挙動になると書いてあるがならない。1で期待通りの動きをするのでこれでよしとする。
+set imsearch=1
+inoremap <esc> <esc>:set iminsert=0<cr>
 
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
