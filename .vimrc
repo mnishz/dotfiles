@@ -142,6 +142,11 @@ nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
 nnoremap ctags :!ctags -R *<cr>
 
+" 行末までヤンク
+nnoremap Y y$
+" 行末に貼り付け
+nnoremap P A<c-r><c-"><esc>
+
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
 
