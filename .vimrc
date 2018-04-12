@@ -158,6 +158,16 @@ vnoremap * y/<c-r>0<cr>
 " imsearchはiminsertと同じ挙動にする -> -1で同じ挙動になると書いてあるがならない。1で期待通りの動きをするのでこれでよしとする。
 set imsearch=1
 inoremap <esc> <esc>:set iminsert=0<cr>
+" Linux + SSHだとうまく動かないはず、以下でできるかも。
+" https://qiita.com/mwmsnn/items/0b40662a22162907efae
+" " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
+" set t_SI+=^[[<r
+" " 挿入モードを出る時，現在の IME の状態を保存し，IME をオフにする．
+" set t_EI+=^[[<s^[[<0t
+" " Vim 終了時，IME を無効にし，無効にした状態を保存する．
+" set t_te+=^[[<0t^[[<s
+" " ESC キーを押してから挿入モードを出るまでの時間を短くする
+" set timeoutlen=100
 
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
