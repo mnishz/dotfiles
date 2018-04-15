@@ -122,6 +122,9 @@ set showcmd
 set laststatus=2
 set cmdheight=2
 
+set wildmenu
+set wildmode=longest,full
+
 " ƒRƒƒ“ƒg‚Å‚Ì©“®‰üs‚ğ—}~
 set textwidth=0
 
