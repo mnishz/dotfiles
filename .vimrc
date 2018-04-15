@@ -6,7 +6,19 @@ let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 if !has('kaoriya')
 
   set t_Co=256
+  colorscheme default
   set fileencodings=cp932,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213,euc-jp
+
+  " https://qiita.com/mwmsnn/items/0b40662a22162907efae
+  " ‘}“üƒ‚[ƒh‚É“ü‚éC‘O‰ñ‚Ì‘}“üƒ‚[ƒh‚É‚¨‚¯‚é IME ‚Ìó‘Ô‚ğ•œŒ³‚·‚éD
+  " Tera Term‚Å‚µ‚©“®‚¢‚Ä‚¢‚È‚¢BBB
+  set t_SI+=[<r
+  " ‘}“üƒ‚[ƒh‚ğo‚éCŒ»İ‚Ì IME ‚Ìó‘Ô‚ğ•Û‘¶‚µCIME ‚ğƒIƒt‚É‚·‚éD
+  set t_EI+=[<s[<0t
+  " Vim I—¹CIME ‚ğ–³Œø‚É‚µC–³Œø‚É‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚éD
+  set t_te+=[<0t[<s
+  " ESC ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‘}“üƒ‚[ƒh‚ğo‚é‚Ü‚Å‚ÌŠÔ‚ğ’Z‚­‚·‚é
+  set timeoutlen=100
 
 else
 
@@ -35,6 +47,12 @@ else
   let &backupdir = s:bak_path
   let &undodir = s:undo_path
   let &directory = s:swap_path
+
+  " ‚¤[‚ñAdefault‚Ìİ’è‚Æ‚Ç‚Á‚¿‚ª‚¢‚¢‚©•ª‚©‚ç‚ñBŒã‚ÅÁ‚·‚©‚àBBB
+  " insert mode‚É“ü‚é/o‚é‚Æ‚«‚ÉIME‚ğoff‚É‚·‚é
+  " imsearch‚Íiminsert‚Æ“¯‚¶‹““®‚É‚·‚é -> -1‚Å“¯‚¶‹““®‚É‚È‚é‚Æ‘‚¢‚Ä‚ ‚é‚ª‚È‚ç‚È‚¢B1‚ÅŠú‘Ò’Ê‚è‚Ì“®‚«‚ğ‚·‚é‚Ì‚Å‚±‚ê‚Å‚æ‚µ‚Æ‚·‚éB
+  set imsearch=1
+  inoremap <esc> <esc>:set iminsert=0<cr>
 endif
 
 "dein Scripts-----------------------------
@@ -112,23 +130,26 @@ set tags=./tags;
 " ‘ã‚í‚è‚É(:Cd)‚ğg‚¤‚±‚Æ‚É‚µ‚½B
 " set autochdir
 
+" ƒŠƒ‚[ƒgŠÂ‹«‚Å‚Í<ctrl + “ÁêƒL[>‚Í‚Ù‚Æ‚ñ‚Ç“®‚©‚È‚¢
+" ‚±‚±‚©‚ç ----------------------------------------
+  " ctrl-tab‚ÅŸ‚Ìtab‚Éi‚Ş
+  nnoremap <c-tab> :tabn<cr>
+  nnoremap <c-s-tab> :tabp<cr>
+  " ctrl-+/ctrl--‚Åtab‚ğ—×‚ÉˆÚ“®
+  nnoremap <c-kPlus> :tabm+<cr>
+  nnoremap <c-kMinus> :tabm-<cr>
+
+  nnoremap <f12> g<c-]>
+  " V‹Kƒ^ƒu‚Åtjump‚·‚é
+  nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
+
+  " ‰üs
+  nnoremap <c-cr> o<esc>
+" ‚±‚±‚Ü‚Å ----------------------------------------
+
 " 3s‚¸‚Âi‚ŞA3s‚¸‚Â–ß‚é
 nnoremap <c-j> 3<c-e>
 nnoremap <c-k> 3<c-y>
-
-" ctrl-tab‚ÅŸ‚Ìtab‚Éi‚Ş
-nnoremap <c-tab> :tabn<cr>
-nnoremap <c-s-tab> :tabp<cr>
-" ctrl-+/ctrl--‚Åtab‚ğ—×‚ÉˆÚ“®
-nnoremap <c-kPlus> :tabm+<cr>
-nnoremap <c-kMinus> :tabm-<cr>
-
-nnoremap <f12> g<c-]>
-" V‹Kƒ^ƒu‚Åtjump‚·‚é
-nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
-
-" ‰üs
-nnoremap <c-cr> o<esc>
 
 " í‚Évery magic‚ÅŒŸõ‚·‚é
 nnoremap / /\v
@@ -152,22 +173,6 @@ nnoremap P A<c-r><c-"><esc>
 
 " ‘I‘ğ”ÍˆÍ‚ğŒŸõ‚·‚é
 vnoremap * y/<c-r>0<cr>
-
-" ‚¤[‚ñAdefault‚Ìİ’è‚Æ‚Ç‚Á‚¿‚ª‚¢‚¢‚©•ª‚©‚ç‚ñBŒã‚ÅÁ‚·‚©‚àBBB
-" insert mode / search mode‚É“ü‚é/o‚é‚Æ‚«‚ÉIME‚ğoff‚É‚·‚é
-" imsearch‚Íiminsert‚Æ“¯‚¶‹““®‚É‚·‚é -> -1‚Å“¯‚¶‹““®‚É‚È‚é‚Æ‘‚¢‚Ä‚ ‚é‚ª‚È‚ç‚È‚¢B1‚ÅŠú‘Ò’Ê‚è‚Ì“®‚«‚ğ‚·‚é‚Ì‚Å‚±‚ê‚Å‚æ‚µ‚Æ‚·‚éB
-set imsearch=1
-inoremap <esc> <esc>:set iminsert=0<cr>
-" Linux + SSH‚¾‚Æ‚¤‚Ü‚­“®‚©‚È‚¢‚Í‚¸AˆÈ‰º‚Å‚Å‚«‚é‚©‚àB
-" https://qiita.com/mwmsnn/items/0b40662a22162907efae
-" " ‘}“üƒ‚[ƒh‚É“ü‚éC‘O‰ñ‚Ì‘}“üƒ‚[ƒh‚É‚¨‚¯‚é IME ‚Ìó‘Ô‚ğ•œŒ³‚·‚éD
-" set t_SI+=^[[<r
-" " ‘}“üƒ‚[ƒh‚ğo‚éCŒ»İ‚Ì IME ‚Ìó‘Ô‚ğ•Û‘¶‚µCIME ‚ğƒIƒt‚É‚·‚éD
-" set t_EI+=^[[<s^[[<0t
-" " Vim I—¹CIME ‚ğ–³Œø‚É‚µC–³Œø‚É‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚éD
-" set t_te+=^[[<0t^[[<s
-" " ESC ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‘}“üƒ‚[ƒh‚ğo‚é‚Ü‚Å‚ÌŠÔ‚ğ’Z‚­‚·‚é
-" set timeoutlen=100
 
 " Œ»İƒtƒ@ƒCƒ‹‚ÌˆÊ’u‚ÉˆÚ“®‚·‚éƒRƒ}ƒ“ƒh
 " ƒRƒ}ƒ“ƒh‚Í«—ˆ“I‚É•Êƒtƒ@ƒCƒ‹‚É‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚©‚àB
