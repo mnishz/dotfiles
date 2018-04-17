@@ -67,7 +67,7 @@ augroup END
 
 " https://qiita.com/kawaz/items/ee725f6214f91337b42b
 " dein自体の自動インストール
-let s:dein_dir = s:cache_home . '/vim/dein'
+let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
@@ -128,7 +128,7 @@ set wildmode=longest,full
 " コメントでの自動改行を抑止
 set textwidth=0
 
-set tags=./tags;
+" set tags=./tags;
 
 " 代わりに(:Cd)を使うことにした。
 " set autochdir
@@ -141,10 +141,6 @@ set tags=./tags;
   " ctrl-+/ctrl--でtabを隣に移動
   nnoremap <c-kPlus> :tabm+<cr>
   nnoremap <c-kMinus> :tabm-<cr>
-
-  nnoremap <f12> g<c-]>
-  " 新規タブでtjumpする
-  nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 
   " 改行
   nnoremap <c-cr> o<esc>
@@ -167,7 +163,15 @@ nnoremap <c-g> :tabnew <bar> grep -rE "" * <bar> cw<left><left><left><left><left
 nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
-nnoremap ctags :!ctags -R *<cr>
+" gtags関連、ctagsはお役御免
+" nnoremap ctags :!ctags -R *<cr>
+" nnoremap <f12> g<c-]>
+" " 新規タブでtjumpする
+" nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
+nnoremap gtags :!gtags -v<cr>
+nnoremap <f11> :Gtags -f %<cr>
+nnoremap <f12> :GtagsCursor<cr>
+nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 
 " 行末までヤンク
 nnoremap Y y$
