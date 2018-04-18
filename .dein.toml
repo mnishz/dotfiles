@@ -27,3 +27,9 @@ hook_add = '''
   " ファイル履歴を開く
   nnoremap mru :CtrlPMRUFiles<cr>
 '''
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+  set statusline=%f%m%r%h%w%=[fenc=%{&fileencoding}]%{tagbar#currenttag('[%s]','')}
+'''

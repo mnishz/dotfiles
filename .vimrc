@@ -22,6 +22,9 @@ if !has('kaoriya')
 
 else
 
+  " guessを使いたい、が、それより前にeuc-jpを持ってくる
+  set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
+
   " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
   " swapファイルも追加
 
@@ -119,8 +122,8 @@ set listchars=tab:>-,trail:-
 set cursorline
 
 set showcmd
-set laststatus=2
 set cmdheight=2
+set laststatus=2
 
 set wildmenu
 set wildmode=longest,full
@@ -154,14 +157,14 @@ nnoremap <c-k> 3<c-y>
 nnoremap / /\v
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
-nnoremap <c-h> :%s/\v
+nnoremap <c-h> :%s/\vGtagsCursor
 
 " grep
 nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><left><left><left><left>
 
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
-nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
-nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+" nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+" nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
 " gtags関連、ctagsはお役御免
 " nnoremap ctags :!ctags -R *<cr>
@@ -177,6 +180,12 @@ nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap Y y$
 " 行末に貼り付け
 nnoremap P A<c-r><c-"><esc>
+
+" ノーマルモードでのWindowsクリップボードへの単語コピー
+nnoremap <c-insert> viw"*y
+
+" cnだけ登録しておく、cpは今のところなし
+nnoremap <c-n> :cn<cr>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
