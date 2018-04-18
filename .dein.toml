@@ -31,5 +31,5 @@ hook_add = '''
 [[plugins]]
 repo = 'majutsushi/tagbar'
 hook_add = '''
-  set statusline=%f%m%r%h%w%=[fenc=%{&fileencoding}]%{tagbar#currenttag('[%s]','')}
+  set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=[fenc=%{&fileencoding}]
 '''
