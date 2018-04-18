@@ -157,7 +157,7 @@ nnoremap / /\v
 nnoremap <c-h> :%s/\v
 
 " grep
-nnoremap <c-g> :tabnew <bar> grep -rE "" * <bar> cw<left><left><left><left><left><left><left><left>
+nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><left><left><left><left>
 
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
 nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
@@ -168,7 +168,7 @@ nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 " nnoremap <f12> g<c-]>
 " " 新規タブでtjumpする
 " nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
-nnoremap gtags :!gtags -v<cr>
+nnoremap gtags :silent !gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
