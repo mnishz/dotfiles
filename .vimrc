@@ -158,6 +158,9 @@ nnoremap <c-k> 3<c-y>
 
 " 常にvery magicで検索する
 nnoremap / /\v
+" 検索の履歴をたどるときはvery magicをはずす
+nnoremap /<up> /<up>
+
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
@@ -179,6 +182,7 @@ nnoremap gtags :silent !gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
+nnoremap <s-f12> :sp<cr><c-w>T:Gtags -r <c-r><c-w><cr>
 
 " 行末までヤンク
 nnoremap Y y$
