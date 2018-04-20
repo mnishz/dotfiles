@@ -167,8 +167,8 @@ nnoremap <c-h> :%s/\v
 
 " grep
 nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><left><left><left><left>
-nnoremap <c-n> :cn<cr>
-nnoremap <c-m> :cp<cr>
+nnoremap } :cn<cr>
+nnoremap { :cp<cr>
 
 " 仕事用一時的設定
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義

@@ -1,7 +1,7 @@
 set guifont=MS_Gothic:h10:cSHIFTJIS
 
 " 起動時に画面を最大化する
-au GUIEnter * simalt ~x
+" au GUIEnter * simalt ~x
 
 " 起動に時間がかかるので、menuを読み込まない。
 " ただしこの設定をしても読み込んでいる。よく分からない。
