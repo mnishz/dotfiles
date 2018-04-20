@@ -186,8 +186,6 @@ nnoremap <s-f12> :sp<cr><c-w>T:Gtags -r <c-r><c-w><cr>
 
 " 行末までヤンク
 nnoremap Y y$
-" 行末に貼り付け
-nnoremap P A<c-r><c-"><esc>
 
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
