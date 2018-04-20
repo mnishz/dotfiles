@@ -8,6 +8,7 @@ hook_add = '''
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
   au MyAutoCmd VimEnter * nested colorscheme molokai
+  au MyAutoCmd ColorScheme * highlight StatusLine guifg=#808020 ctermfg=100
 '''
 
 [[plugins]]
@@ -31,5 +32,5 @@ hook_add = '''
 [[plugins]]
 repo = 'majutsushi/tagbar'
 hook_add = '''
-  set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=[fenc=%{&fileencoding}]
+  set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding}]
 '''

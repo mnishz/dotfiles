@@ -167,6 +167,8 @@ nnoremap <c-h> :%s/\v
 
 " grep
 nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><left><left><left><left>
+nnoremap <c-n> :cn<cr>
+nnoremap <c-m> :cp<cr>
 
 " 仕事用一時的設定
 " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
@@ -184,14 +186,14 @@ nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:Gtags -r <c-r><c-w><cr>
 
+" 現在のウィンドウを別タブで開く
+nnoremap <f10> :sp<cr><c-w>T
+
 " 行末までヤンク
 nnoremap Y y$
 
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
-
-" cnだけ登録しておく、cpは今のところなし
-nnoremap <c-n> :cn<cr>
 
 " 選択範囲を検索する
 vnoremap * y/<c-r>0<cr>
