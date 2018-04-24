@@ -25,6 +25,8 @@ else
   " 仕事用一時的設定
   " guessを使いたい、が、それより前にeuc-jpを持ってくる
   set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
+  " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果は変わらない。。。)
+  set shellpipe=2>\&1\|nkf32\ -Es>%s
 
   " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
   " swapファイルも追加
@@ -184,7 +186,7 @@ nnoremap gtags :silent !gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
-nnoremap <s-f12> :sp<cr><c-w>T:Gtags -r <c-r><c-w><cr>
+nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 
 " 現在のウィンドウを別タブで開く
 nnoremap <f10> :sp<cr><c-w>T
