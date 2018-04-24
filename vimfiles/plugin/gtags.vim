@@ -400,9 +400,9 @@ function! s:ExecLoad(option, long_option, pattern, flags)
     if l:isfile == 1
         let l:cmd = s:global_command . ' ' . l:option . ' ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char
     else
-        " let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char 
-        let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char . " | nkf32\ -Es"
+        let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char 
     endif
+    let l:cmd = l:cmd . " | nkf32\ -Es"
 
     let l:result = system(l:cmd)
     if v:shell_error != 0
