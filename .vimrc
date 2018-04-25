@@ -1,5 +1,5 @@
-set title
-set number
+" 会社での作業用設定
+let g:for_office_work = v:true
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 
@@ -22,11 +22,12 @@ if !has('kaoriya')
 
 else
 
-  " 仕事用一時的設定
-  " guessを使いたい、が、それより前にeuc-jpを持ってくる
-  set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
-  " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果は変わらない。。。)
-  set shellpipe=2>\&1\|nkf32\ -Es>%s
+  if g:for_office_work
+    " guessを使いたい、が、それより前にeuc-jpを持ってくる
+    set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
+    " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果は変わらない。。。)
+    set shellpipe=2>\&1\|nkf32\ -Es>%s
+  endif
 
   " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
   " swapファイルも追加
@@ -36,17 +37,14 @@ else
   let s:swap_path = s:cache_home . "/vim/swap"
 
   if !isdirectory(s:bak_path)
-
     call mkdir(s:bak_path, "p")
   endif
 
   if !isdirectory(s:undo_path)
-
     call mkdir(s:undo_path, "p")
   endif
 
   if !isdirectory(s:swap_path)
-
     call mkdir(s:swap_path, "p")
   endif
 
@@ -59,6 +57,7 @@ else
   " imsearchはiminsertと同じ挙動にする -> -1で同じ挙動になると書いてあるがならない。1で期待通りの動きをするのでこれでよしとする。
   set imsearch=1
   inoremap <esc> <esc>:set iminsert=0<cr>
+
 endif
 
 "dein Scripts-----------------------------
@@ -97,6 +96,9 @@ syntax enable
 
 "End dein Scripts-------------------------
 
+set title
+set number
+
 " (:bro olで表示される)ファイルの履歴を30までに制限する。その他はKaoriyaのデフォルトの設定を残した。
 " ctrlpのほうが便利そうなのでそちらを使うことにした。
 " set viminfo='30,<50,s10,h,rA:,rB:
@@ -111,9 +113,12 @@ set grepprg=grep\ -n
 
 set tabstop=4
 set expandtab
-" 仕事用一時的設定
-" set shiftwidth=4
-set shiftwidth=2
+
+if g:for_office_work
+  set shiftwidth=2
+else
+  set shiftwidth=4
+endif
 
 set autoindent
 set smartindent
@@ -172,10 +177,11 @@ nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><lef
 nnoremap } :cn<cr>
 nnoremap { :cp<cr>
 
-" 仕事用一時的設定
-" セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
-" nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
-" nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+if g:for_office_work
+  " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
+  " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+  " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+endif
 
 " gtags関連、ctagsはお役御免
 " nnoremap ctags :!ctags -R *<cr>

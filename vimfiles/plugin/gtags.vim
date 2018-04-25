@@ -402,7 +402,9 @@ function! s:ExecLoad(option, long_option, pattern, flags)
     else
         let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char 
     endif
-    let l:cmd = l:cmd . " | nkf32\ -Es"
+    if g:for_office_work
+      let l:cmd = l:cmd . " | nkf32\ -Es"
+    endif
 
     let l:result = system(l:cmd)
     if v:shell_error != 0
