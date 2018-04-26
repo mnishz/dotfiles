@@ -154,6 +154,7 @@ set textwidth=0
   " ctrl-+/ctrl--でtabを隣に移動
   nnoremap <c-kPlus> :tabm+<cr>
   nnoremap <c-kMinus> :tabm-<cr>
+  nnoremap <c-f4> :tabc<cr>
 
   " 改行
   nnoremap <c-cr> o<esc>
@@ -167,6 +168,10 @@ nnoremap <c-k> 3<c-y>
 nnoremap / /\v
 " 検索の履歴をたどるときはvery magicをはずす
 nnoremap /<up> /<up>
+" *をvery magicで検索するように置き換える
+nnoremap * /\v<<c-r><c-w>><cr>
+" 検索対象を追加していく
+nnoremap & /<up><bar><<c-r><c-w>><cr>
 
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
@@ -193,6 +198,7 @@ nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+nnoremap <c-f11> :sp<cr>:set previewwindow<cr>:GtagsCursor<cr>
 
 " 現在のウィンドウを別タブで開く
 nnoremap <f10> :sp<cr><c-w>T
