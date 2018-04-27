@@ -168,10 +168,11 @@ nnoremap <c-k> 3<c-y>
 nnoremap / /\v
 " 検索の履歴をたどるときはvery magicをはずす
 nnoremap /<up> /<up>
-" *をvery magicで検索するように置き換える
-nnoremap * /\v<<c-r><c-w>><cr>
+" *をvery magicで検索するように置き換える、次に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
+" nnoremap * /\v<<c-r><c-w>><cr>
+nnoremap * yiw<bs>/\v<<c-r><c-0>><cr>
 " 検索対象を追加していく
-nnoremap & /<up><bar><<c-r><c-w>><cr>
+nnoremap & yiw<bs>/<up><bar><<c-r><c-0>><cr>
 
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
@@ -186,6 +187,8 @@ if g:for_office_work
   " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
   " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
   " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
+
+  nnoremap <space><space> A // nishi 
 endif
 
 " gtags関連、ctagsはお役御免
@@ -209,8 +212,8 @@ nnoremap Y y$
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
 
-" 選択範囲を検索する
-vnoremap * y/<c-r>0<cr>
+" 選択範囲をそのまま検索する
+vnoremap * y/\V<c-r>0<cr>
 
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
