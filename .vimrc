@@ -109,7 +109,8 @@ set nowrapscan
 set incsearch
 set hlsearch
 
-set grepprg=grep\ -n
+" set grepprg=grep\ -n
+set grepprg=git\ grep\ --line-number
 
 set tabstop=4
 set expandtab
@@ -179,7 +180,7 @@ nnoremap & yiw<bs>/<up><bar><<c-r><c-0>><cr>
 nnoremap <c-h> :%s/\v
 
 " grep
-nnoremap <c-g> :tabnew <bar> grep -irE "" * <bar> cw<left><left><left><left><left><left><left><left>
+nnoremap <c-g> :tabnew <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
 nnoremap { :cp<cr>
 
