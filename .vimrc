@@ -171,9 +171,9 @@ nnoremap / /\v
 nnoremap /<up> /<up>
 " *をvery magicで検索するように置き換える、次に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
 " nnoremap * /\v<<c-r><c-w>><cr>
-nnoremap * yiw<bs>/\v<<c-r><c-0>><cr>
+nnoremap * yiw<bs>/\v<c-r><c-0><cr>
 " 検索対象を追加していく
-nnoremap & yiw<bs>/<up><bar><<c-r><c-0>><cr>
+nnoremap & yiw<bs>/<up><bar><c-r><c-0><cr>
 
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
