@@ -130,7 +130,8 @@ set showmatch
 set matchtime=1
 set list
 set listchars=tab:>-,trail:-
-set cursorline
+" 遅い。。。
+" set cursorline
 
 set showcmd
 set cmdheight=2
@@ -169,12 +170,16 @@ nnoremap <c-k> 3<c-y>
 nnoremap / /\v
 " 検索の履歴をたどるときはvery magicをはずす
 nnoremap /<up> /<up>
-" *をvery magicで検索するように置き換える、次に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
-" nnoremap * /\v<<c-r><c-w>><cr>
+" *をvery magicで検索するように置き換える、(遠い)次の検索候補に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
 nnoremap * yiw<bs>/\v<c-r><c-0><cr>
+" 単語で検索
+nnoremap <space>* yiw<bs>/\v<<c-r><c-0>><cr>
 " 検索対象を追加していく
-nnoremap & yiw<bs>/<up><bar><c-r><c-0><cr>
-
+nnoremap <bar> yiw<bs>/<up><bar><c-r><c-0><cr>
+nnoremap <space><bar> yiw<bs>/<up><bar><<c-r><c-0>><cr>
+" 選択範囲をそのまま(正規表現を使わずに)検索する
+vnoremap * y/\V<c-r>0<cr>
+vnoremap <space>* y/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
@@ -190,14 +195,16 @@ if g:for_office_work
   " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
   nnoremap <space><space> A // nishi 
+  " 関数っぽいものを検索(ハイライト)
+  nnoremap <space>/ /\v\w+\(<cr>
 endif
 
 " gtags関連、ctagsはお役御免
-" nnoremap ctags :!ctags -R *<cr>
+nnoremap ctags :!start ctags -R *<cr>
 " nnoremap <f12> g<c-]>
 " " 新規タブでtjumpする
 " nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
-nnoremap gtags :silent !gtags -v<cr>
+nnoremap gtags :!start gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
@@ -213,10 +220,31 @@ nnoremap Y y$
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
 
-" 選択範囲をそのまま検索する
-vnoremap * y/\V<c-r>0<cr>
-
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 command! -nargs=0 Cd cd %:p:h
+
+" 自作コマンドサンプル
+" command! -nargs=0 MyFunc call g:MyFunc()
+" 
+" function! g:MyFunc()
+"   echo "foo"
+" endfunction
+
+command! -nargs=0 CloseLeftTabs call g:CloseLeftTabs()
+
+function! g:CloseLeftTabs()
+  " 自分自身は閉じないので"+1"
+  let l:firstTabNumberToClose = tabpagenr() + 1
+  let l:tabCount = tabpagenr('$')
+  " 後ろから順に閉じていく
+  " 前からだとtab numberが常に更新されるため同じtab numberを閉じ続ける必要があり、
+  " そうするとエラーが起きたときだけ閉じるtab numberをincrementしなければならず処理が面倒
+  " 未保存の変更などで閉じることができなかった場合、そのtabだけが残る
+  for currTabNumber in range(l:firstTabNumberToClose, l:tabCount)
+    " ややこしい。。。
+    let l:tabNumberToClose = l:tabCount - (currTabNumber - l:firstTabNumberToClose)
+    execute "tabclose " . l:tabNumberToClose
+  endfor
+endfunction
