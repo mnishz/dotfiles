@@ -232,16 +232,16 @@ command! -nargs=0 Cd cd %:p:h
 "   echo "foo"
 " endfunction
 
-command! -nargs=0 CloseLeftTabs call g:CloseLeftTabs()
+command! -nargs=0 CloseRightTabs call g:CloseRightTabs()
 
-function! g:CloseLeftTabs()
+function! g:CloseRightTabs()
   " 自分自身は閉じないので"+1"
   let l:firstTabNumberToClose = tabpagenr() + 1
   let l:tabCount = tabpagenr('$')
   " 後ろから順に閉じていく
   " 前からだとtab numberが常に更新されるため同じtab numberを閉じ続ける必要があり、
   " そうするとエラーが起きたときだけ閉じるtab numberをincrementしなければならず処理が面倒
-  " 未保存の変更などで閉じることができなかった場合、そのtabだけが残る
+  " 未保存の変更などで閉じることができなかった場合、そのtabたちだけが残る
   for currTabNumber in range(l:firstTabNumberToClose, l:tabCount)
     " ややこしい。。。
     let l:tabNumberToClose = l:tabCount - (currTabNumber - l:firstTabNumberToClose)
