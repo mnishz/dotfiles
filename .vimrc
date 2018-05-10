@@ -130,8 +130,7 @@ set showmatch
 set matchtime=1
 set list
 set listchars=tab:>-,trail:-
-" 遅い。。。
-" set cursorline
+set cursorline
 
 set showcmd
 set cmdheight=2
@@ -157,6 +156,7 @@ set textwidth=0
   nnoremap <c-kPlus> :tabm+<cr>
   nnoremap <c-kMinus> :tabm-<cr>
   nnoremap <c-f4> :tabc<cr>
+  nnoremap <space>c :tabc<cr>
 
   " 改行
   nnoremap <c-cr> o<esc>
@@ -171,15 +171,15 @@ nnoremap / /\v
 " 検索の履歴をたどるときはvery magicをはずす
 nnoremap /<up> /<up>
 " *をvery magicで検索するように置き換える、(遠い)次の検索候補に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
-nnoremap * yiw<bs>/\v<c-r><c-0><cr>
+nnoremap * yiw<bs>/\v<c-r>0<cr>
 " 単語で検索
-nnoremap <space>* yiw<bs>/\v<<c-r><c-0>><cr>
+nnoremap <space>* yiw<bs>/\v<<c-r>0><cr>
 " 検索対象を追加していく
-nnoremap <bar> yiw<bs>/<up><bar><c-r><c-0><cr>
-nnoremap <space><bar> yiw<bs>/<up><bar><<c-r><c-0>><cr>
+nnoremap <bar> yiw<bs>/<up><bar><c-r>0<cr>
+nnoremap <space><bar> yiw<bs>/<up><bar><<c-r>0><cr>
 " 選択範囲をそのまま(正規表現を使わずに)検索する
-vnoremap * y/\V<c-r>0<cr>
-vnoremap <space>* y/\V\<<c-r>0\><cr>
+vnoremap * y<bs>/\V<c-r>0<cr>
+vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
 nnoremap <c-h> :%s/\v
@@ -209,7 +209,7 @@ nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
-nnoremap <c-f11> :sp<cr>:set previewwindow<cr>:GtagsCursor<cr>
+nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
 
 " 現在のウィンドウを別タブで開く
 nnoremap <f10> :sp<cr><c-w>T
@@ -225,26 +225,49 @@ nnoremap <c-insert> viw"*y
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 command! -nargs=0 Cd cd %:p:h
 
-" 自作コマンドサンプル
-" command! -nargs=0 MyFunc call g:MyFunc()
+" " 自作コマンドサンプル(引数なしならnargsは要らないかも)
+" command! -nargs=0 MyFunc call s:MyFunc()
 " 
-" function! g:MyFunc()
-"   echo "foo"
+" " ":help expression"とやると幸せになれるかも
+" function! s:MyFunc()
+"   " EXコマンド(ex-cmd-index)はそのまま呼び出せる
+"     echo "foo"
+"     normal gg
+"   " 式を評価してくれないもの(変数をそのまま解釈してしまうもの)についてはexecuteを使う
+"     let l:tabNumber = 1
+"     " 間違い
+"     tabnext l:tabNumber
+"     " 正解
+"     execute "tabnext " . l:tabNumber
+"   " 組み込み関数(functions)や自作関数を呼び出すときにはcallを使う
+"     call feedkeys("gg")
+"   " keypressをemulateするにはnormal(EXコマンド)もしくはfeedkeys(関数)を使う
 " endfunction
 
-command! -nargs=0 CloseRightTabs call g:CloseRightTabs()
+command! -nargs=0 CloseRightTabs call s:CloseRightTabs()
 
-function! g:CloseRightTabs()
+function! s:CloseRightTabs()
   " 自分自身は閉じないので"+1"
   let l:firstTabNumberToClose = tabpagenr() + 1
-  let l:tabCount = tabpagenr('$')
+  let l:totalTabCount = tabpagenr('$')
   " 後ろから順に閉じていく
   " 前からだとtab numberが常に更新されるため同じtab numberを閉じ続ける必要があり、
   " そうするとエラーが起きたときだけ閉じるtab numberをincrementしなければならず処理が面倒
   " 未保存の変更などで閉じることができなかった場合、そのtabたちだけが残る
-  for currTabNumber in range(l:firstTabNumberToClose, l:tabCount)
+  for currTabNumber in range(l:firstTabNumberToClose, l:totalTabCount)
     " ややこしい。。。
-    let l:tabNumberToClose = l:tabCount - (currTabNumber - l:firstTabNumberToClose)
+    let l:tabNumberToClose = l:totalTabCount - (currTabNumber - l:firstTabNumberToClose)
     execute "tabclose " . l:tabNumberToClose
   endfor
+endfunction
+
+command! -nargs=0 Ccl call s:Ccl()
+
+function! s:Ccl()
+  let l:orgTabNumber = tabpagenr()
+  for currTabNumber in range(1, tabpagenr('$'))
+    execute "tabnext " . currTabNumber
+    ccl
+  endfor
+  execute "tabnext " . l:orgTabNumber
 endfunction
