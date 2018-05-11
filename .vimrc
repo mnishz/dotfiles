@@ -165,6 +165,10 @@ set textwidth=0
 " 3行ずつ進む、3行ずつ戻る
 nnoremap <c-j> 3<c-e>
 nnoremap <c-k> 3<c-y>
+" 行末に移動、いまいち'f'や't'の旨みを感じない
+nnoremap ; $
+" '^'が押しづらい、'^'はhomeで代用
+nnoremap 0 ^
 
 " 常にvery magicで検索する
 nnoremap / /\v
