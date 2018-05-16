@@ -26,6 +26,8 @@ hook_add = '''
   let g:ctrlp_match_window = 'max:30'
 
   " ファイル履歴を開く
+  " <c-m>は使えません！！！enterの挙動も変わってしまう
+  " nnoremap <c-m> :CtrlPMRUFiles<cr>
   nnoremap mru :CtrlPMRUFiles<cr>
 '''
 

@@ -96,7 +96,7 @@ syntax enable
 
 "End dein Scripts-------------------------
 
-set title
+set title titlestring=%F
 set number
 
 " (:bro olで表示される)ファイルの履歴を30までに制限する。その他はKaoriyaのデフォルトの設定を残した。
@@ -157,6 +157,7 @@ set textwidth=0
   nnoremap <c-kMinus> :tabm-<cr>
   nnoremap <c-f4> :tabc<cr>
   nnoremap <space>c :tabc<cr>
+  nnoremap <c-n> :tabnew<cr>
 
   " 改行
   nnoremap <c-cr> o<esc>
@@ -168,6 +169,7 @@ nnoremap <c-k> 3<c-y>
 " 行末に移動、いまいち'f'や't'の旨みを感じない
 nnoremap ; $
 " '^'が押しづらい、'^'はhomeで代用
+" 文字列の先頭で0を押したら行の先頭に行くようにできないかな。。
 nnoremap 0 ^
 
 " 常にvery magicで検索する
@@ -215,19 +217,14 @@ nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
 
-" 現在のウィンドウを別タブで開く
-nnoremap <f10> :sp<cr><c-w>T
+" 現在のウィンドウを別タブに移動する
+nnoremap <f10> <c-w>T
 
 " 行末までヤンク
 nnoremap Y y$
 
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
-
-" 現在ファイルの位置に移動するコマンド
-" コマンドは将来的に別ファイルにしたほうがいいかも。
-" kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
-command! -nargs=0 Cd cd %:p:h
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -246,7 +243,36 @@ command! -nargs=0 Cd cd %:p:h
 "   " 組み込み関数(functions)や自作関数を呼び出すときにはcallを使う
 "     call feedkeys("gg")
 "   " keypressをemulateするにはnormal(EXコマンド)もしくはfeedkeys(関数)を使う
+"   " 外部コマンドはsystem
 " endfunction
+
+" 現在ファイルの位置に移動するコマンド
+" コマンドは将来的に別ファイルにしたほうがいいかも。
+" kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
+command! -nargs=0 Cd cd %:p:h
+command! CdRoot call s:CdRoot()
+
+function! s:CdRoot()
+  let l:orgPath = getcwd()
+  cd %:p:h
+  while v:true
+    " echo getcwd()
+    let l:result = finddir(".git")
+    if empty(l:result)
+      let l:currPath = getcwd()
+      cd ..
+      if l:currPath == getcwd()
+        " これ以上上に行けなければやめて、元のpathに戻す
+        echo "no root..."
+        execute "cd " . l:orgPath
+        break
+      endif
+    else
+      echo getcwd()
+      break
+    endif
+  endwhile
+endfunction
 
 command! -nargs=0 CloseRightTabs call s:CloseRightTabs()
 
