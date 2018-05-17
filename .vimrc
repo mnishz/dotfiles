@@ -137,7 +137,7 @@ set cmdheight=2
 set laststatus=2
 
 set wildmenu
-set wildmode=longest,full
+set wildmode=longest:full,full
 
 " コメントでの自動改行を抑止
 set textwidth=0
@@ -152,6 +152,8 @@ set textwidth=0
   " ctrl-tabで次のtabに進む
   nnoremap <c-tab> :tabn<cr>
   nnoremap <c-s-tab> :tabp<cr>
+  inoremap <c-tab> <esc>:tabn<cr>
+  inoremap <c-s-tab> <esc>:tabp<cr>
   " ctrl-+/ctrl--でtabを隣に移動
   nnoremap <c-kPlus> :tabm+<cr>
   nnoremap <c-kMinus> :tabm-<cr>
@@ -166,11 +168,13 @@ set textwidth=0
 " 3行ずつ進む、3行ずつ戻る
 nnoremap <c-j> 3<c-e>
 nnoremap <c-k> 3<c-y>
+vnoremap <c-j> 3j
+vnoremap <c-k> 3k
 " 行末に移動、いまいち'f'や't'の旨みを感じない
-nnoremap ; $
-" '^'が押しづらい、'^'はhomeで代用
-" 文字列の先頭で0を押したら行の先頭に行くようにできないかな。。
-nnoremap 0 ^
+noremap ; $
+" 文字列の先頭に移動(すでに先頭であれば1列目に移動)
+nnoremap <silent> 0 :call GoToFirstColumn()<cr>
+vnoremap 0 ^
 
 " 常にvery magicで検索する
 nnoremap / /\v
@@ -216,15 +220,23 @@ nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
+nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
+nnoremap <c-f10> :sp<cr><c-w>T
 
 " 行末までヤンク
 nnoremap Y y$
-
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
+" 毎度レジスタを指定するのが面倒なので、a, b, cだけヤンクとペーストを割り当てておく
+nnoremap <space>ya "ayiw
+nnoremap <space>yb "byiw
+nnoremap <space>yc "cyiw
+nnoremap <space>pa "ap
+nnoremap <space>pb "bp
+nnoremap <space>pc "cp
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -249,10 +261,10 @@ nnoremap <c-insert> viw"*y
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
-command! -nargs=0 Cd cd %:p:h
-command! CdRoot call s:CdRoot()
+" command! -nargs=0 Cd cd %:p:h
+command! Cd call s:CdToGitRoot()
 
-function! s:CdRoot()
+function! s:CdToGitRoot()
   let l:orgPath = getcwd()
   cd %:p:h
   while v:true
@@ -289,6 +301,7 @@ function! s:CloseRightTabs()
     let l:tabNumberToClose = l:totalTabCount - (currTabNumber - l:firstTabNumberToClose)
     execute "tabclose " . l:tabNumberToClose
   endfor
+  echo "done!"
 endfunction
 
 command! -nargs=0 Ccl call s:Ccl()
@@ -300,4 +313,15 @@ function! s:Ccl()
     ccl
   endfor
   execute "tabnext " . l:orgTabNumber
+endfunction
+
+function! g:GoToFirstColumn()
+  let l:orgColumn = col(".")
+  " 一度'^'で移動
+  normal ^
+  if l:orgColumn != 1 && l:orgColumn <= col(".")
+    " 1列目だったら何もしない('^'でやめる)
+    " 先頭より前だったらさらに'0'に移動
+    normal! 0
+  endif
 endfunction
