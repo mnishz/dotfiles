@@ -58,6 +58,12 @@ else
   set imsearch=1
   inoremap <esc> <esc>:set iminsert=0<cr>
 
+  augroup transparency
+    autocmd!
+    autocmd FocusGained * set transparency=255
+    autocmd FocusLost * set transparency=127
+  augroup END
+
 endif
 
 "dein Scripts-----------------------------
@@ -171,7 +177,8 @@ nnoremap <c-k> 3<c-y>
 vnoremap <c-j> 3j
 vnoremap <c-k> 3k
 " 行末に移動、いまいち'f'や't'の旨みを感じない
-noremap ; $
+nnoremap ; $
+vnoremap ; $h
 " 文字列の先頭に移動(すでに先頭であれば1列目に移動)
 nnoremap <silent> 0 :call GoToFirstColumn()<cr>
 vnoremap 0 ^
@@ -192,10 +199,12 @@ vnoremap * y<bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
-nnoremap <c-h> :%s/\v
+nnoremap <c-h> :%s/\v//gc<left><left><left><left>
 
 " grep
-nnoremap <c-g> :tabnew <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
+nnoremap <c-g> :tabnew <bar> set transparency=127 <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
+" ctrl + shiftは使えない。。
+" nnoremap <c-s-g> :tabnew <bar> grep -iE --no-index "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
 nnoremap { :cp<cr>
 
@@ -256,6 +265,7 @@ nnoremap <space>pc "cp
 "     call feedkeys("gg")
 "   " keypressをemulateするにはnormal(EXコマンド)もしくはfeedkeys(関数)を使う
 "   " 外部コマンドはsystem
+"   " 特殊な表現を文字列に展開したいときはexpand
 " endfunction
 
 " 現在ファイルの位置に移動するコマンド
@@ -325,3 +335,5 @@ function! g:GoToFirstColumn()
     normal! 0
   endif
 endfunction
+
+command! ReloadWithEucJp e ++enc=euc-jp

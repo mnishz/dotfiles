@@ -458,7 +458,7 @@ function! s:ExecLoad(option, long_option, pattern, flags)
     elseif g:Gtags_No_Auto_Jump == 1
         cgete l:result		" does not jump
     else
-        cexpr! l:result		" jump
+        cexpr l:result		" jump
     endif
     let &efm = l:efm_org
 endfunction
