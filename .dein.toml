@@ -6,9 +6,12 @@ repo = 'tomasr/molokai'
 hook_add = '''
   set background=dark
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
-  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
+  " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
   autocmd MyAutoCmd VimEnter * nested colorscheme molokai
-  autocmd MyAutoCmd ColorScheme * highlight StatusLine guifg=#808020 ctermfg=100
+  " アクティブウィンドウのステータスラインの色を目立たせる
+  autocmd MyAutoCmd ColorScheme * highlight StatusLine guifg=DarkGoldenrod ctermfg=100
+  " 日本語表示でカーソルを赤くする
+  autocmd MyAutoCmd ColorScheme * highlight CursorIM guifg=NONE guibg=Red
 '''
 
 [[plugins]]
@@ -44,4 +47,5 @@ hook_add = '''
   xmap <Space>m <Plug>(quickhl-manual-this)
   nmap <Space>M <Plug>(quickhl-manual-reset)
   xmap <Space>M <Plug>(quickhl-manual-reset)
+  nmap <Space>l :QuickhlManualList<cr>
 '''

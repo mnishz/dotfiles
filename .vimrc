@@ -25,7 +25,7 @@ else
   if g:for_office_work
     " guessを使いたい、が、それより前にeuc-jpを持ってくる
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
-    " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果は変わらない。。。)
+    " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
     set shellpipe=2>\&1\|nkf32\ -Es>%s
   endif
 
@@ -61,7 +61,7 @@ else
   augroup transparency
     autocmd!
     autocmd FocusGained * set transparency=255
-    autocmd FocusLost * set transparency=127
+    autocmd FocusLost * set transparency=200
   augroup END
 
 endif
@@ -202,7 +202,7 @@ vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 nnoremap <c-h> :%s/\v//gc<left><left><left><left>
 
 " grep
-nnoremap <c-g> :tabnew <bar> set transparency=127 <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
+nnoremap <c-g> :tabnew <bar> set transparency=200 <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
 " ctrl + shiftは使えない。。
 " nnoremap <c-s-g> :tabnew <bar> grep -iE --no-index "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
@@ -235,6 +235,11 @@ nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
 
+noremap <a-h> <c-w>h
+noremap <a-j> <c-w>j
+noremap <a-k> <c-w>k
+noremap <a-l> <c-w>l
+
 " 行末までヤンク
 nnoremap Y y$
 " ノーマルモードでのWindowsクリップボードへの単語コピー
@@ -246,6 +251,8 @@ nnoremap <space>yc "cyiw
 nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
+
+noremap <c-z> :echo "nop"<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
