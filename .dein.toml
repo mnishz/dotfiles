@@ -12,6 +12,9 @@ hook_add = '''
   autocmd MyAutoCmd ColorScheme * highlight StatusLine guifg=DarkGoldenrod ctermfg=100
   " 日本語表示でカーソルを赤くする
   autocmd MyAutoCmd ColorScheme * highlight CursorIM guifg=NONE guibg=Red
+  " イタリックをやめる
+  autocmd MyAutoCmd ColorScheme * highlight Macro gui=none
+  autocmd MyAutoCmd ColorScheme * highlight Special gui=none
 '''
 
 [[plugins]]

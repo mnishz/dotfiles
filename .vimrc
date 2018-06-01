@@ -26,7 +26,7 @@ else
     " guessを使いたい、が、それより前にeuc-jpを持ってくる
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
     " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
-    set shellpipe=2>\&1\|nkf32\ -Es>%s
+    set shellpipe=2>\&1\ \|\ nkf32\ -Es\ >\ %s
   endif
 
   " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
@@ -156,37 +156,37 @@ set textwidth=0
 " リモート環境では<ctrl + 特殊キー>はほとんど動かない
 " ここから ----------------------------------------
   " ctrl-tabで次のtabに進む
-  nnoremap <c-tab> :tabn<cr>
-  nnoremap <c-s-tab> :tabp<cr>
+  noremap <c-tab> :tabn<cr>
+  noremap <c-s-tab> :tabp<cr>
   inoremap <c-tab> <esc>:tabn<cr>
   inoremap <c-s-tab> <esc>:tabp<cr>
   " ctrl-+/ctrl--でtabを隣に移動
-  nnoremap <c-kPlus> :tabm+<cr>
-  nnoremap <c-kMinus> :tabm-<cr>
-  nnoremap <c-f4> :tabc<cr>
-  nnoremap <space>c :tabc<cr>
-  nnoremap <c-n> :tabnew<cr>
+  noremap <c-kPlus> :tabm+<cr>
+  noremap <c-kMinus> :tabm-<cr>
+  noremap <c-f4> :tabc<cr>
+  noremap <space>c :tabc<cr>
+  noremap <c-n> :tabnew<cr>
 
   " 改行
-  nnoremap <c-cr> o<esc>
+  noremap <c-cr> o<esc>
 " ここまで ----------------------------------------
 
 " 3行ずつ進む、3行ずつ戻る
-nnoremap <c-j> 3<c-e>
-nnoremap <c-k> 3<c-y>
+noremap <c-j> 3<c-e>
+noremap <c-k> 3<c-y>
 vnoremap <c-j> 3j
 vnoremap <c-k> 3k
 " 行末に移動、いまいち'f'や't'の旨みを感じない
-nnoremap ; $
+noremap ; $
 vnoremap ; $h
 " 文字列の先頭に移動(すでに先頭であれば1列目に移動)
-nnoremap <silent> 0 :call GoToFirstColumn()<cr>
+noremap <silent> 0 :call GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " 常にvery magicで検索する
-nnoremap / /\v
+noremap / /\v
 " 検索の履歴をたどるときはvery magicをはずす
-nnoremap /<up> /<up>
+noremap /<up> /<up>
 " *をvery magicで検索するように置き換える、(遠い)次の検索候補に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
 nnoremap * yiw<bs>/\v<c-r>0<cr>
 " 単語で検索
@@ -239,6 +239,10 @@ noremap <a-h> <c-w>h
 noremap <a-j> <c-w>j
 noremap <a-k> <c-w>k
 noremap <a-l> <c-w>l
+inoremap <a-h> <esc><c-w>h
+inoremap <a-j> <esc><c-w>j
+inoremap <a-k> <esc><c-w>k
+inoremap <a-l> <esc><c-w>l
 
 " 行末までヤンク
 nnoremap Y y$
@@ -253,6 +257,8 @@ nnoremap <space>pb "bp
 nnoremap <space>pc "cp
 
 noremap <c-z> :echo "nop"<cr>
+
+inoremap ( ()<left>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
