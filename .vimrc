@@ -145,8 +145,19 @@ set laststatus=2
 set wildmenu
 set wildmode=longest:full,full
 
-" ƒRƒƒ“ƒg‚Å‚ÌŽ©“®‰üs‚ð—}Ž~
-set textwidth=0
+hi Ignore ctermfg=red
+
+if g:for_office_work
+  " ƒRƒƒ“ƒg‚Å‚ÌŽ©“®‰üs‚ð—}Ž~
+  set textwidth=0
+else
+  " for vimdoc-ja-working
+  " let autofmt_allow_over_tw=1
+  syn match Error /\%>79v.*/
+  set fileencoding=utf-8
+  set fileformat=unix
+  set encoding=utf-8
+endif
 
 " set tags=./tags;
 
