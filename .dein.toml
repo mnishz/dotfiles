@@ -9,7 +9,11 @@ hook_add = '''
   " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
   autocmd MyAutoCmd VimEnter * nested colorscheme molokai
   " アクティブウィンドウのステータスラインの色を目立たせる
-  autocmd MyAutoCmd ColorScheme * highlight StatusLine guifg=DarkGoldenrod ctermfg=100
+  if g:for_office_work
+    autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=DarkGoldenrod
+  else
+    autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
+  endif
   " 日本語表示でカーソルを赤くする
   autocmd MyAutoCmd ColorScheme * highlight CursorIM guifg=NONE guibg=Red
   " イタリックをやめる
@@ -39,7 +43,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
-hook_add = '''
+hook_post_source = '''
   set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding}]
 '''
 

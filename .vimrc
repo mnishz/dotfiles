@@ -229,7 +229,7 @@ if g:for_office_work
   nnoremap <space>/ /\v\w+\(<cr>
 endif
 
-" gtags関連、ctagsはお役御免
+" gtags関連、ctagsはお役御免 -> tagbarで必要
 nnoremap ctags :!start ctags -R *<cr>
 " nnoremap <f12> g<c-]>
 " " 新規タブでtjumpする
@@ -268,8 +268,6 @@ nnoremap <space>pb "bp
 nnoremap <space>pc "cp
 
 noremap <c-z> :echo "nop"<cr>
-
-inoremap ( ()<left>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -358,6 +356,22 @@ function! g:GoToFirstColumn()
     " 先頭より前だったらさらに'0'に移動
     normal! 0
   endif
+endfunction
+
+command! GoBackToGrep call s:GoBackToGrep()
+
+function! s:GoBackToGrep()
+  let l:found = v:false
+  while v:true
+    let l:currList = getqflist({'all': 1})
+    if stridx(l:currList["title"], "grep") > 0 | let l:found = v:true | endif
+    if l:found || l:currList["nr"] <= 1
+      break
+    else
+      silent colder
+    endif
+  endwhile
+  if l:found | echo "found" | else | echo "not found" | endif
 endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
