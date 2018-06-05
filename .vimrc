@@ -269,6 +269,20 @@ nnoremap <space>pc "cp
 
 noremap <c-z> :echo "nop"<cr>
 
+" inoremap w <c-o>:call Foo()<cr>
+inoremap <bs> <c-o>:call Foo()<cr>
+
+function! g:Foo()
+  if v:false
+    echon "foo"
+  else
+    " echon "bar"
+    " call feedkeys("\<bs>")
+    call feedkeys("\<c-h>")
+    " execute "normal <bs>"
+  endif
+endfunction
+
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
