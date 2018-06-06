@@ -145,6 +145,8 @@ set laststatus=2
 set wildmenu
 set wildmode=longest:full,full
 
+set nostartofline
+
 hi Ignore ctermfg=red
 
 if g:for_office_work
@@ -269,40 +271,34 @@ nnoremap <space>pc "cp
 
 noremap <c-z> :echo "nop"<cr>
 
-" inoremap w <c-o>:call Foo()<cr>
-inoremap <bs> <c-o>:call Foo()<cr>
-
-function! g:Foo()
-  if v:false
-    echon "foo"
-  else
-    " echon "bar"
-    " call feedkeys("\<bs>")
-    call feedkeys("\<c-h>")
-    " execute "normal <bs>"
-  endif
-endfunction
+inoremap <bs> <c-o>:call BsForInsertMode()<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
 " " ":help expression"とやると幸せになれるかも
 " function! s:MyFunc()
-"   " EXコマンド(ex-cmd-index)はそのまま呼び出せる
+"   " EXコマンド(ex-cmd-indexもしくはexpression-commands)はそのまま呼び出せる
 "     echo "foo"
 "     normal gg
-"   " 式を評価してくれないもの(変数をそのまま解釈してしまうもの)についてはexecuteを使う
+"   " 式を評価してくれないもの(変数をそのまま文字列として解釈してしまうもの)についてはexecuteを使う
 "     let l:tabNumber = 1
 "     " 間違い
 "     tabnext l:tabNumber
 "     " 正解
 "     execute "tabnext " . l:tabNumber
-"   " 組み込み関数(functions)や自作関数を呼び出すときにはcallを使う
+"   " 組み込み関数(functions)や自作関数を'直接'呼び出すときにはcallを使う
+"   " ただしletやechoなど式を評価するものの後ろであればcallは必要ない
 "     call feedkeys("gg")
 "   " keypressをemulateするにはnormal(EXコマンド)もしくはfeedkeys(関数)を使う
-"   " 外部コマンドはsystem
+"   " 外部コマンド(シェルコマンド)はsystem
 "   " 特殊な表現を文字列に展開したいときはexpand
 " endfunction
+
+command! FooBarTest call s:FooBarTest()
+function! s:FooBarTest()
+  echo getline(".")
+endfunction
 
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
@@ -386,6 +382,31 @@ function! s:GoBackToGrep()
     endif
   endwhile
   if l:found | echo "found" | else | echo "not found" | endif
+endfunction
+
+command! -nargs=1 CGoTo call s:CGoTo(<f-args>)
+
+function! s:GetCurrQuickFixListNumber()
+  return getqflist({"nr": 0})["nr"]
+endfunction
+
+function! s:CGoTo(listNumber)
+  if a:listNumber < 1 || a:listNumber > 10 | echo "invalid" | return | endif
+  let l:currListNumber = s:GetCurrQuickFixListNumber()
+  let l:diff = abs(l:currListNumber - a:listNumber)
+  if (l:currListNumber > a:listNumber)
+    execute("silent" . l:diff . "colder")
+  elseif (l:currListNumber < a:listNumber)
+    execute("silent" . l:diff . "cnewer")
+  endif
+endfunction
+
+function! g:BsForInsertMode()
+  if getline(".") =~ '^ \+$'
+    normal ddk$
+  else
+    call feedkeys("\<c-h>")
+  endif
 endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp

@@ -43,8 +43,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
-hook_post_source = '''
-  set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding}]
+hook_add = '''
+  if g:for_office_work
+    set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding},\ %L\ lines]
+  endif
 '''
 
 [[plugins]]
@@ -52,6 +54,7 @@ repo = 't9md/vim-quickhl'
 hook_add = '''
   nmap <Space>m <Plug>(quickhl-manual-this)
   xmap <Space>m <Plug>(quickhl-manual-this)
+  nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
   nmap <Space>M <Plug>(quickhl-manual-reset)
   xmap <Space>M <Plug>(quickhl-manual-reset)
   nmap <Space>l :QuickhlManualList<cr>
