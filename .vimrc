@@ -18,7 +18,7 @@ if !has('kaoriya')
   " Vim I—¹CIME ‚ğ–³Œø‚É‚µC–³Œø‚É‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚éD
   set t_te+=[<0t[<s
   " ESC ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‘}“üƒ‚[ƒh‚ğo‚é‚Ü‚Å‚ÌŠÔ‚ğ’Z‚­‚·‚é
-  set timeoutlen=100
+  set ttimeoutlen=100
 
 else
 
@@ -167,7 +167,11 @@ endif
 " set autochdir
 
 " ƒŠƒ‚[ƒgŠÂ‹«‚Å‚Í<ctrl + “ÁêƒL[>‚Í‚Ù‚Æ‚ñ‚Ç“®‚©‚È‚¢
-" ‚±‚±‚©‚ç ----------------------------------------
+if !has('kaoriya')
+  noremap <tab> :tabn<cr>
+  noremap <a-right> :tabn<cr>
+  noremap <a-left> :tabp<cr>
+else
   " ctrl-tab‚ÅŸ‚Ìtab‚Éi‚Ş
   noremap <c-tab> :tabn<cr>
   noremap <c-s-tab> :tabp<cr>
@@ -176,13 +180,13 @@ endif
   " ctrl-+/ctrl--‚Åtab‚ğ—×‚ÉˆÚ“®
   noremap <c-kPlus> :tabm+<cr>
   noremap <c-kMinus> :tabm-<cr>
-  noremap <c-f4> :tabc<cr>
-  noremap <space>c :tabc<cr>
-  noremap <c-n> :tabnew<cr>
-
   " ‰üs
   noremap <c-cr> o<esc>
-" ‚±‚±‚Ü‚Å ----------------------------------------
+endif
+
+noremap <c-f4> :tabc<cr>
+noremap <space>c :tabc<cr>
+noremap <c-n> :tabnew<cr>
 
 " 3s‚¸‚Âi‚ŞA3s‚¸‚Â–ß‚é
 noremap <c-j> 3<c-e>
