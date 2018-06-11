@@ -275,7 +275,9 @@ nnoremap <space>pc "cp
 
 noremap <c-z> :echo "nop"<cr>
 
-inoremap <bs> <c-o>:call BsForInsertMode()<cr>
+" うっかり改行してしまったときにインデントをすべて消す
+" <c-o>だとundoがおかしくなる
+inoremap <silent> <bs> <c-r>=BsForInsertMode()<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -407,9 +409,9 @@ endfunction
 
 function! g:BsForInsertMode()
   if getline(".") =~ '^ \+$'
-    normal ddk$
+    return "\<c-u>" " インデントのみの場合はすべて消す
   else
-    call feedkeys("\<c-h>")
+    return "\<c-h>" " それ以外の場合は1文字消す
   endif
 endfunction
 
