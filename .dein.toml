@@ -44,12 +44,10 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-  if g:for_office_work
-    set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding},\ %L\ lines]
-  endif
-'''
+repo = 'majutsushi/tagbar' # TODO
+
+[[plugins]]
+repo = 'tyru/current-func-info.vim' # TODO
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
