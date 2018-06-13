@@ -2,8 +2,6 @@
 let g:for_office_work = v:true
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:tagbar_enabled = v:false " TODO
-let s:org_status_line = "%f%m%r%h%w%=%c\\ [fenc=%{&fileencoding}]" " TODO
 
 if !has('kaoriya')
 
@@ -143,8 +141,6 @@ set cursorline
 set showcmd
 set cmdheight=2
 set laststatus=2
-" TODO
-execute("set statusline=" . s:org_status_line)
 
 set wildmenu
 set wildmode=longest:full,full
@@ -238,8 +234,8 @@ if g:for_office_work
   nnoremap <space>/ /\v\w+\(<cr>
 endif
 
-" gtags関連、ctagsはお役御免 -> tagbarで必要 " TODO
-nnoremap ctags :!start ctags -R *<cr>
+" gtags関連、ctagsはお役御免
+" nnoremap ctags :!start ctags -R *<cr>
 " nnoremap <f12> g<c-]>
 " " 新規タブでtjumpする
 " nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
@@ -275,9 +271,6 @@ nnoremap <space>yc "cyiw
 nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
-
-" TODO
-nnoremap <space>t :call ToggleStatusLine()<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
@@ -422,16 +415,6 @@ function! g:BsForInsertMode()
     return "\<c-u>" " インデントのみの場合はすべて消す
   else
     return "\<c-h>" " それ以外の場合は1文字消す
-  endif
-endfunction
-
-function! g:ToggleStatusLine() " TODO
-  if s:tagbar_enabled
-    execute("set statusline=" . s:org_status_line)
-    let s:tagbar_enabled = v:false
-  else
-    set statusline=%f%m%r%h%w\ /\ %{tagbar#currenttag('%s','')}%=%c\ [fenc=%{&fileencoding}]
-    let s:tagbar_enabled = v:true
   endif
 endfunction
 

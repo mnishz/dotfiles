@@ -44,10 +44,10 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'majutsushi/tagbar' # TODO
-
-[[plugins]]
-repo = 'tyru/current-func-info.vim' # TODO
+repo = 'mnishz/current-func-info.vim'
+hook_add = '''
+  set statusline=%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%c\ [fenc=%{&fileencoding}]
+'''
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
