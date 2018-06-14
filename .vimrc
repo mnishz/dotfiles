@@ -3,6 +3,14 @@ let g:for_office_work = v:true
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 
+if !g:for_office_work
+  " for vimdoc-ja-working
+  " let autofmt_allow_over_tw=1
+  set fileencoding=utf-8
+  set fileformat=unix
+  set encoding=utf-8
+endif
+
 if !has('kaoriya')
 
   set t_Co=256
@@ -152,12 +160,6 @@ hi Ignore ctermfg=red
 if g:for_office_work
   " ƒRƒƒ“ƒg‚Å‚Ì©“®‰üs‚ğ—}~
   set textwidth=0
-else
-  " for vimdoc-ja-working
-  " let autofmt_allow_over_tw=1
-  set fileencoding=utf-8
-  set fileformat=unix
-  set encoding=utf-8
 endif
 
 " set tags=./tags;
