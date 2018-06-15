@@ -3,8 +3,6 @@ if !exists("g:for_office_work")
   let g:for_office_work = v:true
 endif
 
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-
 if !g:for_office_work
   " for vimdoc-ja-working
   " let autofmt_allow_over_tw=1
@@ -13,11 +11,29 @@ if !g:for_office_work
   set encoding=utf-8
 endif
 
+" バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
+" swapファイルも追加
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:bak_path = s:cache_home . "/vim/bak"
+let s:undo_path = s:cache_home . "/vim/undo"
+let s:swap_path = s:cache_home . "/vim/swap"
+if !isdirectory(s:bak_path) | call mkdir(s:bak_path, "p") | endif
+if !isdirectory(s:undo_path) | call mkdir(s:undo_path, "p") | endif
+if !isdirectory(s:swap_path) | call mkdir(s:swap_path, "p") | endif
+let &backupdir = s:bak_path
+let &undodir = s:undo_path
+let &directory = s:swap_path
+
 if !has('kaoriya')
 
   set t_Co=256
-  colorscheme default
-  set fileencodings=cp932,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213,euc-jp
+  colorscheme torte
+  set fileencodings=euc-jp,cp932,utf-8,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
+
+  set backup
+  set writebackup
+  set undofile
+  set swapfile
 
   " https://qiita.com/mwmsnn/items/0b40662a22162907efae
   " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
@@ -38,29 +54,6 @@ else
     " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
     set shellpipe=2>\&1\ \|\ nkf32\ -Es\ >\ %s
   endif
-
-  " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
-  " swapファイルも追加
-
-  let s:bak_path = s:cache_home . "/vim/bak"
-  let s:undo_path = s:cache_home . "/vim/undo"
-  let s:swap_path = s:cache_home . "/vim/swap"
-
-  if !isdirectory(s:bak_path)
-    call mkdir(s:bak_path, "p")
-  endif
-
-  if !isdirectory(s:undo_path)
-    call mkdir(s:undo_path, "p")
-  endif
-
-  if !isdirectory(s:swap_path)
-    call mkdir(s:swap_path, "p")
-  endif
-
-  let &backupdir = s:bak_path
-  let &undodir = s:undo_path
-  let &directory = s:swap_path
 
   " うーん、defaultの設定とどっちがいいか分からん。後で消すかも。。。
   " insert modeに入る/出るときにIMEをoffにする
@@ -200,7 +193,7 @@ vnoremap <c-k> 3k
 noremap ; $
 vnoremap ; $h
 " 文字列の先頭に移動(すでに先頭であれば1列目に移動)
-noremap <silent> 0 :call GoToFirstColumn()<cr>
+noremap <silent> 0 :call g:GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " 常にvery magicで検索する
@@ -222,7 +215,7 @@ vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 nnoremap <c-h> :%s/\v//gc<left><left><left><left>
 
 " grep
-nnoremap <silent> <c-g> :call DoGrep()<cr>
+nnoremap <silent> <c-g> :call g:DoGrep()<cr>
 " ctrl + shiftは使えない。。
 " nnoremap <c-s-g> :tabnew <bar> grep -iE --no-index "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
@@ -280,7 +273,7 @@ noremap <c-z> :echo "nop"<cr>
 
 " うっかり改行してしまったときにインデントをすべて消す
 " <c-o>だとundoがおかしくなる
-inoremap <silent> <bs> <c-r>=BsForInsertMode()<cr>
+inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
