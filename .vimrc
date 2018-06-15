@@ -1,5 +1,7 @@
 " 会社での作業用設定
-let g:for_office_work = v:true
+if !exists("g:for_office_work")
+  let g:for_office_work = v:true
+endif
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 
@@ -220,7 +222,7 @@ vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 nnoremap <c-h> :%s/\v//gc<left><left><left><left>
 
 " grep
-nnoremap <c-g> :tabnew <bar> set transparency=200 <bar> grep -iE "" <bar> cw<left><left><left><left><left><left>
+nnoremap <silent> <c-g> :call DoGrep()<cr>
 " ctrl + shiftは使えない。。
 " nnoremap <c-s-g> :tabnew <bar> grep -iE --no-index "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
@@ -303,12 +305,8 @@ inoremap <silent> <bs> <c-r>=BsForInsertMode()<cr>
 " endfunction
 
 command! FooBarTest call s:FooBarTest()
-function! s:FooBarTest()
-  if getline(".") =~ '^{.*$'
-    echo "foo"
-  else
-    echo "bar"
-  endif
+function! g:FooBarTest(...)
+  return ""
 endfunction
 
 " 現在ファイルの位置に移動するコマンド
@@ -317,26 +315,65 @@ endfunction
 " command! -nargs=0 Cd cd %:p:h
 command! Cd call s:CdToGitRoot()
 
-function! s:CdToGitRoot()
+function! s:GetGitRootPath(...)
+  let l:result = ""
+
+  if a:0 > 1
+    echoerr "invalid args"
+    return l:result
+  endif
+
   let l:orgPath = getcwd()
-  cd %:p:h
+  let l:targetPath = a:0 == 0 ? "%:p:h" : a:1
+  execute "cd " . l:targetPath
   while v:true
-    " echo getcwd()
-    let l:result = finddir(".git")
-    if empty(l:result)
-      let l:currPath = getcwd()
+    let l:currPath = getcwd()
+    if empty(finddir(".git"))
       cd ..
       if l:currPath == getcwd()
-        " これ以上上に行けなければやめて、元のpathに戻す
-        echo "no root..."
-        execute "cd " . l:orgPath
         break
       endif
     else
-      echo getcwd()
+      let l:result = l:currPath
       break
     endif
   endwhile
+  execute "cd " . l:orgPath
+  return l:result
+endfunction
+
+function! s:CdToGitRoot()
+  let l:gitRootPath = s:GetGitRootPath()
+  if empty(l:gitRootPath)
+    echo "no root..."
+  else
+    execute "cd " . l:gitRootPath
+    echo l:gitRootPath
+  endif
+endfunction
+
+function! g:DoGrep()
+  let l:warnings = ""
+  let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
+  if l:gitRootOfPwd != s:GetGitRootPath("%:p:h")
+    let l:warnings = l:warnings . "NOT the same repository, "
+  endif
+  if empty(l:gitRootOfPwd)
+    let l:warnings = l:warnings . "NOT a git repository, "
+  endif
+  if l:warnings != ""
+    echo "Caution: " . l:warnings . "OK? "
+    call getchar()
+  endif
+  if has('kaoriya')
+    let l:keyHeadStr = ":tabnew \<bar> set transparency=200 \<bar> grep -iE"
+  else
+    let l:keyHeadStr = ":tabnew \<bar> grep -iE"
+  endif
+  if empty(l:gitRootOfPwd)
+    let l:keyHeadStr = l:keyHeadStr . " --no-index"
+  endif
+  call feedkeys(l:keyHeadStr . " \"\" \<bar> cw\<left>\<left>\<left>\<left>\<left>\<left>")
 endfunction
 
 command! -nargs=0 CloseRightTabs call s:CloseRightTabs()
