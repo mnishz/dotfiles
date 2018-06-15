@@ -1,0 +1,33 @@
+--- vim81/lang/menu_ja_jp.euc-jp.vim.org	Fri Jun 15 10:04:57 2018
++++ vim81/lang/menu_ja_jp.euc-jp.vim	Fri Jun 15 10:00:36 2018
+@@ -20,7 +20,7 @@ set cpo&vim
+ scriptencoding euc-jp
+ 
+ " Help menu
+-menutrans &Help			ヘルプ(&H)
++menutrans &Help			ヘルプ
+ menutrans &Overview<Tab><F1>	概略(&O)<Tab><F1>
+ menutrans &User\ Manual		ユーザーマニュアル(&U)
+ menutrans &How-to\ links	&How-toリンク
+--- vim81/lang/menu_ja_jp.utf-8.vim.org	Fri Jun 15 10:05:13 2018
++++ vim81/lang/menu_ja_jp.utf-8.vim	Fri Jun 15 10:00:39 2018
+@@ -20,7 +20,7 @@ set cpo&vim
+ scriptencoding utf-8
+ 
+ " Help menu
+-menutrans &Help			ヘルプ(&H)
++menutrans &Help			ヘルプ
+ menutrans &Overview<Tab><F1>	概略(&O)<Tab><F1>
+ menutrans &User\ Manual		ユーザーマニュアル(&U)
+ menutrans &How-to\ links	&How-toリンク
+--- vim81/lang/menu_japanese_japan.932.vim.org	Fri Jun 15 10:05:09 2018
++++ vim81/lang/menu_japanese_japan.932.vim	Fri Jun 15 10:02:31 2018
+@@ -20,7 +20,7 @@ set cpo&vim
+ scriptencoding cp932
+ 
+ " Help menu
+-menutrans &Help			ヘルプ(&H)
++menutrans &Help			ヘルプ
+ menutrans &Overview<Tab><F1>	概略(&O)<Tab><F1>
+ menutrans &User\ Manual		ユーザーマニュアル(&U)
+ menutrans &How-to\ links	&How-toリンク
