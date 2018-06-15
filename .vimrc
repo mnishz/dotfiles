@@ -362,7 +362,7 @@ function! g:DoGrep()
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
-    echo "Caution: " . l:warnings . "OK? "
+    echohl ErrorMsg | echo "Caution: " . l:warnings . "OK? " | echohl None
     call getchar()
   endif
   if has('kaoriya')
