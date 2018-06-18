@@ -56,9 +56,7 @@ else
   endif
 
   " うーん、defaultの設定とどっちがいいか分からん。後で消すかも。。。
-  " insert modeに入る/出るときにIMEをoffにする
-  " imsearchはiminsertと同じ挙動にする -> -1で同じ挙動になると書いてあるがならない。1で期待通りの動きをするのでこれでよしとする。
-  set imsearch=1
+  " insert modeを出るときにIMEをoffにする -> 必ずIME offで開始する
   inoremap <silent> <esc> <esc>:set iminsert=0<cr>
 
   augroup transparency
@@ -197,9 +195,10 @@ noremap <silent> 0 :call g:GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " 常にvery magicで検索する
-noremap / /\v
+noremap /  :set imsearch=0<cr>/\v
+noremap // :set imsearch=2<cr>/\v
 " 検索の履歴をたどるときはvery magicをはずす
-noremap /<up> /<up>
+noremap /<up> :set imsearch=0<cr>/<up>
 " *をvery magicで検索するように置き換える、(遠い)次の検索候補に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
 nnoremap * yiw<bs>/\v<c-r>0<cr>
 " 単語で検索
