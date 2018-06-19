@@ -315,11 +315,24 @@ function! g:GetGitRootPath(...)
     return ""
   endif
 
+  " 何故か current directory (:pwd) で見える path に '.git' が存在する場合、
+  " finddir('.git', 'W:\;') が空でない値を返すように見える。
+  " なんか 'w:\' がうまく機能していないように見える。'\'だと期待通りの結果が出る。
+
+  " echo finddir('.git', 'W:\')  期待どおり
+  " echo finddir('.git', 'W:\;') 上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
+  " echo finddir('.git', '\')    期待どおり
+  " echo finddir('.git', '\;')   上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
+  " 普通のc driveでも同じかどうか確認したい
+  " Linuxでの '/;' は正しく動いているように見える
+
   " current file for no arg
   let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
+  echo l:targetPath
   let l:result = finddir('.git', l:targetPath . ';')
+  echo l:result
   if !empty(l:result)
-    let l:result = fnameescape(fnamemodify(l:result, ':h'))
+    let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
   endif
   return l:result
 endfunction
