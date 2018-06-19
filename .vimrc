@@ -316,11 +316,10 @@ function! g:GetGitRootPath(...)
   endif
 
   " current file for no arg
-  let l:targetPath = a:0 == 0 ? fnamemodify(expand("%"), ":p:h") : a:1
-  let l:result = finddir(".git", l:targetPath . ";")
+  let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
+  let l:result = finddir('.git', l:targetPath . ';')
   if !empty(l:result)
-    let l:result = fnamemodify(l:result, ":p")
-    let l:result = l:result[:strlen(l:result)-7] " should be improved
+    let l:result = fnameescape(fnamemodify(l:result, ':h'))
   endif
   return l:result
 endfunction
