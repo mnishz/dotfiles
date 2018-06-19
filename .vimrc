@@ -268,6 +268,8 @@ nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
 
+nnoremap <space>v :tabnew ~/.vimrc<cr>
+
 noremap <c-z> :echo "nop"<cr>
 
 " うっかり改行してしまったときにインデントをすべて消す
@@ -307,30 +309,19 @@ endfunction
 " command! -nargs=0 Cd cd %:p:h
 command! Cd call s:CdToGitRoot()
 
-function! s:GetGitRootPath(...)
-  let l:result = ""
-
+function! g:GetGitRootPath(...)
   if a:0 > 1
     echoerr "invalid args"
-    return l:result
+    return ""
   endif
 
-  let l:orgPath = getcwd()
-  let l:targetPath = a:0 == 0 ? "%:p:h" : a:1
-  execute "cd " . l:targetPath
-  while v:true
-    let l:currPath = getcwd()
-    if empty(finddir(".git"))
-      cd ..
-      if l:currPath == getcwd()
-        break
-      endif
-    else
-      let l:result = l:currPath
-      break
-    endif
-  endwhile
-  execute "cd " . l:orgPath
+  " current file for no arg
+  let l:targetPath = a:0 == 0 ? fnamemodify(expand("%"), ":p:h") : a:1
+  let l:result = finddir(".git", l:targetPath . ";")
+  if !empty(l:result)
+    let l:result = fnamemodify(l:result, ":p")
+    let l:result = l:result[:strlen(l:result)-7] " should be improved
+  endif
   return l:result
 endfunction
 
@@ -347,7 +338,7 @@ endfunction
 function! g:DoGrep()
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
-  if l:gitRootOfPwd != s:GetGitRootPath("%:p:h")
+  if l:gitRootOfPwd != s:GetGitRootPath()
     let l:warnings = l:warnings . "NOT the same repository, "
   endif
   if empty(l:gitRootOfPwd)
