@@ -309,7 +309,7 @@ endfunction
 " command! -nargs=0 Cd cd %:p:h
 command! Cd call s:CdToGitRoot()
 
-function! g:GetGitRootPath(...)
+function! s:GetGitRootPath(...)
   if a:0 > 1
     echoerr "invalid args"
     return ""
@@ -327,12 +327,17 @@ function! g:GetGitRootPath(...)
   " LinuxÇ≈ÇÃ '/;' ÇÕê≥ÇµÇ≠ìÆÇ¢ÇƒÇ¢ÇÈÇÊÇ§Ç…å©Ç¶ÇÈ
 
   " current file for no arg
-  let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
-  echo l:targetPath
-  let l:result = finddir('.git', l:targetPath . ';')
-  echo l:result
+  " let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
+  let l:targetPath = a:0 == 0 ? expand('%:p:h') : a:1
+  if l:targetPath[1] == ':' && l:targetPath[2] == '\' && l:targetPath[3] == ''
+    " Do nothing, workaround?
+  else
+    let l:targetPath = l:targetPath . ';'
+  endif
+  let l:result = finddir('.git', l:targetPath)
   if !empty(l:result)
-    let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
+    " let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
+    let l:result = fnamemodify(l:result, ':p:h:h')
   endif
   return l:result
 endfunction
@@ -357,7 +362,7 @@ function! g:DoGrep()
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
-    echohl ErrorMsg | echo "Caution: " . l:warnings . "OK? " | echohl None
+    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
     call getchar()
   endif
   if has('kaoriya')
