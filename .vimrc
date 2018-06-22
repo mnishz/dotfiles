@@ -120,12 +120,13 @@ set hlsearch
 set grepprg=git\ grep\ --line-number
 
 set tabstop=4
-set expandtab
 
 if g:for_office_work
   set shiftwidth=2
+  set expandtab
 else
   set shiftwidth=4
+  set noexpandtab
 endif
 
 set autoindent
@@ -267,6 +268,8 @@ nnoremap <space>yc "cyiw
 nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
+
+nnoremap <space>v :tabnew ~/.vimrc<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
