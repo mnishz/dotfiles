@@ -311,29 +311,35 @@ endfunction
 command! Cd call s:CdToGitRoot()
 
 function! s:GetGitRootPath(...)
-  let l:result = ""
-
   if a:0 > 1
     echoerr "invalid args"
-    return l:result
+    return ""
   endif
 
-  let l:orgPath = getcwd()
-  let l:targetPath = a:0 == 0 ? "%:p:h" : a:1
-  execute "cd " . l:targetPath
-  while v:true
-    let l:currPath = getcwd()
-    if empty(finddir(".git"))
-      cd ..
-      if l:currPath == getcwd()
-        break
-      endif
-    else
-      let l:result = l:currPath
-      break
-    endif
-  endwhile
-  execute "cd " . l:orgPath
+  " 何故か current directory (:pwd) で見える path に '.git' が存在する場合、
+  " finddir('.git', 'W:\;') が空でない値を返すように見える。
+  " なんか 'w:\' がうまく機能していないように見える。'\'だと期待通りの結果が出る。
+
+  " echo finddir('.git', 'W:\')  期待どおり
+  " echo finddir('.git', 'W:\;') 上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
+  " echo finddir('.git', '\')    期待どおり
+  " echo finddir('.git', '\;')   上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
+  " 普通のc driveでも同じかどうか確認したい
+  " Linuxでの '/;' は正しく動いているように見える
+
+  " current file for no arg
+  " let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
+  let l:targetPath = a:0 == 0 ? expand('%:p:h') : a:1
+  if l:targetPath[1] == ':' && l:targetPath[2] == '\' && l:targetPath[3] == ''
+    " Do nothing, workaround?
+  else
+    let l:targetPath = l:targetPath . ';'
+  endif
+  let l:result = finddir('.git', l:targetPath)
+  if !empty(l:result)
+    " let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
+    let l:result = fnamemodify(l:result, ':p:h:h')
+  endif
   return l:result
 endfunction
 
@@ -350,14 +356,14 @@ endfunction
 function! g:DoGrep()
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
-  if l:gitRootOfPwd != s:GetGitRootPath("%:p:h")
+  if l:gitRootOfPwd != s:GetGitRootPath()
     let l:warnings = l:warnings . "NOT the same repository, "
   endif
   if empty(l:gitRootOfPwd)
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
-    echohl ErrorMsg | echo "Caution: " . l:warnings . "OK? " | echohl None
+    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
     call getchar()
   endif
   if has('kaoriya')
