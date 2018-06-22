@@ -216,8 +216,6 @@ nnoremap <c-h> :%s/\v//gc<left><left><left><left>
 
 " grep
 nnoremap <silent> <c-g> :call g:DoGrep()<cr>
-" ctrl + shiftÇÕégÇ¶Ç»Ç¢ÅBÅB
-" nnoremap <c-s-g> :tabnew <bar> grep -iE --no-index "" <bar> cw<left><left><left><left><left><left>
 nnoremap } :cn<cr>
 nnoremap { :cp<cr>
 
@@ -240,7 +238,8 @@ nnoremap gtags :!start gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
-nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+" nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:9])<cr>
 nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
 nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 
