@@ -238,8 +238,8 @@ nnoremap gtags :!start gtags -v<cr>
 nnoremap <f11> :Gtags -f %<cr>
 nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
-" nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
-nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:9])<cr>
+nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+" nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
 nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
 nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 
@@ -272,7 +272,7 @@ nnoremap <space>v :tabnew ~/.vimrc<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
-" うっかり改行してしまったときにインデントをすべて消す
+" うっかり改行してしまったときにインデントをすべて消す -> <expr>を使ったほうがきれいかも
 " <c-o>だとundoがおかしくなる
 inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
@@ -450,7 +450,7 @@ function! s:CGoTo(listNumber)
 endfunction
 
 function! g:BsForInsertMode()
-  if getline(".") =~ '^ \+$'
+  if getline(".") =~ '^[ \t]\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
   else
     return "\<c-h>" " それ以外の場合は1文字消す
