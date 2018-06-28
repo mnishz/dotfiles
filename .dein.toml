@@ -46,7 +46,7 @@ hook_add = '''
 [[plugins]]
 repo = 'mnishz/current-func-info.vim'
 hook_add = '''
-  set statusline=%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [fenc=%{&fileencoding}]
+  set statusline=%!MyStatusLine()
 '''
 
 [[plugins]]

@@ -457,4 +457,12 @@ function! g:BsForInsertMode()
   endif
 endfunction
 
+function! g:MyStatusLine()
+  if empty(&fileencoding)
+    return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&encoding}]"
+  else
+    return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&fileencoding}]"
+  endif
+endfunction
+
 command! ReloadWithEucJp e ++enc=euc-jp
