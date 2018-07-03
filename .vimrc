@@ -5,10 +5,11 @@ endif
 
 if !g:for_office_work
   " for vimdoc-ja-working
-  " let autofmt_allow_over_tw=1
   set fileencoding=utf-8
   set fileformat=unix
   set encoding=utf-8
+  let autofmt_allow_over_tw=1
+  set formatoptions+=mM
 endif
 
 " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
@@ -314,17 +315,6 @@ function! s:GetGitRootPath(...)
     echoerr "invalid args"
     return ""
   endif
-
-  " 何故か current directory (:pwd) で見える path に '.git' が存在する場合、
-  " finddir('.git', 'W:\;') が空でない値を返すように見える。
-  " なんか 'w:\' がうまく機能していないように見える。'\'だと期待通りの結果が出る。
-
-  " echo finddir('.git', 'W:\')  期待どおり
-  " echo finddir('.git', 'W:\;') 上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
-  " echo finddir('.git', '\')    期待どおり
-  " echo finddir('.git', '\;')   上位ディレクトリ関係なく単にカレントディレクトリの値を返しているように見える
-  " 普通のc driveでも同じかどうか確認したい
-  " Linuxでの '/;' は正しく動いているように見える
 
   " current file for no arg
   " let l:targetPath = a:0 == 0 ? escape(expand('%:p:h'), ' ') : a:1
