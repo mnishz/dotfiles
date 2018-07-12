@@ -202,7 +202,7 @@ vnoremap 0 ^
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 noremap  /  /\v
-noremap  // /\v
+vnoremap // :s/^/\/\/ /<cr>:noh<cr>
 " ŒŸõ‚Ì—š—ğ‚ğ‚½‚Ç‚é‚Æ‚«‚Ívery magic‚ğ‚Í‚¸‚·
 nnoremap /<up> :set imsearch=0<cr>/<up>
 noremap  /<up> /<up>
