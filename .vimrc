@@ -132,7 +132,7 @@ endif
 
 set autoindent
 set smartindent
-set cindent
+" set cindent
 
 set nowrap
 set showmatch
@@ -149,6 +149,8 @@ set wildmenu
 set wildmode=longest:full,full
 
 set nostartofline
+
+set nrformats-=octal
 
 hi Ignore ctermfg=red
 
@@ -197,10 +199,13 @@ noremap <silent> 0 :call g:GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " í‚Évery magic‚ÅŒŸõ‚·‚é
-noremap /  :set imsearch=0<cr>/\v
-noremap // :set imsearch=2<cr>/\v
+nnoremap /  :set imsearch=0<cr>/\v
+nnoremap // :set imsearch=2<cr>/\v
+noremap  /  /\v
+noremap  // /\v
 " ŒŸõ‚Ì—š—ğ‚ğ‚½‚Ç‚é‚Æ‚«‚Ívery magic‚ğ‚Í‚¸‚·
-noremap /<up> :set imsearch=0<cr>/<up>
+nnoremap /<up> :set imsearch=0<cr>/<up>
+noremap  /<up> /<up>
 " *‚ğvery magic‚ÅŒŸõ‚·‚é‚æ‚¤‚É’u‚«Š·‚¦‚éA(‰“‚¢)Ÿ‚ÌŒŸõŒó•â‚É”ò‚ñ‚Å‚µ‚Ü‚¤‚Ì‚ªŒ™‚È‚Ì‚Å<bs>‚ÅˆêŒÂ–ß‚Á‚Ä‚©‚çŒŸõ‚·‚é
 nnoremap * yiw<bs>/\v<c-r>0<cr>
 " ’PŒê‚ÅŒŸõ
