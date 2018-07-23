@@ -381,7 +381,10 @@ function! g:DoGrep()
   endif
   if l:warnings != ""
     echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
-    call getchar()
+    let l:c = getchar()
+    " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
+    " あと警告のメッセージが残るのできれいにしたい。
+    if l:c == 27 | return | endif
   endif
   if has('kaoriya')
     let l:keyHeadStr = ":tabnew \<bar> set transparency=200 \<bar> grep -iE"
