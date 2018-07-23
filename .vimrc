@@ -219,9 +219,9 @@ noremap <silent> 0 :call g:GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " èÌÇ…very magicÇ≈åüçıÇ∑ÇÈ
+noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
-noremap  /  /\v
 vnoremap // :s/^/\/\/ /<cr>:noh<cr>
 vnoremap <space>/ :s/^\/\/ //<cr>:noh<cr>
 vnoremap # :s/^/# /<cr>:noh<cr>
