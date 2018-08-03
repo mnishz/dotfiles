@@ -222,6 +222,7 @@ vnoremap 0 ^
 noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
+" comment, uncomment
 vnoremap // :s/^/\/\/ /<cr>:noh<cr>
 vnoremap <space>/ :s/^\/\/ //<cr>:noh<cr>
 vnoremap # :s/^/# /<cr>:noh<cr>
@@ -305,6 +306,9 @@ noremap <c-z> :echo "nop"<cr>
 " <c-o>だとundoがおかしくなる
 inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
+nnoremap + :call g:ChangeFontSize(1)<cr>
+nnoremap - :call g:ChangeFontSize(-1)<cr>
+
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
@@ -383,8 +387,7 @@ function! g:DoGrep()
     echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
     let l:c = getchar()
     " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
-    " あと警告のメッセージが残るのできれいにしたい。
-    if l:c == 27 | return | endif
+    if l:c == 27 | redraw | echo "" | return | endif " もっとうまく消す方法はないものか。。
   endif
   if has('kaoriya')
     let l:keyHeadStr = ":tabnew \<bar> set transparency=200 \<bar> grep -iE"
@@ -484,6 +487,30 @@ function! g:MyStatusLine()
   else
     return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&fileencoding}]"
   endif
+endfunction
+
+function! s:ToggleComment(commentText)
+  if getline(".")
+endfunction
+
+function! g:ChangeFontSize(diff)
+  let l:sizeStartPos = stridx(&guifont, ":h")
+  if (l:sizeStartPos == -1)
+    echo "err"
+    return
+  else
+    let l:sizeStartPos += 2 " 数字開始部分まで移動
+  endif
+  let l:sizeEndPos = stridx(&guifont, ":", l:sizeStartPos)
+  if (l:sizeEndPos == -1)
+    echo "err"
+    return
+  else
+    let l:sizeEndPos -= 1 " 数字終了部分まで移動
+  endif
+  let l:orgFontSize = str2nr(&guifont[l:sizeStartPos:l:sizeEndPos])
+  let l:newFontSize = printf("%d", l:orgFontSize + a:diff)
+  let &guifont = &guifont[0:(l:sizeStartPos-1)] . l:newFontSize . &guifont[(l:sizeEndPos+1):-1]
 endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
