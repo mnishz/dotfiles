@@ -1,9 +1,8 @@
 " 会社での作業用設定
-if !exists("g:for_office_work")
-  let g:for_office_work = v:true
-endif
+if !exists("g:office_work") | let g:office_work = v:false | endif
+if !exists("g:help_translation") | let g:help_translation = v:false | endif
 
-if !g:for_office_work
+if g:help_translation
   " for vimdoc-ja-working
   set fileencoding=utf-8
   set fileformat=unix
@@ -49,7 +48,7 @@ if !has('kaoriya')
 
 else
 
-  if g:for_office_work
+  if g:office_work
     " guessを使いたい、が、それより前にeuc-jpを持ってくる
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
     " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
@@ -122,11 +121,12 @@ set grepprg=git\ grep\ --line-number
 
 set tabstop=4
 
-if g:for_office_work
+set shiftwidth=4
+set expandtab
+
+if g:office_work
   set shiftwidth=2
-  set expandtab
-else
-  set shiftwidth=4
+elseif g:help_translation
   set noexpandtab
 endif
 
@@ -174,7 +174,7 @@ augroup END
 
 hi Ignore ctermfg=red
 
-if g:for_office_work
+if !g:help_translation
   " コメントでの自動改行を抑止
   set textwidth=0
 endif
@@ -249,15 +249,16 @@ nnoremap <silent> <c-g> :call g:DoGrep()<cr>
 nnoremap } :cn<cr>
 nnoremap { :cp<cr>
 
-if g:for_office_work
+if g:office_work
   " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
   " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
   " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
   nnoremap <space><space> A // nishi 
-  " 関数っぽいものを検索(ハイライト)
-  nnoremap <space>/ /\v\w+\(<cr>
 endif
+
+" 関数っぽいものを検索(ハイライト)
+nnoremap <space>/ /\v\w+\(<cr>
 
 " gtags関連、ctagsはお役御免
 " nnoremap ctags :!start ctags -R *<cr>
@@ -323,7 +324,7 @@ nnoremap - :call g:ChangeFontSize(-1)<cr>
 "     tabnext l:tabNumber
 "     " 正解
 "     execute "tabnext " . l:tabNumber
-"   " 組み込み関数(functions)や自作関数を'直接'呼び出すときにはcallを使う
+"   " 組み込み関数(functionsもしくはfunction-list)や自作関数を'直接'呼び出すときにはcallを使う
 "   " ただしletやechoなど式を評価するものの後ろであればcallは必要ない
 "     call feedkeys("gg")
 "   " keypressをemulateするにはnormal(EXコマンド)もしくはfeedkeys(関数)を使う

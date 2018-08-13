@@ -9,7 +9,7 @@ hook_add = '''
   " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
   autocmd MyAutoCmd VimEnter * nested colorscheme molokai
   " アクティブウィンドウのステータスラインの色を目立たせる
-  if g:for_office_work
+  if !g:help_translation
     autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=DarkGoldenrod
   else
     autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
