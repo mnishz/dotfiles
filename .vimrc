@@ -223,10 +223,7 @@ noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
-vnoremap // :s/^/\/\/ /<cr>:noh<cr>
-vnoremap <space>/ :s/^\/\/ //<cr>:noh<cr>
-vnoremap # :s/^/# /<cr>:noh<cr>
-vnoremap <space># :s/^# //<cr>:noh<cr>
+vnoremap <space><space> :call g:ToggleComment()<cr>
 " ŒŸõ‚Ì—š—ğ‚ğ‚½‚Ç‚é‚Æ‚«‚Ívery magic‚ğ‚Í‚¸‚·
 nnoremap /<up> :set imsearch=0<cr>/<up>
 noremap  /<up> /<up>
@@ -490,8 +487,20 @@ function! g:MyStatusLine()
   endif
 endfunction
 
-function! s:ToggleComment(commentText)
-  if getline(".")
+function! g:ToggleComment() range
+  if !exists('b:comment_text') | echo 'no b:comment_text' | return | endif
+  let l:comment_text = escape(b:comment_text, '/$.*~')
+  if getline(a:firstline) =~ '^\s*' . l:comment_text . ' '
+    " uncomment with a space
+    let l:substitute_text = a:firstline . ',' . a:lastline . 's/\m^\(\s*\)' . l:comment_text . ' \(.*\)/\1\2/g'
+  elseif getline(a:firstline) =~ '^\s*' . l:comment_text
+    " uncomment with no space
+    let l:substitute_text = a:firstline . ',' . a:lastline . 's/\m^\(\s*\)' . l:comment_text . '\(.*\)/\1\2/g'
+  else
+    " comment out
+    let l:substitute_text = a:firstline . ',' . a:lastline . 's/\m\(.*\)/' . l:comment_text . ' \1/g'
+  endif
+  execute l:substitute_text
 endfunction
 
 function! g:ChangeFontSize(diff)
