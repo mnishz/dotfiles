@@ -382,7 +382,7 @@ function! g:DoGrep()
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
-    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
+    echoerr "Caution: " . l:warnings . "continue... "
     let l:c = getchar()
     " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
     if l:c == 27 | redraw | echo "" | return | endif " もっとうまく消す方法はないものか。。
@@ -461,7 +461,7 @@ function! s:GetCurrQuickFixListNumber()
 endfunction
 
 function! s:CGoTo(listNumber)
-  if a:listNumber < 1 || a:listNumber > 10 | echo "invalid" | return | endif
+  if a:listNumber < 1 || a:listNumber > 10 | echoerr "invalid" | return | endif
   let l:currListNumber = s:GetCurrQuickFixListNumber()
   let l:diff = abs(l:currListNumber - a:listNumber)
   if (l:currListNumber > a:listNumber)
@@ -488,7 +488,7 @@ function! g:MyStatusLine()
 endfunction
 
 function! g:ToggleComment() range
-  if !exists('b:comment_text') | echo 'no b:comment_text' | return | endif
+  if !exists('b:comment_text') | echoerr 'no b:comment_text' | return | endif
   let l:comment_text = escape(b:comment_text, '/$.*~')
   if getline(a:firstline) =~ '^\s*' . l:comment_text . ' '
     " uncomment with a space
@@ -506,14 +506,14 @@ endfunction
 function! g:ChangeFontSize(diff)
   let l:sizeStartPos = stridx(&guifont, ":h")
   if (l:sizeStartPos == -1)
-    echo "err"
+    echoerr "err"
     return
   else
     let l:sizeStartPos += 2 " 数字開始部分まで移動
   endif
   let l:sizeEndPos = stridx(&guifont, ":", l:sizeStartPos)
   if (l:sizeEndPos == -1)
-    echo "err"
+    echoerr "err"
     return
   else
     let l:sizeEndPos -= 1 " 数字終了部分まで移動
