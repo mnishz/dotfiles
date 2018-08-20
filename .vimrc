@@ -46,6 +46,12 @@ if !has('kaoriya')
   " ESC キーを押してから挿入モードを出るまでの時間を短くする
   set ttimeoutlen=100
 
+  filetype on
+  filetype plugin on
+  filetype indent on
+
+  hi Ignore ctermfg=red
+
 else
 
   if g:office_work
@@ -189,6 +195,8 @@ if !has('kaoriya')
   noremap <tab> :tabn<cr>
   noremap <a-right> :tabn<cr>
   noremap <a-left> :tabp<cr>
+  tnoremap <a-right> <c-w>:tabn<cr>
+  tnoremap <a-left> <c-w>:tabp<cr>
 else
   " ctrl-tabで次のtabに進む
   noremap <c-tab> :tabn<cr>
@@ -205,6 +213,7 @@ endif
 noremap <c-f4> :tabc<cr>
 noremap <space>c :tabc<cr>
 noremap <c-n> :tabnew<cr>
+tnoremap <c-n> <c-w>:tabnew<cr>
 
 " 3行ずつ進む、3行ずつ戻る
 noremap <c-j> 3<c-e>
@@ -239,7 +248,7 @@ vnoremap * y<bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
-nnoremap <c-h> :%s/\v//gc<left><left><left><left>
+noremap <c-h> :%s///gc<left><left><left>
 
 " grep
 nnoremap <silent> <c-g> :call g:DoGrep()<cr>
@@ -251,25 +260,30 @@ if g:office_work
   " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
   " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
-  nnoremap <space><space> A // nishi 
+  " nnoremap <space><space> A // nishi 
 endif
 
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\(<cr>
 
 " gtags関連、ctagsはお役御免
-" nnoremap ctags :!start ctags -R *<cr>
+nnoremap ctags :!start ctags -R *<cr>
 " nnoremap <f12> g<c-]>
 " " 新規タブでtjumpする
 " nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 nnoremap gtags :!start gtags -v<cr>
-nnoremap <f11> :Gtags -f %<cr>
-nnoremap <f12> :GtagsCursor<cr>
-nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
-nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
-" nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
-nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
-nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
+if has('kaoriya')
+  nnoremap <f11> :Gtags -f %<cr>
+  nnoremap <f12> :GtagsCursor<cr>
+  nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
+  nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+  " nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
+  nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
+  nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
+else
+  nnoremap <f12> :sp<cr><c-w>T<c-]>
+  nnoremap <s-f12> g<c-]>
+endif
 
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
@@ -382,7 +396,7 @@ function! g:DoGrep()
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
-    echoerr "Caution: " . l:warnings . "continue... "
+    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
     let l:c = getchar()
     " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
     if l:c == 27 | redraw | echo "" | return | endif " もっとうまく消す方法はないものか。。
@@ -461,7 +475,7 @@ function! s:GetCurrQuickFixListNumber()
 endfunction
 
 function! s:CGoTo(listNumber)
-  if a:listNumber < 1 || a:listNumber > 10 | echoerr "invalid" | return | endif
+  if a:listNumber < 1 || a:listNumber > 10 | echo "invalid" | return | endif
   let l:currListNumber = s:GetCurrQuickFixListNumber()
   let l:diff = abs(l:currListNumber - a:listNumber)
   if (l:currListNumber > a:listNumber)
@@ -479,6 +493,7 @@ function! g:BsForInsertMode()
   endif
 endfunction
 
+set statusline=%f%m%r%h%w%=%v\ [%{&fileformat},\ %{&fileencoding}]
 function! g:MyStatusLine()
   if empty(&fileencoding)
     return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&encoding}]"
