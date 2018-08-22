@@ -52,6 +52,9 @@ if !has('kaoriya')
 
   hi Ignore ctermfg=red
 
+  " (:bro olで表示される)ファイルの履歴を60までに制限する。その他はデフォルトの設定。
+  set viminfo='60,<50,s10,h
+
 else
 
   if g:office_work
@@ -112,10 +115,6 @@ syntax enable
 set title titlestring=%F
 set number
 
-" (:bro olで表示される)ファイルの履歴を30までに制限する。その他はKaoriyaのデフォルトの設定を残した。
-" ctrlpのほうが便利そうなのでそちらを使うことにした。
-" set viminfo='30,<50,s10,h,rA:,rB:
-
 set ignorecase
 set smartcase
 set nowrapscan
@@ -157,6 +156,10 @@ set wildmode=longest:full,full
 set nostartofline
 
 set nrformats-=octal
+
+set path+=**
+" 時間がかかりすぎる。。
+set complete-=i
 
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD
@@ -203,6 +206,8 @@ else
   noremap <c-s-tab> :tabp<cr>
   inoremap <c-tab> <esc>:tabn<cr>
   inoremap <c-s-tab> <esc>:tabp<cr>
+  tnoremap <c-tab> <c-w>:tabn<cr>
+  tnoremap <c-s-tab> <c-w>:tabp<cr>
   " ctrl-+/ctrl--でtabを隣に移動
   noremap <c-kPlus> :tabm+<cr>
   noremap <c-kMinus> :tabm-<cr>
@@ -248,7 +253,8 @@ vnoremap * y<bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
-noremap <c-h> :%s///gc<left><left><left>
+nnoremap <c-h> :%s///g<left><left>
+vnoremap <c-h> :s///g<left><left>
 
 " grep
 nnoremap <silent> <c-g> :call g:DoGrep()<cr>
@@ -309,6 +315,8 @@ nnoremap <space>yc "cyiw
 nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
+" gpは常にレジスタ0を貼り付ける
+noremap gp "0p
 
 nnoremap <space>v :tabnew ~/.vimrc<cr>
 
@@ -539,3 +547,4 @@ function! g:ChangeFontSize(diff)
 endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
+command! Term vert term ++noclose
