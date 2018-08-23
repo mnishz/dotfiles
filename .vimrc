@@ -195,7 +195,8 @@ endif
 
 " リモート環境では<ctrl + 特殊キー>はほとんど動かない
 if !has('kaoriya')
-  noremap <tab> :tabn<cr>
+  " <c-i> が置き換わってしまう
+  " noremap <tab> :tabn<cr>
   noremap <a-right> :tabn<cr>
   noremap <a-left> :tabp<cr>
   tnoremap <a-right> <c-w>:tabn<cr>
@@ -237,7 +238,7 @@ noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
-vnoremap <space><space> :call g:ToggleComment()<cr>
+noremap <space><space> :call g:ToggleComment()<cr>
 " 検索の履歴をたどるときはvery magicをはずす
 nnoremap /<up> :set imsearch=0<cr>/<up>
 noremap  /<up> /<up>
@@ -501,7 +502,10 @@ function! g:BsForInsertMode()
   endif
 endfunction
 
-set statusline=%f%m%r%h%w%=%v\ [%{&fileformat},\ %{&fileencoding}]
+if &statusline !=# '%!MyStatusLine()'
+  set statusline=%f%m%r%h%w%=%v\ [%{&fileformat},\ %{&fileencoding}]
+endif
+
 function! g:MyStatusLine()
   if empty(&fileencoding)
     return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&encoding}]"
