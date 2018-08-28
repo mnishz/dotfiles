@@ -327,8 +327,10 @@ noremap <c-z> :echo "nop"<cr>
 " <c-o>だとundoがおかしくなる
 inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
-nnoremap + :call g:ChangeFontSize(1)<cr>
-nnoremap - :call g:ChangeFontSize(-1)<cr>
+inoremap {<cr> {<cr>}<esc>ko
+
+nnoremap + :call g:ChangeFontSize(1)<cr>:echo &guifont<cr>
+nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -552,3 +554,7 @@ endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
 command! Term vert term ++noclose
+
+set secure
+
+" vim: shiftwidth=2
