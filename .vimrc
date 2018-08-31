@@ -70,19 +70,30 @@ else
 
   augroup transparency
     autocmd!
-    autocmd FocusGained * set transparency=255
     autocmd FocusLost * set transparency=200
+    autocmd FocusGained * set transparency=255
   augroup END
 
   function! g:RestoreMouse(timer)
-    unmap <leftmouse>
-    unmap! <leftmouse>
+    " 8.1.0011でもっと簡単に調べる方法が入ったけどまだ使えない。
+    " if !empty(mapcheck('<leftmouse>', 'n'))
+    let l:mapping = maparg('<leftmouse>', 'n', v:false, v:true)
+    if has_key(l:mapping, 'rhs') && l:mapping['rhs'] ==? '<nop>'
+      unmap <leftmouse>
+    endif
+    let l:mapping = maparg('<leftmouse>', 'i', v:false, v:true)
+    if has_key(l:mapping, 'rhs') && l:mapping['rhs'] ==? '<nop>'
+      unmap! <leftmouse>
+    endif
   endfunction
 
   augroup disable_mouse_click
+    " 非アクティブの状態での一発目のマウスクリックではカーソルを移動させない
+    " FocusGainedだけで処理しようとしても、マウスイベントは既に発生していて手遅れ
     autocmd!
-    autocmd FocusGained * echo "enabled" | call timer_start(100, 'g:RestoreMouse')
-    autocmd FocusLost * echo "disabled" | noremap <leftmouse> <nop> | noremap! <leftmouse> <nop>
+    autocmd FocusLost * noremap <leftmouse> <nop>
+    autocmd FocusLost * noremap! <leftmouse> <nop>
+    autocmd FocusGained * call timer_start(100, 'g:RestoreMouse')
   augroup END
 
 endif
