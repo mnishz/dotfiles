@@ -74,6 +74,17 @@ else
     autocmd FocusLost * set transparency=200
   augroup END
 
+  function! g:RestoreMouse(timer)
+    unmap <leftmouse>
+    unmap! <leftmouse>
+  endfunction
+
+  augroup disable_mouse_click
+    autocmd!
+    autocmd FocusGained * echo "enabled" | call timer_start(100, 'g:RestoreMouse')
+    autocmd FocusLost * echo "disabled" | noremap <leftmouse> <nop> | noremap! <leftmouse> <nop>
+  augroup END
+
 endif
 
 "dein Scripts-----------------------------
@@ -130,7 +141,7 @@ set shiftwidth=4
 set expandtab
 
 if g:office_work
-  set shiftwidth=2
+"   set shiftwidth=2
 elseif g:help_translation
   set noexpandtab
 endif
@@ -354,8 +365,9 @@ nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
 "   " “ÁŽê‚È•\Œ»‚ð•¶Žš—ñ‚É“WŠJ‚µ‚½‚¢‚Æ‚«‚Íexpand
 " endfunction
 
-command! FooBarTest call s:FooBarTest()
+command! FooBarTest call g:FooBarTest()
 function! g:FooBarTest(...)
+  echo "bar"
   return ""
 endfunction
 
