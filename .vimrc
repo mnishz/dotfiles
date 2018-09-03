@@ -183,6 +183,8 @@ set path+=**
 " 時間がかかりすぎる。。
 set complete-=i
 
+set diffopt+=vertical
+
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD
   autocmd!
@@ -281,8 +283,19 @@ vnoremap <c-h> :s///g<left><left>
 
 " grep
 nnoremap <silent> <c-g> :call g:DoGrep()<cr>
-nnoremap } :cn<cr>
-nnoremap { :cp<cr>
+
+nnoremap <expr> } g:CurlyBracket("}")
+nnoremap <expr> { g:CurlyBracket("{")
+
+function! g:CurlyBracket(text)
+  if a:text == "}"
+    return &diff ? "]c" : ":cn\<cr>"
+  elseif a:text == "{"
+    return &diff ? "[c" : ":cp\<cr>"
+  else
+    " do nothing
+  endif
+endfunction
 
 if g:office_work
   " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
@@ -524,7 +537,7 @@ function! s:CGoTo(listNumber)
 endfunction
 
 function! g:BsForInsertMode()
-  if getline(".") =~ '^[ \t]\+$'
+  if getline(".") =~# '^[ \t]\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
   else
     return "\<c-h>" " それ以外の場合は1文字消す
