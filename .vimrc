@@ -349,7 +349,11 @@ noremap <c-z> :echo "nop"<cr>
 " <c-o>‚¾‚Æundo‚ª‚¨‚©‚µ‚­‚È‚é
 inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
-inoremap {<cr> {<cr>}<esc>ko
+" cnoremap ( ()<left>
+" cnoremap { {}<left>
+" cnoremap [ []<left>
+" cnoremap " ""<left>
+" cnoremap ' ''<left>
 
 nnoremap + :call g:ChangeFontSize(1)<cr>:echo &guifont<cr>
 nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
