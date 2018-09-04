@@ -1,4 +1,6 @@
-" ‰ïĞ‚Å‚Ìì‹Æ—pİ’è
+scriptencoding utf-8
+
+" ä¼šç¤¾ã§ã®ä½œæ¥­ç”¨è¨­å®š
 if !exists("g:office_work") | let g:office_work = v:false | endif
 if !exists("g:help_translation") | let g:help_translation = v:false | endif
 
@@ -11,8 +13,8 @@ if g:help_translation
   set formatoptions+=mM
 endif
 
-" ƒoƒbƒNƒAƒbƒv—pƒtƒ@ƒCƒ‹‚Æundo—pƒtƒ@ƒCƒ‹‚ğAŒ³ƒtƒ@ƒCƒ‹‚ÌêŠ‚Å‚Í‚È‚­ˆê‰ÓŠ‚É‚Ü‚Æ‚ß‚éB
-" swapƒtƒ@ƒCƒ‹‚à’Ç‰Á
+" ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã¨undoç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã€å…ƒãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã§ã¯ãªãä¸€ç®‡æ‰€ã«ã¾ã¨ã‚ã‚‹ã€‚
+" swapãƒ•ã‚¡ã‚¤ãƒ«ã‚‚è¿½åŠ 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:bak_path = s:cache_home . "/vim/bak"
 let s:undo_path = s:cache_home . "/vim/undo"
@@ -36,14 +38,14 @@ if !has('kaoriya')
   set swapfile
 
   " https://qiita.com/mwmsnn/items/0b40662a22162907efae
-  " ‘}“üƒ‚[ƒh‚É“ü‚éC‘O‰ñ‚Ì‘}“üƒ‚[ƒh‚É‚¨‚¯‚é IME ‚Ìó‘Ô‚ğ•œŒ³‚·‚éD
-  " Tera Term‚Å‚µ‚©“®‚¢‚Ä‚¢‚È‚¢BBB
+  " æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã«å…¥ã‚‹æ™‚ï¼Œå‰å›ã®æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã«ãŠã‘ã‚‹ IME ã®çŠ¶æ…‹ã‚’å¾©å…ƒã™ã‚‹ï¼
+  " Tera Termã§ã—ã‹å‹•ã„ã¦ã„ãªã„ã€‚ã€‚ã€‚
   set t_SI+=[<r
-  " ‘}“üƒ‚[ƒh‚ğo‚éCŒ»İ‚Ì IME ‚Ìó‘Ô‚ğ•Û‘¶‚µCIME ‚ğƒIƒt‚É‚·‚éD
+  " æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã‚’å‡ºã‚‹æ™‚ï¼Œç¾åœ¨ã® IME ã®çŠ¶æ…‹ã‚’ä¿å­˜ã—ï¼ŒIME ã‚’ã‚ªãƒ•ã«ã™ã‚‹ï¼
   set t_EI+=[<s[<0t
-  " Vim I—¹CIME ‚ğ–³Œø‚É‚µC–³Œø‚É‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚éD
+  " Vim çµ‚äº†æ™‚ï¼ŒIME ã‚’ç„¡åŠ¹ã«ã—ï¼Œç„¡åŠ¹ã«ã—ãŸçŠ¶æ…‹ã‚’ä¿å­˜ã™ã‚‹ï¼
   set t_te+=[<0t[<s
-  " ESC ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‘}“üƒ‚[ƒh‚ğo‚é‚Ü‚Å‚ÌŠÔ‚ğ’Z‚­‚·‚é
+  " ESC ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã‹ã‚‰æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã‚’å‡ºã‚‹ã¾ã§ã®æ™‚é–“ã‚’çŸ­ãã™ã‚‹
   set ttimeoutlen=100
 
   filetype on
@@ -52,20 +54,20 @@ if !has('kaoriya')
 
   hi Ignore ctermfg=red
 
-  " (:bro ol‚Å•\¦‚³‚ê‚é)ƒtƒ@ƒCƒ‹‚Ì—š—ğ‚ğ60‚Ü‚Å‚É§ŒÀ‚·‚éB‚»‚Ì‘¼‚ÍƒfƒtƒHƒ‹ƒg‚Ìİ’èB
+  " (:bro olã§è¡¨ç¤ºã•ã‚Œã‚‹)ãƒ•ã‚¡ã‚¤ãƒ«ã®å±¥æ­´ã‚’60ã¾ã§ã«åˆ¶é™ã™ã‚‹ã€‚ãã®ä»–ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šã€‚
   set viminfo='60,<50,s10,h
 
 else
 
   if g:office_work
-    " guess‚ğg‚¢‚½‚¢A‚ªA‚»‚ê‚æ‚è‘O‚Éeuc-jp‚ğ‚Á‚Ä‚­‚é
+    " guessã‚’ä½¿ã„ãŸã„ã€ãŒã€ãã‚Œã‚ˆã‚Šå‰ã«euc-jpã‚’æŒã£ã¦ãã‚‹
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
-    " grep‚ÌŒ‹‰Ê‚ğeuc-jp -> shift_jis‚É(Gtags‚ÌŒ‹‰Ê‚É‚Â‚¢‚Ä‚Ígtags.vim‚Å‘Îô)
+    " grepã®çµæœã‚’euc-jp -> shift_jisã«(Gtagsã®çµæœã«ã¤ã„ã¦ã¯gtags.vimã§å¯¾ç­–)
     set shellpipe=2>\&1\ \|\ nkf32\ -s\ >\ %s
   endif
 
-  " ‚¤[‚ñAdefault‚Ìİ’è‚Æ‚Ç‚Á‚¿‚ª‚¢‚¢‚©•ª‚©‚ç‚ñBŒã‚ÅÁ‚·‚©‚àBBB
-  " insert mode‚ğo‚é‚Æ‚«‚ÉIME‚ğoff‚É‚·‚é -> •K‚¸IME off‚ÅŠJn‚·‚é
+  " ã†ãƒ¼ã‚“ã€defaultã®è¨­å®šã¨ã©ã£ã¡ãŒã„ã„ã‹åˆ†ã‹ã‚‰ã‚“ã€‚å¾Œã§æ¶ˆã™ã‹ã‚‚ã€‚ã€‚ã€‚
+  " insert modeã‚’å‡ºã‚‹ã¨ãã«IMEã‚’offã«ã™ã‚‹ -> å¿…ãšIME offã§é–‹å§‹ã™ã‚‹
   inoremap <silent> <esc> <esc>:set iminsert=0<cr>
 
   augroup transparency
@@ -75,7 +77,7 @@ else
   augroup END
 
   function! g:RestoreMouse(timer)
-    " 8.1.0011‚Å‚à‚Á‚ÆŠÈ’P‚É’²‚×‚é•û–@‚ª“ü‚Á‚½‚¯‚Ç‚Ü‚¾g‚¦‚È‚¢B
+    " 8.1.0011ã§ã‚‚ã£ã¨ç°¡å˜ã«èª¿ã¹ã‚‹æ–¹æ³•ãŒå…¥ã£ãŸã‘ã©ã¾ã ä½¿ãˆãªã„ã€‚
     " if !empty(mapcheck('<leftmouse>', 'n'))
     let l:mapping = maparg('<leftmouse>', 'n', v:false, v:true)
     if has_key(l:mapping, 'rhs') && l:mapping['rhs'] ==? '<nop>'
@@ -88,8 +90,8 @@ else
   endfunction
 
   augroup disable_mouse_click
-    " ”ñƒAƒNƒeƒBƒu‚Ìó‘Ô‚Å‚Ìˆê”­–Ú‚Ìƒ}ƒEƒXƒNƒŠƒbƒN‚Å‚ÍƒJ[ƒ\ƒ‹‚ğˆÚ“®‚³‚¹‚È‚¢
-    " FocusGained‚¾‚¯‚Åˆ—‚µ‚æ‚¤‚Æ‚µ‚Ä‚àAƒ}ƒEƒXƒCƒxƒ“ƒg‚ÍŠù‚É”­¶‚µ‚Ä‚¢‚Äè’x‚ê
+    " éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®çŠ¶æ…‹ã§ã®ä¸€ç™ºç›®ã®ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ã§ã¯ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç§»å‹•ã•ã›ãªã„
+    " FocusGainedã ã‘ã§å‡¦ç†ã—ã‚ˆã†ã¨ã—ã¦ã‚‚ã€ãƒã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆã¯æ—¢ã«ç™ºç”Ÿã—ã¦ã„ã¦æ‰‹é…ã‚Œ
     autocmd!
     autocmd FocusLost * noremap <leftmouse> <nop>
     autocmd FocusLost * noremap! <leftmouse> <nop>
@@ -109,21 +111,21 @@ augroup MyAutoCmd
 augroup END
 
 " https://qiita.com/kawaz/items/ee725f6214f91337b42b
-" dein©‘Ì‚Ì©“®ƒCƒ“ƒXƒg[ƒ‹
+" deinè‡ªä½“ã®è‡ªå‹•ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-" ƒvƒ‰ƒOƒCƒ““Ç‚İ‚İ•ƒLƒƒƒbƒVƒ…ì¬
+" ãƒ—ãƒ©ã‚°ã‚¤ãƒ³èª­ã¿è¾¼ã¿ï¼†ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä½œæˆ
 let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
   call dein#load_toml(s:toml_file)
   call dein#end()
 endif
-" •s‘«ƒvƒ‰ƒOƒCƒ“‚Ì©“®ƒCƒ“ƒXƒg[ƒ‹
+" ä¸è¶³ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è‡ªå‹•ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
@@ -180,12 +182,12 @@ set nostartofline
 set nrformats-=octal
 
 set path+=**
-" ŠÔ‚ª‚©‚©‚è‚·‚¬‚éBB
+" æ™‚é–“ãŒã‹ã‹ã‚Šã™ãã‚‹ã€‚ã€‚
 set complete-=i
 
 set diffopt+=vertical
 
-"ƒoƒCƒiƒŠ•ÒW(xxd)ƒ‚[ƒhivim -b ‚Å‚Ì‹N“®A‚à‚µ‚­‚Í *.bin ƒtƒ@ƒCƒ‹‚ğŠJ‚­‚Æ”­“®‚µ‚Ü‚·j
+"ãƒã‚¤ãƒŠãƒªç·¨é›†(xxd)ãƒ¢ãƒ¼ãƒ‰ï¼ˆvim -b ã§ã®èµ·å‹•ã€ã‚‚ã—ãã¯ *.bin ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¨ç™ºå‹•ã—ã¾ã™ï¼‰
 augroup BinaryXXD
   autocmd!
   autocmd BufReadPre  *.bin let &binary =1
@@ -208,35 +210,35 @@ augroup END
 hi Ignore ctermfg=red
 
 if !g:help_translation
-  " ƒRƒƒ“ƒg‚Å‚Ì©“®‰üs‚ğ—}~
+  " ã‚³ãƒ¡ãƒ³ãƒˆã§ã®è‡ªå‹•æ”¹è¡Œã‚’æŠ‘æ­¢
   set textwidth=0
 endif
 
 " set tags=./tags;
 
-" ‘ã‚í‚è‚É(:Cd)‚ğg‚¤‚±‚Æ‚É‚µ‚½B
+" ä»£ã‚ã‚Šã«(:Cd)ã‚’ä½¿ã†ã“ã¨ã«ã—ãŸã€‚
 " set autochdir
 
-" ƒŠƒ‚[ƒgŠÂ‹«‚Å‚Í<ctrl + “ÁêƒL[>‚Í‚Ù‚Æ‚ñ‚Ç“®‚©‚È‚¢
+" ãƒªãƒ¢ãƒ¼ãƒˆç’°å¢ƒã§ã¯<ctrl + ç‰¹æ®Šã‚­ãƒ¼>ã¯ã»ã¨ã‚“ã©å‹•ã‹ãªã„
 if !has('kaoriya')
-  " <c-i> ‚ª’u‚«Š·‚í‚Á‚Ä‚µ‚Ü‚¤
+  " <c-i> ãŒç½®ãæ›ã‚ã£ã¦ã—ã¾ã†
   " noremap <tab> :tabn<cr>
   noremap <a-right> :tabn<cr>
   noremap <a-left> :tabp<cr>
   tnoremap <a-right> <c-w>:tabn<cr>
   tnoremap <a-left> <c-w>:tabp<cr>
 else
-  " ctrl-tab‚ÅŸ‚Ìtab‚Éi‚Ş
+  " ctrl-tabã§æ¬¡ã®tabã«é€²ã‚€
   noremap <c-tab> :tabn<cr>
   noremap <c-s-tab> :tabp<cr>
   inoremap <c-tab> <esc>:tabn<cr>
   inoremap <c-s-tab> <esc>:tabp<cr>
   tnoremap <c-tab> <c-w>:tabn<cr>
   tnoremap <c-s-tab> <c-w>:tabp<cr>
-  " ctrl-+/ctrl--‚Åtab‚ğ—×‚ÉˆÚ“®
+  " ctrl-+/ctrl--ã§tabã‚’éš£ã«ç§»å‹•
   noremap <c-kPlus> :tabm+<cr>
   noremap <c-kMinus> :tabm-<cr>
-  " ‰üs
+  " æ”¹è¡Œ
   noremap <c-cr> o<esc>
 endif
 
@@ -245,39 +247,39 @@ noremap <space>c :tabc<cr>
 noremap <c-n> :tabnew<cr>
 tnoremap <c-n> <c-w>:tabnew<cr>
 
-" 3s‚¸‚Âi‚ŞA3s‚¸‚Â–ß‚é
+" 3è¡Œãšã¤é€²ã‚€ã€3è¡Œãšã¤æˆ»ã‚‹
 noremap <c-j> 3<c-e>
 noremap <c-k> 3<c-y>
 vnoremap <c-j> 3j
 vnoremap <c-k> 3k
-" s––‚ÉˆÚ“®A‚¢‚Ü‚¢‚¿'f'‚â't'‚Ì|‚İ‚ğŠ´‚¶‚È‚¢
+" è¡Œæœ«ã«ç§»å‹•ã€ã„ã¾ã„ã¡'f'ã‚„'t'ã®æ—¨ã¿ã‚’æ„Ÿã˜ãªã„
 noremap ; $
 vnoremap ; $h
-" •¶š—ñ‚Ìæ“ª‚ÉˆÚ“®(‚·‚Å‚Éæ“ª‚Å‚ ‚ê‚Î1—ñ–Ú‚ÉˆÚ“®)
+" æ–‡å­—åˆ—ã®å…ˆé ­ã«ç§»å‹•(ã™ã§ã«å…ˆé ­ã§ã‚ã‚Œã°1åˆ—ç›®ã«ç§»å‹•)
 noremap <silent> 0 :call g:GoToFirstColumn()<cr>
 vnoremap 0 ^
 
-" í‚Évery magic‚ÅŒŸõ‚·‚é
+" å¸¸ã«very magicã§æ¤œç´¢ã™ã‚‹
 noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
 noremap <space><space> :call g:ToggleComment()<cr>
-" ŒŸõ‚Ì—š—ğ‚ğ‚½‚Ç‚é‚Æ‚«‚Ívery magic‚ğ‚Í‚¸‚·
+" æ¤œç´¢ã®å±¥æ­´ã‚’ãŸã©ã‚‹ã¨ãã¯very magicã‚’ã¯ãšã™
 nnoremap /<up> :set imsearch=0<cr>/<up>
 noremap  /<up> /<up>
-" *‚ğvery magic‚ÅŒŸõ‚·‚é‚æ‚¤‚É’u‚«Š·‚¦‚éA(‰“‚¢)Ÿ‚ÌŒŸõŒó•â‚É”ò‚ñ‚Å‚µ‚Ü‚¤‚Ì‚ªŒ™‚È‚Ì‚Å<bs>‚ÅˆêŒÂ–ß‚Á‚Ä‚©‚çŒŸõ‚·‚é
+" *ã‚’very magicã§æ¤œç´¢ã™ã‚‹ã‚ˆã†ã«ç½®ãæ›ãˆã‚‹ã€(é ã„)æ¬¡ã®æ¤œç´¢å€™è£œã«é£›ã‚“ã§ã—ã¾ã†ã®ãŒå«Œãªã®ã§<bs>ã§ä¸€å€‹æˆ»ã£ã¦ã‹ã‚‰æ¤œç´¢ã™ã‚‹
 nnoremap * yiw<bs>/\v<c-r>0<cr>
-" ’PŒê‚ÅŒŸõ
+" å˜èªã§æ¤œç´¢
 nnoremap <space>* yiw<bs>/\v<<c-r>0><cr>
-" ŒŸõ‘ÎÛ‚ğ’Ç‰Á‚µ‚Ä‚¢‚­
+" æ¤œç´¢å¯¾è±¡ã‚’è¿½åŠ ã—ã¦ã„ã
 nnoremap <bar> yiw<bs>/<up><bar><c-r>0<cr>
 nnoremap <space><bar> yiw<bs>/<up><bar><<c-r>0><cr>
-" ‘I‘ğ”ÍˆÍ‚ğ‚»‚Ì‚Ü‚Ü(³‹K•\Œ»‚ğg‚í‚¸‚É)ŒŸõ‚·‚é
+" é¸æŠç¯„å›²ã‚’ãã®ã¾ã¾(æ­£è¦è¡¨ç¾ã‚’ä½¿ã‚ãšã«)æ¤œç´¢ã™ã‚‹
 vnoremap * y<bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
-" ’uŠ·("ctrl-r"‚É‚µ‚½‚©‚Á‚½‚ªA"r"Œn‚Í‚¢‚ë‚¢‚ë‚Æg‚í‚ê‚Ä‚¢‚é‚Ì‚Å‘ã‚í‚è‚ÉOfficeŒn‚Åg‚í‚ê‚é"ctrl-h"‚ğg‚¤B)
+" ç½®æ›("ctrl-r"ã«ã—ãŸã‹ã£ãŸãŒã€"r"ç³»ã¯ã„ã‚ã„ã‚ã¨ä½¿ã‚ã‚Œã¦ã„ã‚‹ã®ã§ä»£ã‚ã‚Šã«Officeç³»ã§ä½¿ã‚ã‚Œã‚‹"ctrl-h"ã‚’ä½¿ã†ã€‚)
 nnoremap <c-h> :%s///g<left><left>
 vnoremap <c-h> :s///g<left><left>
 
@@ -298,20 +300,20 @@ function! g:CurlyBracket(text)
 endfunction
 
 if g:office_work
-  " ƒZƒNƒVƒ‡ƒ“(ƒƒ\ƒbƒh)ŠÔˆÚ“®‚ª‚¤‚Ü‚­“®‚©‚È‚¢ƒP[ƒX‚ª‚ ‚é‚Ì‚ÅAŠÈˆÕ“I‚Èƒƒ\ƒbƒhŠÔˆÚ“®•û–@‚ğ’è‹`
+  " ã‚»ã‚¯ã‚·ãƒ§ãƒ³(ãƒ¡ã‚½ãƒƒãƒ‰)é–“ç§»å‹•ãŒã†ã¾ãå‹•ã‹ãªã„ã‚±ãƒ¼ã‚¹ãŒã‚ã‚‹ã®ã§ã€ç°¡æ˜“çš„ãªãƒ¡ã‚½ãƒƒãƒ‰é–“ç§»å‹•æ–¹æ³•ã‚’å®šç¾©
   " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
   " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
 
   " nnoremap <space><space> A // nishi 
 endif
 
-" ŠÖ”‚Á‚Û‚¢‚à‚Ì‚ğŒŸõ(ƒnƒCƒ‰ƒCƒg)
+" é–¢æ•°ã£ã½ã„ã‚‚ã®ã‚’æ¤œç´¢(ãƒã‚¤ãƒ©ã‚¤ãƒˆ)
 nnoremap <space>/ /\v\w+\(<cr>
 
-" gtagsŠÖ˜AActags‚Í‚¨–ğŒä–Æ
+" gtagsé–¢é€£ã€ctagsã¯ãŠå½¹å¾¡å…
 nnoremap ctags :!start ctags -R *<cr>
 " nnoremap <f12> g<c-]>
-" " V‹Kƒ^ƒu‚Åtjump‚·‚é
+" " æ–°è¦ã‚¿ãƒ–ã§tjumpã™ã‚‹
 " nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
 nnoremap gtags :!start gtags -v<cr>
 if has('kaoriya')
@@ -327,7 +329,7 @@ else
   nnoremap <s-f12> g<c-]>
 endif
 
-" Œ»İ‚ÌƒEƒBƒ“ƒhƒE‚ğ•Êƒ^ƒu‚ÉˆÚ“®‚·‚é
+" ç¾åœ¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆ¥ã‚¿ãƒ–ã«ç§»å‹•ã™ã‚‹
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
 
@@ -340,26 +342,26 @@ inoremap <a-j> <esc><c-w>j
 inoremap <a-k> <esc><c-w>k
 inoremap <a-l> <esc><c-w>l
 
-" s––‚Ü‚Åƒ„ƒ“ƒN
+" è¡Œæœ«ã¾ã§ãƒ¤ãƒ³ã‚¯
 nnoremap Y y$
-" ƒm[ƒ}ƒ‹ƒ‚[ƒh‚Å‚ÌWindowsƒNƒŠƒbƒvƒ{[ƒh‚Ö‚Ì’PŒêƒRƒs[
+" ãƒãƒ¼ãƒãƒ«ãƒ¢ãƒ¼ãƒ‰ã§ã®Windowsã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã¸ã®å˜èªã‚³ãƒ”ãƒ¼
 nnoremap <c-insert> viw"*y
-" –ˆ“xƒŒƒWƒXƒ^‚ğw’è‚·‚é‚Ì‚ª–Ê“|‚È‚Ì‚ÅAa, b, c‚¾‚¯ƒ„ƒ“ƒN‚Æƒy[ƒXƒg‚ğŠ„‚è“–‚Ä‚Ä‚¨‚­
+" æ¯åº¦ãƒ¬ã‚¸ã‚¹ã‚¿ã‚’æŒ‡å®šã™ã‚‹ã®ãŒé¢å€’ãªã®ã§ã€a, b, cã ã‘ãƒ¤ãƒ³ã‚¯ã¨ãƒšãƒ¼ã‚¹ãƒˆã‚’å‰²ã‚Šå½“ã¦ã¦ãŠã
 nnoremap <space>ya "ayiw
 nnoremap <space>yb "byiw
 nnoremap <space>yc "cyiw
 nnoremap <space>pa "ap
 nnoremap <space>pb "bp
 nnoremap <space>pc "cp
-" gp‚Íí‚ÉƒŒƒWƒXƒ^0‚ğ“\‚è•t‚¯‚é
+" gpã¯å¸¸ã«ãƒ¬ã‚¸ã‚¹ã‚¿0ã‚’è²¼ã‚Šä»˜ã‘ã‚‹
 noremap gp "0p
 
 nnoremap <space>v :tabnew ~/.vimrc<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
-" ‚¤‚Á‚©‚è‰üs‚µ‚Ä‚µ‚Ü‚Á‚½‚Æ‚«‚ÉƒCƒ“ƒfƒ“ƒg‚ğ‚·‚×‚ÄÁ‚· -> <expr>‚ğg‚Á‚½‚Ù‚¤‚ª‚«‚ê‚¢‚©‚à
-" <c-o>‚¾‚Æundo‚ª‚¨‚©‚µ‚­‚È‚é
+" ã†ã£ã‹ã‚Šæ”¹è¡Œã—ã¦ã—ã¾ã£ãŸã¨ãã«ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚’ã™ã¹ã¦æ¶ˆã™ -> <expr>ã‚’ä½¿ã£ãŸã»ã†ãŒãã‚Œã„ã‹ã‚‚
+" <c-o>ã ã¨undoãŒãŠã‹ã—ããªã‚‹
 inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 
 " cnoremap ( ()<left>
@@ -371,26 +373,26 @@ inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 nnoremap + :call g:ChangeFontSize(1)<cr>:echo &guifont<cr>
 nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
 
-" " ©ìƒRƒ}ƒ“ƒhƒTƒ“ƒvƒ‹(ˆø”‚È‚µ‚È‚çnargs‚Í—v‚ç‚È‚¢‚©‚à)
+" " è‡ªä½œã‚³ãƒãƒ³ãƒ‰ã‚µãƒ³ãƒ—ãƒ«(å¼•æ•°ãªã—ãªã‚‰nargsã¯è¦ã‚‰ãªã„ã‹ã‚‚)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
-" " ":help expression"‚Æ‚â‚é‚ÆK‚¹‚É‚È‚ê‚é‚©‚à
+" " ":help expression"ã¨ã‚„ã‚‹ã¨å¹¸ã›ã«ãªã‚Œã‚‹ã‹ã‚‚
 " function! s:MyFunc()
-"   " EXƒRƒ}ƒ“ƒh(ex-cmd-index‚à‚µ‚­‚Íexpression-commands)‚Í‚»‚Ì‚Ü‚ÜŒÄ‚Ño‚¹‚é
+"   " EXã‚³ãƒãƒ³ãƒ‰(ex-cmd-indexã‚‚ã—ãã¯expression-commands)ã¯ãã®ã¾ã¾å‘¼ã³å‡ºã›ã‚‹
 "     echo "foo"
 "     normal gg
-"   " ®‚ğ•]‰¿‚µ‚Ä‚­‚ê‚È‚¢‚à‚Ì(•Ï”‚ğ‚»‚Ì‚Ü‚Ü•¶š—ñ‚Æ‚µ‚Ä‰ğß‚µ‚Ä‚µ‚Ü‚¤‚à‚Ì)‚É‚Â‚¢‚Ä‚Íexecute‚ğg‚¤
+"   " å¼ã‚’è©•ä¾¡ã—ã¦ãã‚Œãªã„ã‚‚ã®(å¤‰æ•°ã‚’ãã®ã¾ã¾æ–‡å­—åˆ—ã¨ã—ã¦è§£é‡ˆã—ã¦ã—ã¾ã†ã‚‚ã®)ã«ã¤ã„ã¦ã¯executeã‚’ä½¿ã†
 "     let l:tabNumber = 1
-"     " ŠÔˆá‚¢
+"     " é–“é•ã„
 "     tabnext l:tabNumber
-"     " ³‰ğ
+"     " æ­£è§£
 "     execute "tabnext " . l:tabNumber
-"   " ‘g‚İ‚İŠÖ”(functions‚à‚µ‚­‚Ífunction-list)‚â©ìŠÖ”‚ğ'’¼Ú'ŒÄ‚Ño‚·‚Æ‚«‚É‚Ícall‚ğg‚¤
-"   " ‚½‚¾‚µlet‚âecho‚È‚Ç®‚ğ•]‰¿‚·‚é‚à‚Ì‚ÌŒã‚ë‚Å‚ ‚ê‚Îcall‚Í•K—v‚È‚¢
+"   " çµ„ã¿è¾¼ã¿é–¢æ•°(functionsã‚‚ã—ãã¯function-list)ã‚„è‡ªä½œé–¢æ•°ã‚’'ç›´æ¥'å‘¼ã³å‡ºã™ã¨ãã«ã¯callã‚’ä½¿ã†
+"   " ãŸã ã—letã‚„echoãªã©å¼ã‚’è©•ä¾¡ã™ã‚‹ã‚‚ã®ã®å¾Œã‚ã§ã‚ã‚Œã°callã¯å¿…è¦ãªã„
 "     call feedkeys("gg")
-"   " keypress‚ğemulate‚·‚é‚É‚Ínormal(EXƒRƒ}ƒ“ƒh)‚à‚µ‚­‚Ífeedkeys(ŠÖ”)‚ğg‚¤
-"   " ŠO•”ƒRƒ}ƒ“ƒh(ƒVƒFƒ‹ƒRƒ}ƒ“ƒh)‚Ísystem
-"   " “Áê‚È•\Œ»‚ğ•¶š—ñ‚É“WŠJ‚µ‚½‚¢‚Æ‚«‚Íexpand
+"   " keypressã‚’emulateã™ã‚‹ã«ã¯normal(EXã‚³ãƒãƒ³ãƒ‰)ã‚‚ã—ãã¯feedkeys(é–¢æ•°)ã‚’ä½¿ã†
+"   " å¤–éƒ¨ã‚³ãƒãƒ³ãƒ‰(ã‚·ã‚§ãƒ«ã‚³ãƒãƒ³ãƒ‰)ã¯system
+"   " ç‰¹æ®Šãªè¡¨ç¾ã‚’æ–‡å­—åˆ—ã«å±•é–‹ã—ãŸã„ã¨ãã¯expand
 " endfunction
 
 command! FooBarTest call g:FooBarTest()
@@ -399,9 +401,9 @@ function! g:FooBarTest(...)
   return ""
 endfunction
 
-" Œ»İƒtƒ@ƒCƒ‹‚ÌˆÊ’u‚ÉˆÚ“®‚·‚éƒRƒ}ƒ“ƒh
-" ƒRƒ}ƒ“ƒh‚Í«—ˆ“I‚É•Êƒtƒ@ƒCƒ‹‚É‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚©‚àB
-" kaoriya‚Ìê‡Acmdex.vim‚É‚Ü‚Á‚½‚­“¯‚¶‚à‚Ì‚ªCdCurrent‚Å’è‹`‚µ‚Ä‚ ‚éB
+" ç¾åœ¨ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½ç½®ã«ç§»å‹•ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰
+" ã‚³ãƒãƒ³ãƒ‰ã¯å°†æ¥çš„ã«åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã«ã—ãŸã»ã†ãŒã„ã„ã‹ã‚‚ã€‚
+" kaoriyaã®å ´åˆã€cmdex.vimã«ã¾ã£ãŸãåŒã˜ã‚‚ã®ãŒCdCurrentã§å®šç¾©ã—ã¦ã‚ã‚‹ã€‚
 " command! -nargs=0 Cd cd %:p:h
 command! Cd call s:CdToGitRoot()
 
@@ -449,8 +451,8 @@ function! g:DoGrep()
   if l:warnings != ""
     echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
     let l:c = getchar()
-    " ‚â‚è‚½‚¢‚Ì‚Í == "\<esc>" ‚È‚ñ‚¾‚¯‚ÇA‚¤‚Ü‚­‚¢‚©‚È‚¢B’¼‚µ‚½‚¢BB
-    if l:c == 27 | redraw | echo "" | return | endif " ‚à‚Á‚Æ‚¤‚Ü‚­Á‚·•û–@‚Í‚È‚¢‚à‚Ì‚©BB
+    " ã‚„ã‚ŠãŸã„ã®ã¯ == "\<esc>" ãªã‚“ã ã‘ã©ã€ã†ã¾ãã„ã‹ãªã„ã€‚ç›´ã—ãŸã„ã€‚ã€‚
+    if l:c == 27 | redraw | echo "" | return | endif " ã‚‚ã£ã¨ã†ã¾ãæ¶ˆã™æ–¹æ³•ã¯ãªã„ã‚‚ã®ã‹ã€‚ã€‚
   endif
   if has('kaoriya')
     let l:keyHeadStr = ":tabnew \<bar> set transparency=200 \<bar> grep -iE"
@@ -466,15 +468,15 @@ endfunction
 command! -nargs=0 CloseRightTabs call s:CloseRightTabs()
 
 function! s:CloseRightTabs()
-  " ©•ª©g‚Í•Â‚¶‚È‚¢‚Ì‚Å"+1"
+  " è‡ªåˆ†è‡ªèº«ã¯é–‰ã˜ãªã„ã®ã§"+1"
   let l:firstTabNumberToClose = tabpagenr() + 1
   let l:totalTabCount = tabpagenr('$')
-  " Œã‚ë‚©‚ç‡‚É•Â‚¶‚Ä‚¢‚­
-  " ‘O‚©‚ç‚¾‚Ætab number‚ªí‚ÉXV‚³‚ê‚é‚½‚ß“¯‚¶tab number‚ğ•Â‚¶‘±‚¯‚é•K—v‚ª‚ ‚èA
-  " ‚»‚¤‚·‚é‚ÆƒGƒ‰[‚ª‹N‚«‚½‚Æ‚«‚¾‚¯•Â‚¶‚étab number‚ğincrement‚µ‚È‚¯‚ê‚Î‚È‚ç‚¸ˆ—‚ª–Ê“|
-  " –¢•Û‘¶‚Ì•ÏX‚È‚Ç‚Å•Â‚¶‚é‚±‚Æ‚ª‚Å‚«‚È‚©‚Á‚½ê‡A‚»‚Ìtab‚½‚¿‚¾‚¯‚ªc‚é
+  " å¾Œã‚ã‹ã‚‰é †ã«é–‰ã˜ã¦ã„ã
+  " å‰ã‹ã‚‰ã ã¨tab numberãŒå¸¸ã«æ›´æ–°ã•ã‚Œã‚‹ãŸã‚åŒã˜tab numberã‚’é–‰ã˜ç¶šã‘ã‚‹å¿…è¦ãŒã‚ã‚Šã€
+  " ãã†ã™ã‚‹ã¨ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã¨ãã ã‘é–‰ã˜ã‚‹tab numberã‚’incrementã—ãªã‘ã‚Œã°ãªã‚‰ãšå‡¦ç†ãŒé¢å€’
+  " æœªä¿å­˜ã®å¤‰æ›´ãªã©ã§é–‰ã˜ã‚‹ã“ã¨ãŒã§ããªã‹ã£ãŸå ´åˆã€ãã®tabãŸã¡ã ã‘ãŒæ®‹ã‚‹
   for currTabNumber in range(l:firstTabNumberToClose, l:totalTabCount)
-    " ‚â‚â‚±‚µ‚¢BBB
+    " ã‚„ã‚„ã“ã—ã„ã€‚ã€‚ã€‚
     let l:tabNumberToClose = l:totalTabCount - (currTabNumber - l:firstTabNumberToClose)
     execute "tabclose " . l:tabNumberToClose
   endfor
@@ -494,11 +496,11 @@ endfunction
 
 function! g:GoToFirstColumn()
   let l:orgColumn = col(".")
-  " ˆê“x'^'‚ÅˆÚ“®
+  " ä¸€åº¦'^'ã§ç§»å‹•
   normal ^
   if l:orgColumn != 1 && l:orgColumn <= col(".")
-    " 1—ñ–Ú‚¾‚Á‚½‚ç‰½‚à‚µ‚È‚¢('^'‚Å‚â‚ß‚é)
-    " æ“ª‚æ‚è‘O‚¾‚Á‚½‚ç‚³‚ç‚É'0'‚ÉˆÚ“®
+    " 1åˆ—ç›®ã ã£ãŸã‚‰ä½•ã‚‚ã—ãªã„('^'ã§ã‚„ã‚ã‚‹)
+    " å…ˆé ­ã‚ˆã‚Šå‰ã ã£ãŸã‚‰ã•ã‚‰ã«'0'ã«ç§»å‹•
     normal! 0
   endif
 endfunction
@@ -538,9 +540,9 @@ endfunction
 
 function! g:BsForInsertMode()
   if getline(".") =~# '^[ \t]\+$'
-    return "\<c-u>" " ƒCƒ“ƒfƒ“ƒg‚Ì‚İ‚Ìê‡‚Í‚·‚×‚ÄÁ‚·
+    return "\<c-u>" " ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã®ã¿ã®å ´åˆã¯ã™ã¹ã¦æ¶ˆã™
   else
-    return "\<c-h>" " ‚»‚êˆÈŠO‚Ìê‡‚Í1•¶šÁ‚·
+    return "\<c-h>" " ãã‚Œä»¥å¤–ã®å ´åˆã¯1æ–‡å­—æ¶ˆã™
   endif
 endfunction
 
@@ -578,14 +580,14 @@ function! g:ChangeFontSize(diff)
     echoerr "err"
     return
   else
-    let l:sizeStartPos += 2 " ”šŠJn•”•ª‚Ü‚ÅˆÚ“®
+    let l:sizeStartPos += 2 " æ•°å­—é–‹å§‹éƒ¨åˆ†ã¾ã§ç§»å‹•
   endif
   let l:sizeEndPos = stridx(&guifont, ":", l:sizeStartPos)
   if (l:sizeEndPos == -1)
     echoerr "err"
     return
   else
-    let l:sizeEndPos -= 1 " ”šI—¹•”•ª‚Ü‚ÅˆÚ“®
+    let l:sizeEndPos -= 1 " æ•°å­—çµ‚äº†éƒ¨åˆ†ã¾ã§ç§»å‹•
   endif
   let l:orgFontSize = str2nr(&guifont[l:sizeStartPos:l:sizeEndPos])
   let l:newFontSize = printf("%d", l:orgFontSize + a:diff)
