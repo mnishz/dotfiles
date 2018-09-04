@@ -2,15 +2,9 @@
     path = .gitconfig.local
 [core]
 	pager = nkf32 -w | less
-# 	pager = LESSCHARSET=utf-8 nkf32 -Ew | less
-    # 自動判定も変換も一番うまく行く
-# 	pager = LESSCHARSET=utf-8 nkf32 -w | less
-# 	pager = LESSCHARSET=utf-8 iconv -t UTF-8 | less
 	quotepath = false
 [alias]
 	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --date=short
-[diff]
-	tool = WinMerge
 [difftool "WinMerge"]
 	path = W:/FreeSoft/WinMergePortable/WinMergePortable.exe
 	cmd = \"W:/FreeSoft/WinMergePortable/WinMergePortable.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
