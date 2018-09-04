@@ -61,7 +61,7 @@ else
     " guessを使いたい、が、それより前にeuc-jpを持ってくる
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
     " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
-    set shellpipe=2>\&1\ \|\ nkf32\ -Es\ >\ %s
+    set shellpipe=2>\&1\ \|\ nkf32\ -s\ >\ %s
   endif
 
   " うーん、defaultの設定とどっちがいいか分からん。後で消すかも。。。
@@ -593,7 +593,7 @@ function! g:ChangeFontSize(diff)
 endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
-command! Term vert term ++noclose
+command! Term vert term ++noclose bash
 
 set secure
 
