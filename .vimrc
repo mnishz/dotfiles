@@ -5,11 +5,11 @@ if !exists("g:office_work") | let g:office_work = v:false | endif
 if !exists("g:help_translation") | let g:help_translation = v:false | endif
 
 if g:help_translation
-  " for vimdoc-ja-working
+  " settings for vimdoc-ja-working
   set fileencoding=utf-8
   set fileformat=unix
   set encoding=utf-8
-  let autofmt_allow_over_tw=1
+  let g:autofmt_allow_over_tw = 1
   set formatoptions+=mM
 endif
 
@@ -25,17 +25,16 @@ if !isdirectory(s:swap_path) | call mkdir(s:swap_path, "p") | endif
 let &backupdir = s:bak_path
 let &undodir = s:undo_path
 let &directory = s:swap_path
+set backup
+set writebackup
+set undofile
+set swapfile
 
 if !has('kaoriya')
 
   set t_Co=256
   colorscheme torte
   set fileencodings=euc-jp,cp932,utf-8,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
-
-  set backup
-  set writebackup
-  set undofile
-  set swapfile
 
   " https://qiita.com/mwmsnn/items/0b40662a22162907efae
   " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
@@ -52,17 +51,15 @@ if !has('kaoriya')
   filetype plugin on
   filetype indent on
 
-  hi Ignore ctermfg=red
-
   " (:bro olで表示される)ファイルの履歴を60までに制限する。その他はデフォルトの設定。
   set viminfo='60,<50,s10,h
 
 else
 
   if g:office_work
-    " guessを使いたい、が、それより前にeuc-jpを持ってくる
+    " guessを使いたい、が、会社のファイルはほとんどeuc-jpなので、それより前に持ってくる
     set fileencodings=euc-jp,guess,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3,utf-8,euc-jisx0213
-    " grepの結果をeuc-jp -> shift_jisに(Gtagsの結果についてはgtags.vimで対策)
+    " grepの結果を(euc-jpから)shift_jisに(Gtagsの結果についてはgtags.vimで対策)
     set shellpipe=2>\&1\ \|\ nkf32\ -s\ >\ %s
   endif
 
@@ -145,13 +142,14 @@ set nowrapscan
 set incsearch
 set hlsearch
 
-" set grepprg=grep\ -n
 set grepprg=git\ grep\ --line-number
 
+" 既にファイル内にあるタブ文字を空白何個分で表示するか
 set tabstop=4
-
-set shiftwidth=4
+" タブ文字の代わりに空白を入力する
 set expandtab
+" タブ文字の代わりに空白を 4 つ入力する
+set shiftwidth=4
 
 if g:office_work
 "   set shiftwidth=2
@@ -161,7 +159,6 @@ endif
 
 set autoindent
 set smartindent
-" set cindent
 
 set nowrap
 set showmatch
@@ -182,7 +179,7 @@ set nostartofline
 set nrformats-=octal
 
 set path+=**
-" 時間がかかりすぎる。。
+" この path の設定だと時間がかかりすぎるので include を除外
 set complete-=i
 
 set diffopt+=vertical
@@ -214,11 +211,6 @@ if !g:help_translation
   set textwidth=0
 endif
 
-" set tags=./tags;
-
-" 代わりに(:Cd)を使うことにした。
-" set autochdir
-
 " リモート環境では<ctrl + 特殊キー>はほとんど動かない
 if !has('kaoriya')
   " <c-i> が置き換わってしまう
@@ -238,9 +230,10 @@ else
   " ctrl-+/ctrl--でtabを隣に移動
   noremap <c-kPlus> :tabm+<cr>
   noremap <c-kMinus> :tabm-<cr>
-  " 改行
-  noremap <c-cr> o<esc>
 endif
+
+" 改行
+noremap <cr> o<esc>
 
 noremap <c-f4> :tabc<cr>
 noremap <space>c :tabc<cr>
@@ -266,8 +259,8 @@ nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
 noremap <space><space> :call g:ToggleComment()<cr>
 " 検索の履歴をたどるときはvery magicをはずす
-nnoremap /<up> :set imsearch=0<cr>/<up>
 noremap  /<up> /<up>
+nnoremap /<up> :set imsearch=0<cr>/<up>
 " *をvery magicで検索するように置き換える、(遠い)次の検索候補に飛んでしまうのが嫌なので<bs>で一個戻ってから検索する
 nnoremap * yiw<bs>/\v<c-r>0<cr>
 " 単語で検索
