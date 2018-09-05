@@ -1,12 +1,11 @@
 [include]
     path = .gitconfig.local
 [core]
-	pager = nkf32 -w | less
+	pager = nkf32 -w | less -i
 	quotepath = false
 [alias]
-	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --date=short
+	graph = log --graph -C -M --pretty=format:\"%C(auto)%h %ad [%an]%d %s\" --date=short --date-order
+	windiff = difftool -y -d -t WinMerge
 [difftool "WinMerge"]
 	path = W:/FreeSoft/WinMergePortable/WinMergePortable.exe
 	cmd = \"W:/FreeSoft/WinMergePortable/WinMergePortable.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
-[alias]
-	windiff = difftool -y -d -t WinMerge
