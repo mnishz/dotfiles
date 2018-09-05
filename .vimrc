@@ -148,7 +148,7 @@ set grepprg=git\ grep\ --line-number
 set tabstop=4
 " タブ文字の代わりに空白を入力する
 set expandtab
-" タブ文字の代わりに空白を 4 つ入力する
+" タブ文字の代わりに空白を4つ入力する
 set shiftwidth=4
 
 if g:office_work
@@ -183,6 +183,13 @@ set path+=**
 set complete-=i
 
 set diffopt+=vertical
+
+set clipboard+=unnamed
+
+augroup CopyFromClipboard
+  autocmd!
+  autocmd FocusGained * let @" = @+
+augroup END
 
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD
@@ -232,8 +239,8 @@ else
   noremap <c-kMinus> :tabm-<cr>
 endif
 
-" 改行
-noremap <cr> o<esc>
+" 改行、普段使わないので<cr>だけにマップしたいけど、grep結果にも影響あるので要検討
+noremap <c-cr> o<esc>
 
 noremap <c-f4> :tabc<cr>
 noremap <space>c :tabc<cr>
