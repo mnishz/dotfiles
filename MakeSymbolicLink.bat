@@ -1,0 +1,5 @@
+mklink %HOMEPATH%"\.vimrc" %HOMEPATH%"\dotfiles\.vimrc"
+mklink %HOMEPATH%"\.gvimrc" %HOMEPATH%"\dotfiles\.gvimrc"
+mklink %HOMEPATH%"\.dein.toml" %HOMEPATH%"\dotfiles\.dein.toml"
+mklink %HOMEPATH%"\.gitconfig" %HOMEPATH%"\dotfiles\.gitconfig"
+mklink /d %HOMEPATH%"\vimfiles" %HOMEPATH%"\dotfiles\vimfiles"
