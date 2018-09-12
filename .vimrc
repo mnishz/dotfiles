@@ -218,6 +218,9 @@ if !g:help_translation
   set textwidth=0
 endif
 
+nnoremap <space>h :tabp<cr>
+nnoremap <space>l :tabn<cr>
+
 " リモート環境では<ctrl + 特殊キー>はほとんど動かない
 if !has('kaoriya')
   " <c-i> が置き換わってしまう
