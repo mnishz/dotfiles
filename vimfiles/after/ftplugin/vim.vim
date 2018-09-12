@@ -1,2 +1,2 @@
 let b:comment_text = '"'
-set shiftwidth=2
+set tabstop=2

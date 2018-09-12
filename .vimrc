@@ -146,13 +146,15 @@ set grepprg=git\ grep\ --line-number
 
 " 既にファイル内にあるタブ文字を空白何個分で表示するか
 set tabstop=4
+" tabstopに合わせる
+set shiftwidth=0
+" shiftwidthに合わせる
+set softtabstop=-1
 " タブ文字の代わりに空白を入力する
 set expandtab
-" タブ文字の代わりに空白を4つ入力する
-set shiftwidth=4
 
 if g:office_work
-"   set shiftwidth=2
+"   set tabstop=2
 elseif g:help_translation
   set noexpandtab
 endif
@@ -602,4 +604,4 @@ command! Term vert term ++noclose bash
 
 set secure
 
-" vim: shiftwidth=2
+" vim: tabstop=2
