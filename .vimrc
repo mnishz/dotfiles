@@ -148,8 +148,8 @@ set grepprg=git\ grep\ --line-number
 set tabstop=4
 " tabstopに合わせる
 set shiftwidth=0
-" shiftwidthに合わせる
-set softtabstop=-1
+" shiftwidthに合わせる -> やっぱり使わない
+set softtabstop=0
 " タブ文字の代わりに空白を入力する
 set expandtab
 
@@ -330,8 +330,8 @@ if has('kaoriya')
   nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
   nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 else
-  nnoremap <f12> :sp<cr><c-w>T<c-]>
-  nnoremap <s-f12> g<c-]>
+  nnoremap <f12> :sp<cr><c-w>T:GtagsCursor<cr>
+  nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 endif
 
 " 現在のウィンドウを別タブに移動する
@@ -544,8 +544,11 @@ function! s:CGoTo(listNumber)
 endfunction
 
 function! g:BsForInsertMode()
-  if getline(".") =~# '^[ \t]\+$'
+  let l:text = getline('.')
+  if l:text =~# '^\s\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
+  elseif l:text =~# '^\s*' . b:comment_text . ' *$'
+    return repeat("\<c-h>", strlen(l:text) - stridx(l:text, b:comment_text))
   else
     return "\<c-h>" " それ以外の場合は1文字消す
   endif

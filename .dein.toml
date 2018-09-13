@@ -17,8 +17,8 @@ hook_add = '''
   " 日本語表示でカーソルを赤くする
   autocmd MyAutoCmd ColorScheme * highlight CursorIM guibg=Red
   " Italicをやめる
-  autocmd MyAutoCmd ColorScheme * highlight Macro gui=None
-  autocmd MyAutoCmd ColorScheme * highlight Special gui=None
+  autocmd MyAutoCmd ColorScheme * highlight Macro gui=NONE
+  autocmd MyAutoCmd ColorScheme * highlight Special gui=NONE
   " Boldをつける
   autocmd MyAutoCmd ColorScheme * highlight Error gui=Bold guifg=Red
 '''
