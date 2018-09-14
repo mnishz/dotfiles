@@ -57,5 +57,5 @@ hook_add = '''
   nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
   nmap <Space>M <Plug>(quickhl-manual-reset)
   xmap <Space>M <Plug>(quickhl-manual-reset)
-  nmap <Space>l :QuickhlManualList<cr>
+  nmap <Space>L :QuickhlManualList<cr>
 '''

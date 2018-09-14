@@ -213,6 +213,23 @@ augroup BinaryXXD
   autocmd BufWritePost * endif
 augroup END
 
+" shell側で対応する？
+" git status --short | grep "^ M " | cut -c 4- | xargs -I FILE nkf32 -ex --in-place FILE
+if g:office_work
+  augroup ConvertEucjp
+    autocmd!
+    autocmd BufWritePost * if &fileencoding ==# "euc-jp"
+    autocmd BufWritePost *   let b:DoConvert = v:true
+    autocmd BufWritePost * endif
+    " BufUnload -> BufDelete -> BufWipeout
+    " Vimを終了したときはBufUnloadしか呼ばれないっぽい
+    autocmd BufUnload * if exists("b:DoConvert") && b:DoConvert
+    autocmd BufUnload *   !start nkf32 -Eex --in-place %
+    autocmd BufUnload *   let b:DoConvert = v:false
+    autocmd BufUnload * endif
+  augroup END
+endif
+
 hi Ignore ctermfg=red
 
 if !g:help_translation
