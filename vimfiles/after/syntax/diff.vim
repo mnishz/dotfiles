@@ -1,5 +1,5 @@
-highlight diffRemoved ctermfg=DarkGreen guifg=Green
-highlight diffAdded ctermfg=DarkRed guifg=Red
+highlight diffRemoved ctermfg=DarkRed guifg=Red
+highlight diffAdded ctermfg=DarkGreen guifg=Green
 highlight diffFile term=standout gui=standout
 highlight diffOldFile term=NONE gui=NONE
 highlight diffNewFile term=NONE gui=NONE
