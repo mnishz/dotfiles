@@ -153,12 +153,6 @@ set softtabstop=0
 " タブ文字の代わりに空白を入力する
 set expandtab
 
-if g:office_work
-"   set tabstop=2
-elseif g:help_translation
-  set noexpandtab
-endif
-
 set autoindent
 set smartindent
 
@@ -564,7 +558,7 @@ function! g:BsForInsertMode()
   let l:text = getline('.')
   if l:text =~# '^\s\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
-  elseif l:text =~# '^\s*' . b:comment_text . ' *$'
+  elseif exists('b:comment_text') && l:text =~# '^\s*' . b:comment_text . ' *$'
     return repeat("\<c-h>", strlen(l:text) - stridx(l:text, b:comment_text))
   else
     return "\<c-h>" " それ以外の場合は1文字消す
