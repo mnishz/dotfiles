@@ -184,7 +184,7 @@ set clipboard+=unnamed
 
 augroup CopyFromClipboard
   autocmd!
-  autocmd FocusGained * let @" = @+
+  autocmd FocusGained * let @" = @*
 augroup END
 
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
@@ -216,7 +216,17 @@ if g:office_work
     autocmd BufWritePost *   let b:DoConvert = v:true
     autocmd BufWritePost * endif
     " BufUnload -> BufDelete -> BufWipeout
-    " Vimを終了したときはBufUnloadしか呼ばれないっぽい
+    " Vimを終了したときはBufUnloadしか呼ばれないっぽい？よく分からない
+    autocmd BufLeave * if exists("b:DoConvert") && b:DoConvert
+"     autocmd BufLeave *   let b:orgAutoRead = &autoread
+"     autocmd BufLeave *   setlocal autoread
+    autocmd BufLeave *   silent !nkf32 -Eex --in-place %
+    autocmd BufLeave *   e
+"     autocmd BufLeave *   if b:orgAutoRead == v:false
+"     autocmd BufLeave *     setlocal noautoread
+"     autocmd BufLeave *   endif
+    autocmd BufLeave *   let b:DoConvert = v:false
+    autocmd BufLeave * endif
     autocmd BufUnload * if exists("b:DoConvert") && b:DoConvert
     autocmd BufUnload *   !start nkf32 -Eex --in-place %
     autocmd BufUnload *   let b:DoConvert = v:false
@@ -225,11 +235,6 @@ if g:office_work
 endif
 
 hi Ignore ctermfg=red
-
-if !g:help_translation
-  " コメントでの自動改行を抑止
-  set textwidth=0
-endif
 
 nnoremap <space>h :tabp<cr>
 nnoremap <space>l :tabn<cr>
@@ -615,6 +620,15 @@ endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
 command! Term vert term ++noclose bash
+
+function! s:Redir(command)
+  " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
+  redir @*
+  silent execute a:command
+  redir END
+endfunction
+
+command! -nargs=1 Redir call s:Redir(<args>)
 
 set secure
 
