@@ -130,7 +130,6 @@ endif
 " Required:
 filetype plugin indent on
 syntax enable
-
 "End dein Scripts-------------------------
 
 set title titlestring=%F
@@ -234,10 +233,12 @@ if g:office_work
   augroup END
 endif
 
-hi Ignore ctermfg=red
-
 nnoremap <space>h :tabp<cr>
 nnoremap <space>l :tabn<cr>
+nnoremap <c-w><space>h <c-w>:tabp<cr>
+nnoremap <c-w><space>l <c-w>:tabn<cr>
+tnoremap <c-w><space>h <c-w>:tabp<cr>
+tnoremap <c-w><space>l <c-w>:tabn<cr>
 
 " リモート環境では<ctrl + 特殊キー>はほとんど動かない
 if !has('kaoriya')
