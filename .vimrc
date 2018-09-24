@@ -181,11 +181,6 @@ set diffopt+=vertical
 
 set clipboard+=unnamed
 
-augroup CopyFromClipboard
-  autocmd!
-  autocmd FocusGained * let @" = @*
-augroup END
-
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD
   autocmd!
