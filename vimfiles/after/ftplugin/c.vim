@@ -13,7 +13,7 @@ function! SetTabstop()
   let l:aborted = v:false
   while v:true
     call cursor(l:curly_bracket_pos + 1, 1)
-    let l:curly_bracket_pos = search('\v(^.*\{\n|^.*\{\s*\/)', 'c', l:MAX_SEARCH_LINE)
+    let l:curly_bracket_pos = search('\v^(\{|[^ \t/].*\{)(\n|\s*\/)', 'c', l:MAX_SEARCH_LINE)
     if l:curly_bracket_pos == 0 | break | endif
     let l:first_indent_pos = search('\v^ +[^ ]', 'ce', l:MAX_SEARCH_LINE)
     if l:first_indent_pos == 0 | break | endif
@@ -33,13 +33,17 @@ function! SetTabstop()
     endif
   endwhile
   if !l:aborted && (l:max_count != 0)
-    for index in range(l:MAX_TABSTOP)
-      if l:indent_array[index] == l:max_count
-        let &tabstop = index + 1
-        " for debug: echo "not found, ts = " . &tabstop . ", count = " . l:max_count
-        break
-      endif
-    endfor
+    if l:indent_array[3] == l:max_count
+      let &tabstop = 4
+    else
+      for index in range(l:MAX_TABSTOP)
+        if l:indent_array[index] == l:max_count
+          let &tabstop = index + 1
+          " for debug: echo "not found, ts = " . &tabstop . ", count = " . l:max_count
+          break
+        endif
+      endfor
+    endif
   endif
   call setpos('.', l:org_cursor_pos)
 endfunction

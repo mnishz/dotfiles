@@ -327,13 +327,10 @@ endif
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\(<cr>
 
-" gtags関連、ctagsはお役御免
-nnoremap ctags :!start ctags -R *<cr>
-" nnoremap <f12> g<c-]>
-" " 新規タブでtjumpする
-" nnoremap <c-f12> :sp<cr><c-w>Tg<c-]>
-nnoremap gtags :!start gtags -v<cr>
+" gtags関連、ctagsも一応残す
 if has('kaoriya')
+  nnoremap ctags :!start ctags -R *<cr>
+  nnoremap gtags :!start gtags -v<cr>
   nnoremap <f11> :Gtags -f %<cr>
   nnoremap <f12> :GtagsCursor<cr>
   nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
@@ -342,6 +339,8 @@ if has('kaoriya')
   nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
   nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 else
+  nnoremap ctags :!ctags -R *<cr>
+  nnoremap gtags :!gtags -v<cr>
   nnoremap <f12> :sp<cr><c-w>T:GtagsCursor<cr>
   nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 endif
