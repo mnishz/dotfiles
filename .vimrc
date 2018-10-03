@@ -390,6 +390,9 @@ inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 nnoremap + :call g:ChangeFontSize(1)<cr>:echo &guifont<cr>
 nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
 
+nnoremap <space>k :call g:MoveUpwardDownward(v:true)<cr>
+nnoremap <space>j :call g:MoveUpwardDownward(v:false)<cr>
+
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
@@ -622,6 +625,15 @@ function! s:Redir(command)
   redir @*
   silent execute a:command
   redir END
+endfunction
+
+function! g:MoveUpwardDownward(upward)
+  let l:searchStr = '^' . getline('.')[:getcurpos()[2]-2] . '\S'
+  if a:upward
+    call search(l:searchStr, 'bez')
+  else
+    call search(l:searchStr, 'ez')
+  endif
 endfunction
 
 command! -nargs=1 Redir call s:Redir(<args>)
