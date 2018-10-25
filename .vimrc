@@ -4,6 +4,9 @@ scriptencoding utf-8
 if !exists("g:office_work") | let g:office_work = v:false | endif
 if !exists("g:help_translation") | let g:help_translation = v:false | endif
 
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
 if g:help_translation
   " settings for vimdoc-ja-working
   set fileencoding=utf-8
@@ -274,7 +277,7 @@ vnoremap <c-k> 3k
 noremap ; $
 vnoremap ; $h
 " 文字列の先頭に移動(すでに先頭であれば1列目に移動)
-noremap <silent> 0 :call g:GoToFirstColumn()<cr>
+noremap <silent> 0 :call <SID>GoToFirstColumn()<cr>
 vnoremap 0 ^
 
 " 常にvery magicで検索する
@@ -282,7 +285,7 @@ noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
-noremap <space><space> :call g:ToggleComment()<cr>
+noremap <space><space> :call <SID>ToggleComment()<cr>
 " 検索の履歴をたどるときはvery magicをはずす
 noremap  /<up> /<up>
 nnoremap /<up> :set imsearch=0<cr>/<up>
@@ -302,12 +305,12 @@ nnoremap <c-h> :%s///g<left><left>
 vnoremap <c-h> :s///g<left><left>
 
 " grep
-nnoremap <silent> <c-g> :call g:DoGrep()<cr>
+nnoremap <silent> <c-g> :call <SID>DoGrep()<cr>
 
-nnoremap <expr> } g:CurlyBracket("}")
-nnoremap <expr> { g:CurlyBracket("{")
+nnoremap <expr> } <SID>CurlyBracket("}")
+nnoremap <expr> { <SID>CurlyBracket("{")
 
-function! g:CurlyBracket(text)
+function! s:CurlyBracket(text)
   if a:text == "}"
     return &diff ? "]c" : ":cn\<cr>"
   elseif a:text == "{"
@@ -379,7 +382,7 @@ noremap <c-z> :echo "nop"<cr>
 
 " うっかり改行してしまったときにインデントをすべて消す -> <expr>を使ったほうがきれいかも
 " <c-o>だとundoがおかしくなる
-inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
+inoremap <silent> <bs> <c-r>=<SID>BsForInsertMode()<cr>
 
 " cnoremap ( ()<left>
 " cnoremap { {}<left>
@@ -387,11 +390,11 @@ inoremap <silent> <bs> <c-r>=g:BsForInsertMode()<cr>
 " cnoremap " ""<left>
 " cnoremap ' ''<left>
 
-nnoremap + :call g:ChangeFontSize(1)<cr>:echo &guifont<cr>
-nnoremap - :call g:ChangeFontSize(-1)<cr>:echo &guifont<cr>
+nnoremap + :call <SID>ChangeFontSize(1)<cr>:echo &guifont<cr>
+nnoremap - :call <SID>ChangeFontSize(-1)<cr>:echo &guifont<cr>
 
-nnoremap <space>k :call g:MoveUpwardDownward(v:true)<cr>
-nnoremap <space>j :call g:MoveUpwardDownward(v:false)<cr>
+nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
+nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
@@ -415,8 +418,8 @@ nnoremap <space>j :call g:MoveUpwardDownward(v:false)<cr>
 "   " 特殊な表現を文字列に展開したいときはexpand
 " endfunction
 
-command! FooBarTest call g:FooBarTest()
-function! g:FooBarTest(...)
+command! FooBarTest call s:FooBarTest()
+function! s:FooBarTest(...)
   echo "bar"
   return ""
 endfunction
@@ -459,7 +462,7 @@ function! s:CdToGitRoot()
   endif
 endfunction
 
-function! g:DoGrep()
+function! s:DoGrep()
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
   if l:gitRootOfPwd != s:GetGitRootPath()
@@ -514,7 +517,7 @@ function! s:Ccl()
   execute "tabnext " . l:orgTabNumber
 endfunction
 
-function! g:GoToFirstColumn()
+function! s:GoToFirstColumn()
   let l:orgColumn = col(".")
   " 一度'^'で移動
   normal ^
@@ -558,7 +561,7 @@ function! s:CGoTo(listNumber)
   endif
 endfunction
 
-function! g:BsForInsertMode()
+function! s:BsForInsertMode()
   let l:text = getline('.')
   if l:text =~# '^\s\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
@@ -581,7 +584,7 @@ function! g:MyStatusLine()
   endif
 endfunction
 
-function! g:ToggleComment() range
+function! s:ToggleComment() range
   if !exists('b:comment_text') | echoerr 'no b:comment_text' | return | endif
   let l:comment_text = escape(b:comment_text, '/$.*~')
   if getline(a:firstline) =~ '^\s*' . l:comment_text . ' '
@@ -597,7 +600,7 @@ function! g:ToggleComment() range
   execute l:substitute_text
 endfunction
 
-function! g:ChangeFontSize(diff)
+function! s:ChangeFontSize(diff)
   let l:sizeStartPos = stridx(&guifont, ":h")
   if (l:sizeStartPos == -1)
     echoerr "err"
@@ -627,7 +630,7 @@ function! s:Redir(command)
   redir END
 endfunction
 
-function! g:MoveUpwardDownward(upward)
+function! s:MoveUpwardDownward(upward)
   let l:searchStr = '^' . getline('.')[:getcurpos()[2]-2] . '\S'
   if a:upward
     call search(l:searchStr, 'bez')
@@ -640,4 +643,5 @@ command! -nargs=1 Redir call s:Redir(<args>)
 
 set secure
 
-" vim: tabstop=2
+" modeline
+" vim: expandtab tabstop=2 textwidth=0
