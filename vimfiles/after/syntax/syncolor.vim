@@ -1,0 +1,1 @@
+highlight StatusLineTerm ctermbg=Red

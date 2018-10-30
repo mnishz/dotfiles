@@ -310,6 +310,9 @@ nnoremap <silent> <c-g> :call <SID>DoGrep()<cr>
 nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
+let @d = '?^@/-l"aye?^---wll"bY:rightbelow vert new b:a'
+tnoremap @d N@d
+
 function! s:CurlyBracket(text)
   if a:text == "}"
     return &diff ? "]c" : ":cn\<cr>"
