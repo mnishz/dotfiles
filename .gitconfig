@@ -11,9 +11,7 @@
 [alias]
 	graph = log --graph -C -M --pretty=format:\"%C(auto)%h %ad [%an]%d %s\" --date=short --date-order
 	windiff = difftool -y -d -t WinMerge
-[difftool "WinMerge"]
-	path = W:/FreeSoft/WinMergePortable/WinMergePortable.exe
-	cmd = \"W:/FreeSoft/WinMergePortable/WinMergePortable.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
+    vimdiff = difftool -t vimdiff --no-prompt
 [include]
     # ÅŒã‚Élocal‚Ì“à—e‚Åã‘‚«
     path = .gitconfig.local

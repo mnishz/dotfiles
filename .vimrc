@@ -431,7 +431,8 @@ endfunction
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 " command! -nargs=0 Cd cd %:p:h
-command! Cd call s:CdToGitRoot()
+command! Cd call s:CdToGitRoot(v:false)
+command! Lcd call s:CdToGitRoot(v:true)
 
 function! s:GetGitRootPath(...)
   if a:0 > 1
@@ -455,12 +456,16 @@ function! s:GetGitRootPath(...)
   return l:result
 endfunction
 
-function! s:CdToGitRoot()
+function! s:CdToGitRoot(isLcd)
   let l:gitRootPath = s:GetGitRootPath()
   if empty(l:gitRootPath)
     echo "no root..."
   else
-    execute "cd " . l:gitRootPath
+    if a:isLcd
+      execute "lcd " . l:gitRootPath
+    else
+      execute "cd " . l:gitRootPath
+    endif
     echo l:gitRootPath
   endif
 endfunction
