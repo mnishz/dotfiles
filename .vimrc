@@ -348,7 +348,7 @@ if has('kaoriya')
 else
   nnoremap ctags :!ctags -R *<cr>
   nnoremap gtags :!gtags -v<cr>
-  nnoremap <f12> :sp<cr><c-w>T:GtagsCursor<cr>
+  nnoremap <f12> :GtagsCursor<cr>
   nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 endif
 
