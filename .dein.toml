@@ -50,6 +50,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'mnishz/notes.vim'
+
+[[plugins]]
 repo = 't9md/vim-quickhl'
 hook_add = '''
   nmap <Space>m <Plug>(quickhl-manual-this)
