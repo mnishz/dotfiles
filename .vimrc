@@ -630,6 +630,7 @@ endfunction
 
 command! ReloadWithEucJp e ++enc=euc-jp
 command! Term vert term ++noclose bash
+command! TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
 function! s:Redir(command)
   " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
