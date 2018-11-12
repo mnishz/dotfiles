@@ -53,6 +53,9 @@ hook_add = '''
 repo = 'mnishz/notes.vim'
 
 [[plugins]]
+repo = 'mnishz/foobar'
+
+[[plugins]]
 repo = 't9md/vim-quickhl'
 hook_add = '''
   nmap <Space>m <Plug>(quickhl-manual-this)

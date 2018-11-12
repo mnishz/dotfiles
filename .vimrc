@@ -1,5 +1,3 @@
-scriptencoding utf-8
-
 " 会社での作業用設定
 if !exists("g:office_work") | let g:office_work = v:false | endif
 if !exists("g:help_translation") | let g:help_translation = v:false | endif
@@ -15,6 +13,8 @@ if g:help_translation
   let g:autofmt_allow_over_tw = 1
   set formatoptions+=mM
 endif
+
+scriptencoding utf-8
 
 " バックアップ用ファイルとundo用ファイルを、元ファイルの場所ではなく一箇所にまとめる。
 " swapファイルも追加
