@@ -496,7 +496,7 @@ function! s:DoGrep()
   call feedkeys(l:keyHeadStr . " \"\" \<bar> cw\<left>\<left>\<left>\<left>\<left>\<left>")
 endfunction
 
-command! -nargs=0 CloseRightTabs call s:CloseRightTabs()
+command! CloseRightTabs call s:CloseRightTabs()
 
 function! s:CloseRightTabs()
   " 自分自身は閉じないので"+1"
@@ -514,7 +514,7 @@ function! s:CloseRightTabs()
   echo "done!"
 endfunction
 
-command! -nargs=0 Ccl call s:Ccl()
+command! Ccl call s:Ccl()
 
 function! s:Ccl()
   let l:orgTabNumber = tabpagenr()
@@ -648,7 +648,7 @@ function! s:MoveUpwardDownward(upward)
   endif
 endfunction
 
-command! -nargs=1 Redir call s:Redir(<args>)
+command! -nargs=1 -complete=command Redir call s:Redir(<f-args>)
 
 set secure
 
