@@ -399,6 +399,8 @@ nnoremap - :call <SID>ChangeFontSize(-1)<cr>:echo &guifont<cr>
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
+noremap! <expr> <c-r>/ FooBarTest()
+
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
@@ -645,6 +647,14 @@ function! s:MoveUpwardDownward(upward)
     call search(l:searchStr, 'bez')
   else
     call search(l:searchStr, 'ez')
+  endif
+endfunction
+
+function! s:PasteSlash() abort
+  if @/[0:1] ==? '\v'
+    return @/[2:-1]
+  else
+    return @/
   endif
 endfunction
 
