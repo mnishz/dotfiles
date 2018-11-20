@@ -399,7 +399,7 @@ nnoremap - :call <SID>ChangeFontSize(-1)<cr>:echo &guifont<cr>
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
-noremap! <expr> <c-r>/ FooBarTest()
+noremap! <expr> <c-r>/ <SID>PasteSlash()
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
 " command! -nargs=0 MyFunc call s:MyFunc()
