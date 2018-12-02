@@ -53,7 +53,7 @@ hook_add = '''
 repo = 'mnishz/notes.vim'
 
 [[plugins]]
-repo = 'mnishz/foobar'
+repo = 'mnishz/devotion.vim'
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
