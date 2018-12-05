@@ -45,9 +45,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'mnishz/current-func-info.vim'
-hook_add = '''
-  set statusline=%!MyStatusLine()
-'''
+hook_add = 'set statusline=%!MyStatusLine()'
 
 [[plugins]]
 repo = 'mnishz/notes.vim'

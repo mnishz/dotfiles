@@ -297,7 +297,7 @@ nnoremap <space>* yiw<bs>/\v<<c-r>0><cr>
 nnoremap <bar> yiw<bs>/<up><bar><c-r>0<cr>
 nnoremap <space><bar> yiw<bs>/<up><bar><<c-r>0><cr>
 " 選択範囲をそのまま(正規表現を使わずに)検索する
-vnoremap * y<bs>/\V<c-r>0<cr>
+vnoremap * y:let @" = escape(@", '/')<cr><bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
@@ -635,8 +635,12 @@ command! Term vert term ++noclose bash
 command! TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
 function! s:Redir(command)
-  " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
-  redir @*
+  if has('clipboard')
+    " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
+    redir @*
+  else
+    redir @"
+  endif
   silent execute a:command
   redir END
 endfunction
