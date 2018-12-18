@@ -538,9 +538,9 @@ function! s:GoToFirstColumn()
   endif
 endfunction
 
-command! GoBackToGrep call s:GoBackToGrep()
+command! CGrep call s:CGrep()
 
-function! s:GoBackToGrep()
+function! s:CGrep()
   let l:found = v:false
   while v:true
     let l:currList = getqflist({'all': 1})
