@@ -126,6 +126,7 @@ if dein#load_state(s:dein_dir)
   call dein#load_toml(s:toml_file)
   call dein#end()
 endif
+let g:dein#types#git#clone_depth = 1
 " 不足プラグインの自動インストール
 if has('vim_starting') && dein#check_install()
   call dein#install()
@@ -184,6 +185,11 @@ set complete-=i
 set diffopt+=vertical
 
 set clipboard+=unnamed
+
+augroup WindowLocalOptions
+  autocmd!
+  autocmd BufWinEnter * set nofoldenable
+augroup END
 
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD

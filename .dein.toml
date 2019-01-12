@@ -1,6 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
 [[plugins]] # カラースキーマ
 repo = 'tomasr/molokai'
 hook_add = '''
