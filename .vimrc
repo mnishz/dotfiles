@@ -344,23 +344,21 @@ nnoremap <space>/ /\v\w+\(<cr>
 if has('kaoriya')
   nnoremap ctags :!start ctags -R *<cr>
   nnoremap gtags :!start gtags -v<cr>
-  nnoremap <f11> :Gtags -f %<cr>
-  nnoremap <f12> :GtagsCursor<cr>
-  nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
-  nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
-  " nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
-  nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
-  nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
 else
   nnoremap ctags :!ctags -R *<cr>
   nnoremap gtags :!gtags -v<cr>
-  nnoremap <f12> :GtagsCursor<cr>
-  nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 endif
 
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
+nnoremap <f11> :Gtags -f %<cr>
+nnoremap <c-f11> :vs<cr><c-w>l:GtagsCursor<cr>
+nnoremap <s-f11> :sp<cr>:GtagsCursor<cr>
+nnoremap <f12> :GtagsCursor<cr>
+nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
+nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
+" nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
 
 noremap <a-h> <c-w>h
 noremap <a-j> <c-w>j
@@ -581,7 +579,7 @@ function! s:BsForInsertMode()
   let l:text = getline('.')
   if l:text =~# '^\s\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
-  elseif exists('b:comment_text') && l:text =~# '^\s*' . b:comment_text . ' *$'
+  elseif exists('b:comment_text') && l:text =~# '^\s*' . b:comment_text . '\s*$'
     return repeat("\<c-h>", strlen(l:text) - stridx(l:text, b:comment_text))
   else
     return "\<c-h>" " それ以外の場合は1文字消す
