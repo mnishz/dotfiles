@@ -13,7 +13,7 @@ hook_add = '''
   autocmd MyAutoCmd VimEnter * nested colorscheme molokai
   " アクティブウィンドウのステータスラインの色を目立たせる
   if !g:help_translation
-    autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=DarkGoldenrod
+    autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=DarkYellow guifg=DarkGoldenrod
   else
     autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
   endif
@@ -24,6 +24,8 @@ hook_add = '''
   autocmd MyAutoCmd ColorScheme * highlight Special gui=NONE
   " Boldをつける
   autocmd MyAutoCmd ColorScheme * highlight Error gui=Bold guifg=Red
+  " ctermだと見づらい
+  autocmd MyAutoCmd ColorScheme * highlight MatchParen ctermfg=NONE
 '''
 
 [[plugins]]

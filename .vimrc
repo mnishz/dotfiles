@@ -49,7 +49,7 @@ if !has('kaoriya')
   " set t_te+=[<0t[<s
   " ESC キーを押してから挿入モードを出るまでの時間を短くする
   " set ttimeoutlen=100
-  inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:us::eng"')<cr>
+  inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr>
 
   filetype on
   filetype plugin on
@@ -587,14 +587,14 @@ function! s:BsForInsertMode()
 endfunction
 
 if &statusline !=# '%!MyStatusLine()'
-  set statusline=%f%m%r%h%w%=%v\ [%{&fileformat},\ %{&fileencoding}]
+  set statusline=[%n]\ %f%m%r%h%w%=%P,\ %v\ [%{&fileformat},\ %{&fileencoding}]
 endif
 
 function! g:MyStatusLine()
   if empty(&fileencoding)
-    return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&encoding}]"
+    return "[%n]\ %f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%P,\ %v\ [%{&fileformat},\ %{&encoding}]"
   else
-    return "%f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%v\ [%{&fileformat},\ %{&fileencoding}]"
+    return "[%n]\ %f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%P,\ %v\ [%{&fileformat},\ %{&fileencoding}]"
   endif
 endfunction
 
