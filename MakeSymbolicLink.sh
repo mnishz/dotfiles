@@ -4,4 +4,5 @@ ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.dein.toml ~/.dein.toml
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.gdbinit ~/.gdbinit
+ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
 ln -sf ~/dotfiles/vimfiles ~/.vim
