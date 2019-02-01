@@ -1,0 +1,8 @@
+# Add the following line to the end of original ".bashrc" to enable this settings.
+# source ~/.bashrc.additional
+
+alias ll='ls -lh'
+alias la='ls -lA'
+alias trash='gio trash'
+
+# export LESS="-iMRF"

@@ -3,10 +3,10 @@
 	name = mnishz
 	email = mnishz@users.noreply.github.com
 [core]
-	pager = less -i
+	pager = less -iF
 	# 必要に応じてutf-8に変換、.gitconfig.localに追記する
-	# pager = nkf32 -w | less -i
-	# pager = iconv -f cp932 -t utf-8 | less -i
+	# pager = nkf32 -w | less -iF
+	# pager = iconv -f cp932 -t utf-8 | less -iF
 	quotepath = false
 [alias]
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M' --date-order
