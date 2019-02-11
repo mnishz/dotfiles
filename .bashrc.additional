@@ -5,4 +5,6 @@ alias ll='ls -lh'
 alias la='ls -lA'
 alias trash='gio trash'
 
+PS1='\w$(__git_ps1 " (%s)")\$ '
+
 # export LESS="-iMRF"
