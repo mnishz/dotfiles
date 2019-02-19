@@ -303,7 +303,7 @@ nnoremap <space>* yiw<bs>/\v<<c-r>0><cr>
 nnoremap <bar> yiw<bs>/<up><bar><c-r>0<cr>
 nnoremap <space><bar> yiw<bs>/<up><bar><<c-r>0><cr>
 " 選択範囲をそのまま(正規表現を使わずに)検索する
-vnoremap * y:let @" = escape(@", '/')<cr><bs>/\V<c-r>0<cr>
+vnoremap * y:let @" = escape(@", '/\')<cr><bs>/\V<c-r>0<cr>
 vnoremap <space>* y<bs>/\V\<<c-r>0\><cr>
 
 " 置換("ctrl-r"にしたかったが、"r"系はいろいろと使われているので代わりにOffice系で使われる"ctrl-h"を使う。)
