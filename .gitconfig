@@ -19,3 +19,5 @@
 	ff = false
 [pull]
 	ff = only
+[color "diff"]
+	meta = reverse
