@@ -9,4 +9,9 @@ PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 HISTSIZE=10000
 HISTIGNORE=ls:history
 
+if [[ -t 0 ]]; then
+    stty stop undef
+    stty start undef
+fi
+
 # export LESS="-iMRF"
