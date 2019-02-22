@@ -5,27 +5,21 @@ repo = 'Shougo/dein.vim'
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]] # カラースキーマ
-repo = 'tomasr/molokai'
+repo = 'nightsense/office'
 hook_add = '''
-  set background=dark
+  set termguicolors
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
-  autocmd MyAutoCmd VimEnter * nested colorscheme molokai
+  autocmd MyAutoCmd VimEnter * nested colorscheme office-dark
   " アクティブウィンドウのステータスラインの色を目立たせる
-  if !g:help_translation
-    autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=DarkYellow guifg=DarkGoldenrod
-  else
+  if g:help_translation
     autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
   endif
   " 日本語表示でカーソルを赤くする
   autocmd MyAutoCmd ColorScheme * highlight CursorIM guibg=Red
-  " Italicをやめる
-  autocmd MyAutoCmd ColorScheme * highlight Macro gui=NONE
-  autocmd MyAutoCmd ColorScheme * highlight Special gui=NONE
-  " Boldをつける
-  autocmd MyAutoCmd ColorScheme * highlight Error gui=Bold guifg=Red
-  " ctermだと見づらい
-  autocmd MyAutoCmd ColorScheme * highlight MatchParen ctermfg=NONE
+
+  autocmd MyAutoCmd ColorScheme * highlight Comment guifg=#676760
+  autocmd MyAutoCmd ColorScheme * highlight SpecialKey guifg=#684f76
 '''
 
 [[plugins]]
