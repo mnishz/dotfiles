@@ -4,20 +4,22 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
-[[plugins]] # ƒJƒ‰[ƒXƒL[ƒ}
+[[plugins]] # ã‚«ãƒ©ãƒ¼ã‚¹ã‚­ãƒ¼ãƒ
 repo = 'nightsense/office'
 hook_add = '''
   set termguicolors
-  " colorscheme İ’è‚Í source Œã‚És‚¤•K—v‚ª‚ ‚é‚Ì‚Å VimEnter ‚Ås‚¤B
-  " ’A‚µ Colorscheme ƒCƒxƒ“ƒg‚Ì”­¶‚ª—}§‚³‚ê‚È‚¢‚æ‚¤ nested ‚ğ•t‚¯‚éB
+  " colorscheme è¨­å®šã¯ source å¾Œã«è¡Œã†å¿…è¦ãŒã‚ã‚‹ã®ã§ VimEnter ã§è¡Œã†ã€‚
+  " ä½†ã— Colorscheme ã‚¤ãƒ™ãƒ³ãƒˆã®ç™ºç”ŸãŒæŠ‘åˆ¶ã•ã‚Œãªã„ã‚ˆã† nested ã‚’ä»˜ã‘ã‚‹ã€‚
   autocmd MyAutoCmd VimEnter * nested colorscheme office-dark
-  " ƒAƒNƒeƒBƒuƒEƒBƒ“ƒhƒE‚ÌƒXƒe[ƒ^ƒXƒ‰ƒCƒ“‚ÌF‚ğ–Ú—§‚½‚¹‚é
   if g:help_translation
+    " ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã®è‰²ã‚’ç›®ç«‹ãŸã›ã‚‹
     autocmd MyAutoCmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
+    " Boldã‚’ã¤ã‘ã‚‹
+    autocmd MyAutoCmd ColorScheme * highlight Error gui=Bold guifg=Red
   endif
-  " “ú–{Œê•\¦‚ÅƒJ[ƒ\ƒ‹‚ğÔ‚­‚·‚é
+  " æ—¥æœ¬èªè¡¨ç¤ºã§ã‚«ãƒ¼ã‚½ãƒ«ã‚’èµ¤ãã™ã‚‹
   autocmd MyAutoCmd ColorScheme * highlight CursorIM guibg=Red
-
+  " å¾®èª¿æ•´
   autocmd MyAutoCmd ColorScheme * highlight Comment guifg=#676760
   autocmd MyAutoCmd ColorScheme * highlight SpecialKey guifg=#684f76
 '''
@@ -26,18 +28,18 @@ hook_add = '''
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = 'let g:indent_guides_enable_on_vim_startup=1'
 
-[[plugins]] # denite‚Ípython‚ª•K—v‚È‚Ì‚Å‰ïĞ‚ÌPC‚É“ü‚ê‚é‚Ì‚ª–Ê“|A‚Æ‚¢‚¤Œã‚ëŒü‚«‚È——R‚Åctrlp‚ğ“ü‚ê‚éB
+[[plugins]] # deniteã¯pythonãŒå¿…è¦ãªã®ã§ä¼šç¤¾ã®PCã«å…¥ã‚Œã‚‹ã®ãŒé¢å€’ã€ã¨ã„ã†å¾Œã‚å‘ããªç†ç”±ã§ctrlpã‚’å…¥ã‚Œã‚‹ã€‚
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
   let g:ctrlp_clear_cache_on_exit = 0
   let g:ctrlp_lazy_update = 1
-  " gtags‚ª‚ ‚éêŠ‚ğroot‚Æ‚İ‚È‚·BŠm‚©".git"‚Í©“®“I‚Éroot‚Æ‚İ‚È‚·d—l‚¾‚Á‚½‹C‚ª‚·‚éB
+  " gtagsãŒã‚ã‚‹å ´æ‰€ã‚’rootã¨ã¿ãªã™ã€‚ç¢ºã‹".git"ã¯è‡ªå‹•çš„ã«rootã¨ã¿ãªã™ä»•æ§˜ã ã£ãŸæ°—ãŒã™ã‚‹ã€‚
   let g:ctrlp_root_markers = ['gtags']
-  " •\¦window‚Ìs”
+  " è¡¨ç¤ºwindowã®è¡Œæ•°
   let g:ctrlp_match_window = 'max:30'
 
-  " ƒtƒ@ƒCƒ‹—š—ğ‚ğŠJ‚­
-  " <c-m>‚Íg‚¦‚Ü‚¹‚ñIIIenter‚Ì‹““®‚à•Ï‚í‚Á‚Ä‚µ‚Ü‚¤
+  " ãƒ•ã‚¡ã‚¤ãƒ«å±¥æ­´ã‚’é–‹ã
+  " <c-m>ã¯ä½¿ãˆã¾ã›ã‚“ï¼ï¼ï¼enterã®æŒ™å‹•ã‚‚å¤‰ã‚ã£ã¦ã—ã¾ã†
   " nnoremap <c-m> :CtrlPMRUFiles<cr>
   nnoremap mru :CtrlPMRUFiles<cr>
 '''
