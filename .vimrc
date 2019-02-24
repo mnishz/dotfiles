@@ -586,18 +586,6 @@ function! s:BsForInsertMode()
   endif
 endfunction
 
-if &statusline !=# '%!MyStatusLine()'
-  set statusline=[%n]\ %f%m%r%h%w%=%P,\ %v\ [%{&fileformat},\ %{&fileencoding}]
-endif
-
-function! g:MyStatusLine()
-  if empty(&fileencoding)
-    return "[%n]\ %f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%P,\ %v\ [%{&fileformat},\ %{&encoding}]"
-  else
-    return "[%n]\ %f%m%r%h%w\ /\ %{cfi#format('%s','')}%=%P,\ %v\ [%{&fileformat},\ %{&fileencoding}]"
-  endif
-endfunction
-
 function! s:ToggleComment() range
   if !exists('b:comment_text') | echoerr 'no b:comment_text' | return | endif
   let l:comment_text = escape(b:comment_text, '/$.*~')

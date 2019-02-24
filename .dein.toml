@@ -45,8 +45,12 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'vim-airline/vim-airline'
+[[plugins]]
 repo = 'mnishz/current-func-info.vim'
-hook_add = 'set statusline=%!MyStatusLine()'
+hook_add = '''
+  let g:airline_section_c = "%<%f%m / %{cfi#format('%s','')} %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#"
+'''
 
 [[plugins]]
 repo = 'mnishz/notes.vim'
