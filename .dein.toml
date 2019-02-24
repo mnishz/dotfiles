@@ -64,3 +64,22 @@ hook_add = '''
   xmap <Space>M <Plug>(quickhl-manual-reset)
   nmap <Space>L :QuickhlManualList<cr>
 '''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+  if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'clangd',
+      \ 'cmd': {server_info->['clangd']},
+      \ 'whitelist': ['c'],
+      \ })
+  endif
+  let g:lsp_diagnostics_echo_cursor = 1
+'''
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
