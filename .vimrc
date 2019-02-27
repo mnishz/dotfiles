@@ -49,7 +49,7 @@ if !has('kaoriya')
   " set t_te+=[<0t[<s
   " ESC キーを押してから挿入モードを出るまでの時間を短くする
   " set ttimeoutlen=100
-  inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr>
+  inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
 
   filetype on
   filetype plugin on

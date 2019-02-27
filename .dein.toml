@@ -49,7 +49,7 @@ repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'mnishz/current-func-info.vim'
 hook_add = '''
-  let g:airline_section_c = airline#section#create(['%<', 'path', " / %{cfi#format('%s','')} ", 'readonly'])
+  let g:airline_section_c = airline#section#create(['%<', 'file', " / %{cfi#format('%s','')} ", 'readonly'])
 '''
 
 [[plugins]]
