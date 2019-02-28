@@ -311,7 +311,8 @@ nnoremap <c-h> :%s///g<left><left>
 vnoremap <c-h> :s///g<left><left>
 
 " grep
-nnoremap <silent> <c-g> :call <SID>DoGrep()<cr>
+nnoremap <silent> <c-g> :call <SID>DoGrep(v:true)<cr>
+nnoremap <silent> g<c-g> :call <SID>DoGrep(v:false)<cr>
 
 nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
@@ -476,7 +477,7 @@ function! s:CdToGitRoot(isLcd)
   endif
 endfunction
 
-function! s:DoGrep()
+function! s:DoGrep(tabnew)
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
   if l:gitRootOfPwd != s:GetGitRootPath()
@@ -491,10 +492,14 @@ function! s:DoGrep()
     " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
     if l:c == 27 | redraw | echo "" | return | endif " もっとうまく消す方法はないものか。。
   endif
+  let l:keyHeadStr = ":"
+  if a:tabnew
+    let l:keyHeadStr = ":tabnew \<bar> "
+  endif
   if has('kaoriya')
-    let l:keyHeadStr = ":tabnew \<bar> set transparency=200 \<bar> grep -iE"
+    let l:keyHeadStr .= "set transparency=200 \<bar> grep -iE"
   else
-    let l:keyHeadStr = ":tabnew \<bar> grep -iE"
+    let l:keyHeadStr .= "grep -iE"
   endif
   if empty(l:gitRootOfPwd)
     let l:keyHeadStr = l:keyHeadStr . " --no-index"
