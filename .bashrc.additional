@@ -6,6 +6,10 @@ alias la='ls -lA'
 alias trash='gio trash'
 
 PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
+if [ -n "$SSH_CONNECTION" ]; then
+    PS1='\[\033[31m\](SSH)\[\033[0m\] '$PS1
+fi
+
 HISTSIZE=10000
 HISTIGNORE=ls:history
 
