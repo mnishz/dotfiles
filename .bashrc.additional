@@ -11,7 +11,7 @@ if [ -n "$SSH_CONNECTION" ]; then
 fi
 
 HISTSIZE=10000
-HISTIGNORE=ls:history
+HISTIGNORE=history:ls:ll:la
 
 if [[ -t 0 ]]; then
     stty stop undef
