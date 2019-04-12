@@ -21,3 +21,5 @@
 	ff = only
 [color "diff"]
 	meta = reverse
+[color]
+	ui = true
