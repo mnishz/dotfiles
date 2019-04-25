@@ -4,6 +4,7 @@
 alias ll='ls -lh'
 alias la='ls -lA'
 alias trash='gio trash'
+alias smile='vim --clean -c "smile | call getchar() | q"'
 
 PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 if [ -n "$SSH_CONNECTION" ]; then
