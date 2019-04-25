@@ -25,7 +25,7 @@ let s:swap_path = s:cache_home . "/vim/swap"
 if !isdirectory(s:bak_path) | call mkdir(s:bak_path, "p") | endif
 if !isdirectory(s:undo_path) | call mkdir(s:undo_path, "p") | endif
 if !isdirectory(s:swap_path) | call mkdir(s:swap_path, "p") | endif
-let &backupdir = s:bak_path .. '//'
+let &backupdir = s:bak_path . '//'
 let &undodir = s:undo_path
 let &directory = s:swap_path
 set backup
