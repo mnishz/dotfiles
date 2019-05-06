@@ -170,6 +170,7 @@ set cursorline
 set showcmd
 set cmdheight=2
 set laststatus=2
+set shortmess-=S
 
 set wildmenu
 set wildmode=longest:full,full
