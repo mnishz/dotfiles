@@ -77,7 +77,7 @@ else
     autocmd FocusGained * set transparency=255
   augroup END
 
-  function! g:RestoreMouse(timer)
+  function g:RestoreMouse(timer)
     " 8.1.0011でもっと簡単に調べる方法が入ったけどまだ使えない。
     " if !empty(mapcheck('<leftmouse>', 'n'))
     let l:mapping = maparg('<leftmouse>', 'n', v:false, v:true)
@@ -321,7 +321,7 @@ nnoremap <expr> { <SID>CurlyBracket("{")
 let @d = '?^@/-l"aye?^---wll"bY:rightbelow vert new b:a'
 tnoremap @d N@d
 
-function! s:CurlyBracket(text)
+function s:CurlyBracket(text)
   if a:text == "}"
     return &diff ? "]c" : ":cn\<cr>"
   elseif a:text == "{"
@@ -411,7 +411,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 " command! -nargs=0 MyFunc call s:MyFunc()
 " 
 " " ":help expression"とやると幸せになれるかも
-" function! s:MyFunc()
+" function s:MyFunc()
 "   " EXコマンド(ex-cmd-indexもしくはexpression-commands)はそのまま呼び出せる
 "     echo "foo"
 "     normal gg
@@ -430,7 +430,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 " endfunction
 
 command! FooBarTest call s:FooBarTest()
-function! s:FooBarTest(...)
+function s:FooBarTest(...)
   echo "bar"
   return ""
 endfunction
@@ -442,7 +442,7 @@ endfunction
 command! Cd call s:CdToGitRoot(v:false)
 command! Lcd call s:CdToGitRoot(v:true)
 
-function! s:GetGitRootPath(...)
+function s:GetGitRootPath(...)
   if a:0 > 1
     echoerr "invalid args"
     return ""
@@ -464,7 +464,7 @@ function! s:GetGitRootPath(...)
   return l:result
 endfunction
 
-function! s:CdToGitRoot(isLcd)
+function s:CdToGitRoot(isLcd)
   let l:gitRootPath = s:GetGitRootPath()
   if empty(l:gitRootPath)
     echo "no root..."
@@ -478,7 +478,7 @@ function! s:CdToGitRoot(isLcd)
   endif
 endfunction
 
-function! s:DoGrep(tabnew)
+function s:DoGrep(tabnew)
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
   if l:gitRootOfPwd != s:GetGitRootPath()
@@ -510,7 +510,7 @@ endfunction
 
 command! CloseRightTabs call s:CloseRightTabs()
 
-function! s:CloseRightTabs()
+function s:CloseRightTabs()
   " 自分自身は閉じないので"+1"
   let l:firstTabNumberToClose = tabpagenr() + 1
   let l:totalTabCount = tabpagenr('$')
@@ -528,7 +528,7 @@ endfunction
 
 command! Ccl call s:Ccl()
 
-function! s:Ccl()
+function s:Ccl()
   let l:orgTabNumber = tabpagenr()
   for currTabNumber in range(1, tabpagenr('$'))
     execute "tabnext " . currTabNumber
@@ -537,7 +537,7 @@ function! s:Ccl()
   execute "tabnext " . l:orgTabNumber
 endfunction
 
-function! s:GoToFirstColumn()
+function s:GoToFirstColumn()
   let l:orgColumn = col(".")
   " 一度'^'で移動
   normal ^
@@ -550,7 +550,7 @@ endfunction
 
 command! CGrep call s:CGrep()
 
-function! s:CGrep()
+function s:CGrep()
   let l:found = v:false
   while v:true
     let l:currList = getqflist({'all': 1})
@@ -566,11 +566,11 @@ endfunction
 
 command! -nargs=1 CGoTo call s:CGoTo(<f-args>)
 
-function! s:GetCurrQuickFixListNumber()
+function s:GetCurrQuickFixListNumber()
   return getqflist({"nr": 0})["nr"]
 endfunction
 
-function! s:CGoTo(listNumber)
+function s:CGoTo(listNumber)
   if a:listNumber < 1 || a:listNumber > 10 | echo "invalid" | return | endif
   let l:currListNumber = s:GetCurrQuickFixListNumber()
   let l:diff = abs(l:currListNumber - a:listNumber)
@@ -581,7 +581,7 @@ function! s:CGoTo(listNumber)
   endif
 endfunction
 
-function! s:BsForInsertMode()
+function s:BsForInsertMode()
   let l:text = getline('.')
   if l:text =~# '^\s\+$'
     return "\<c-u>" " インデントのみの場合はすべて消す
@@ -592,7 +592,7 @@ function! s:BsForInsertMode()
   endif
 endfunction
 
-function! s:ToggleComment() range
+function s:ToggleComment() range
   if !exists('b:comment_text') | echoerr 'no b:comment_text' | return | endif
   let l:comment_text = escape(b:comment_text, '/$.*~')
   if getline(a:firstline) =~ '^\s*' . l:comment_text . ' '
@@ -608,7 +608,7 @@ function! s:ToggleComment() range
   execute l:substitute_text
 endfunction
 
-function! s:ChangeFontSize(diff)
+function s:ChangeFontSize(diff)
   let l:sizeStartPos = stridx(&guifont, ":h")
   if (l:sizeStartPos == -1)
     echoerr "err"
@@ -634,7 +634,7 @@ command! TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
 command! -nargs=1 -complete=command Redir call s:Redir(<f-args>)
 
-function! s:Redir(command)
+function s:Redir(command)
   if has('clipboard')
     " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
     redir @*
@@ -645,7 +645,7 @@ function! s:Redir(command)
   redir END
 endfunction
 
-function! s:MoveUpwardDownward(upward)
+function s:MoveUpwardDownward(upward)
   let l:searchStr = '^' . getline('.')[:getcurpos()[2]-2] . '\S'
   if a:upward
     call search(l:searchStr, 'bez')
@@ -654,7 +654,7 @@ function! s:MoveUpwardDownward(upward)
   endif
 endfunction
 
-function! s:PasteSlash() abort
+function s:PasteSlash() abort
   if @/[0:1] ==? '\v'
     return @/[2:-1]
   else
