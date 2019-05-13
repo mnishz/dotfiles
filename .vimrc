@@ -662,7 +662,9 @@ function s:PasteSlash() abort
   endif
 endfunction
 
-function s:Split(split_count, separator = ', ') range
+" Kaoriya gVim doesn't support default parameter yet
+" function s:Split(split_count, separator = ', ') range
+function s:Split(split_count, separator) range
   " you can use "\<TAB>" for separator
   let l:num_lines = a:lastline + 1 - a:firstline
   let l:divisible = (l:num_lines % a:split_count == 0) ? v:true : v:false
