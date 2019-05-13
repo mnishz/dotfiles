@@ -632,6 +632,8 @@ command! ReloadWithEucJp e ++enc=euc-jp
 command! Term vert term ++noclose bash
 command! TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
+command! -nargs=1 -complete=command Redir call s:Redir(<f-args>)
+
 function! s:Redir(command)
   if has('clipboard')
     " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
@@ -659,8 +661,6 @@ function! s:PasteSlash() abort
     return @/
   endif
 endfunction
-
-command! -nargs=1 -complete=command Redir call s:Redir(<f-args>)
 
 set secure
 
