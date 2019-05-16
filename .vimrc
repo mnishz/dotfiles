@@ -662,9 +662,12 @@ function s:PasteSlash() abort
   endif
 endfunction
 
+command -nargs=1 -range=% Split :<line1>,<line2>call s:Split(<f-args>)
+
 " Kaoriya gVim doesn't support default parameter yet
 " function s:Split(split_count, separator = ', ') range
-function s:Split(split_count, separator) range
+function s:Split(split_count) range
+  let l:separator = ', '
   " you can use "\<TAB>" for separator
   let l:num_lines = a:lastline + 1 - a:firstline
   let l:divisible = (l:num_lines % a:split_count == 0) ? v:true : v:false
@@ -678,7 +681,7 @@ function s:Split(split_count, separator) range
     for j in range(l:num_loop)
       let l:index = j*a:split_count + i
       if l:index < len(l:text)
-        let l:new_text[i] .= l:text[l:index] . a:separator
+        let l:new_text[i] .= l:text[l:index] . l:separator
       endif
     endfor
   endfor
@@ -688,12 +691,12 @@ function s:Split(split_count, separator) range
 "     for j in range(a:split_count)
 "       let l:index = i*a:split_count+j
 "       if l:index < len(l:text)
-"         let l:new_text[i] .= l:text[l:index] . a:separator
+"         let l:new_text[i] .= l:text[l:index] . l:separator
 "       endif
 "     endfor
 "   endfor
   for i in range(len(l:new_text))
-    let l:new_text[i] = l:new_text[i][:-1-len(a:separator)]
+    let l:new_text[i] = l:new_text[i][:-1-len(l:separator)]
   endfor
   call setline(a:firstline, l:new_text)
   call deletebufline('%', a:firstline + len(l:new_text), a:lastline)
