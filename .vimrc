@@ -408,7 +408,7 @@ nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
-" command -nargs=0 MyFunc call s:MyFunc()
+" command -nargs=0 MyFunc :call s:MyFunc()
 " 
 " " ":help expression"とやると幸せになれるかも
 " function s:MyFunc()
@@ -429,7 +429,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 "   " 特殊な表現を文字列に展開したいときはexpand
 " endfunction
 
-command FooBarTest call s:FooBarTest()
+command FooBarTest :call s:FooBarTest()
 function s:FooBarTest(...)
   echo "bar"
   return ""
@@ -438,9 +438,9 @@ endfunction
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
-" command -nargs=0 Cd cd %:p:h
-command Cd call s:CdToGitRoot(v:false)
-command Lcd call s:CdToGitRoot(v:true)
+" command -nargs=0 Cd :cd %:p:h
+command Cd :call s:CdToGitRoot(v:false)
+command Lcd :call s:CdToGitRoot(v:true)
 
 function s:GetGitRootPath(...)
   if a:0 > 1
@@ -508,7 +508,7 @@ function s:DoGrep(tabnew)
   call feedkeys(l:keyHeadStr . " \"\" \<bar> cw\<left>\<left>\<left>\<left>\<left>\<left>")
 endfunction
 
-command CloseRightTabs call s:CloseRightTabs()
+command CloseRightTabs :call s:CloseRightTabs()
 
 function s:CloseRightTabs()
   " 自分自身は閉じないので"+1"
@@ -526,7 +526,7 @@ function s:CloseRightTabs()
   echo "done!"
 endfunction
 
-command Ccl call s:Ccl()
+command Ccl :call s:Ccl()
 
 function s:Ccl()
   let l:orgTabNumber = tabpagenr()
@@ -548,7 +548,7 @@ function s:GoToFirstColumn()
   endif
 endfunction
 
-command CGrep call s:CGrep()
+command CGrep :call s:CGrep()
 
 function s:CGrep()
   let l:found = v:false
@@ -564,7 +564,7 @@ function s:CGrep()
   if l:found | echo "found" | else | echo "not found" | endif
 endfunction
 
-command -nargs=1 CGoTo call s:CGoTo(<f-args>)
+command -nargs=1 CGoTo :call s:CGoTo(<f-args>)
 
 function s:GetCurrQuickFixListNumber()
   return getqflist({"nr": 0})["nr"]
@@ -628,11 +628,11 @@ function s:ChangeFontSize(diff)
   let &guifont = &guifont[0:(l:sizeStartPos-1)] . l:newFontSize . &guifont[(l:sizeEndPos+1):-1]
 endfunction
 
-command ReloadWithEucJp e ++enc=euc-jp
-command Term vert term ++noclose bash
-command TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
+command ReloadWithEucJp :e ++enc=euc-jp
+command Term :vert term ++noclose bash
+command TermDot :vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
-command -nargs=1 -complete=command Redir call s:Redir(<f-args>)
+command -nargs=1 -complete=command Redir :call s:Redir(<f-args>)
 
 function s:Redir(command)
   if has('clipboard')
