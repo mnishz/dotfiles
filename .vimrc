@@ -37,7 +37,7 @@ if !has('kaoriya')
 
   set t_Co=256
   colorscheme torte
-  set fileencodings=euc-jp,cp932,utf-8,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
+  set fileencodings=utf-8,cp932,euc-jp,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
 
   " https://qiita.com/mwmsnn/items/0b40662a22162907efae
   " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
