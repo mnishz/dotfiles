@@ -80,7 +80,7 @@ hook_add = '''
     au User lsp_setup call lsp#register_server({
       \ 'name': 'clangd',
       \ 'cmd': {server_info->['clangd']},
-      \ 'whitelist': ['c'],
+      \ 'whitelist': ['c', 'cpp'],
       \ })
   endif
   let g:lsp_diagnostics_echo_cursor = 1
