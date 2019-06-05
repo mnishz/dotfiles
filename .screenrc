@@ -11,4 +11,4 @@ altscreen on
 defbce on
 term xterm-256color
 
-hardstatus alwayslastline "%{= cd} %-w%{= wk} %n %t* %{-}%+w"
+hardstatus alwayslastline "%{= cd} %-w%{= wk} %n %t* %{-}%+w %=%{= wk}%Y/%m/%d %c"
