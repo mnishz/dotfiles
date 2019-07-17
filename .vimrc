@@ -49,7 +49,7 @@ if !has('kaoriya')
   " set t_te+=[<0t[<s
   " ESC キーを押してから挿入モードを出るまでの時間を短くする
   " set ttimeoutlen=100
-  inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
+  " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
 
   if &term =~ "xterm"
       let &t_ti.="\e[1 q"
@@ -194,6 +194,8 @@ set diffopt+=vertical
 
 set clipboard+=unnamed
 
+set helplang=ja
+
 augroup WindowLocalOptions
   autocmd!
   autocmd BufWinEnter * set nofoldenable
@@ -330,21 +332,16 @@ tnoremap @d N@d
 
 function s:CurlyBracket(text)
   if a:text == "}"
-    return &diff ? "]c" : ":cn\<cr>"
+    return &diff ? "]c" : ":cn\<cr>zz"
   elseif a:text == "{"
-    return &diff ? "[c" : ":cp\<cr>"
+    return &diff ? "[c" : ":cp\<cr>zz"
   else
     " do nothing
   endif
 endfunction
 
-if g:office_work
-  " セクション(メソッド)間移動がうまく動かないケースがあるので、簡易的なメソッド間移動方法を定義
-  " nnoremap [[ ?\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
-  " nnoremap ]] /\v::\w+\([^\)]*\)[^\{]*\n{0,1}\{<cr>
-
-  " nnoremap <space><space> A // nishi 
-endif
+nnoremap [[ ?{<CR>w99[{zz
+nnoremap ]] j0?{<CR>w99[{%/{<CR>zz
 
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\(<cr>
@@ -708,6 +705,8 @@ function s:Split(split_count) range
   call setline(a:firstline, l:new_text)
   call deletebufline('%', a:firstline + len(l:new_text), a:lastline)
 endfunction
+
+let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 set secure
 
