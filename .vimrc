@@ -40,15 +40,15 @@ if !has('kaoriya')
   set fileencodings=utf-8,cp932,euc-jp,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
 
   " https://qiita.com/mwmsnn/items/0b40662a22162907efae
+  " Tera Termでしか動いていない。。。 -> mintty 3.0.2 でも動くようになった
   " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
-  " Tera Termでしか動いていない。。。
   " set t_SI+=[<r
   " 挿入モードを出る時，現在の IME の状態を保存し，IME をオフにする．
-  " set t_EI+=[<s[<0t
+  set t_EI+=[<s[<0t
   " Vim 終了時，IME を無効にし，無効にした状態を保存する．
-  " set t_te+=[<0t[<s
+  set t_te+=[<0t[<s
   " ESC キーを押してから挿入モードを出るまでの時間を短くする
-  " set ttimeoutlen=100
+  set ttimeoutlen=100
   " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
 
   if &term =~ "xterm"
