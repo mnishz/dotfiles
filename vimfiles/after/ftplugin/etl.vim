@@ -1,4 +1,4 @@
 setlocal noautoindent
 setlocal nosmartindent
 " nnoremap <buffer> gf $B<c-w>gF
-nnoremap <buffer> gf $byeF<bar>wvt:be<c-w>gf:<c-r>0<cr>
+nnoremap <buffer> gf $b"ayeF<bar>wvt:be"by0:new +<c-r>a <c-r>b<cr>
