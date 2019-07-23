@@ -1,21 +1,23 @@
-set guifont=MS_Gothic:h10:cSHIFTJIS
+set guifont=Cica:h10:cSHIFTJIS
 
-" ‹N“®‚É‰æ–Ê‚ğÅ‘å‰»‚·‚é
+" èµ·å‹•æ™‚ã«ç”»é¢ã‚’æœ€å¤§åŒ–ã™ã‚‹
 if g:help_translation
   set columns=84
 else
   au GUIEnter * simalt ~x
 endif
 
-" ‹N“®‚ÉŠÔ‚ª‚©‚©‚é‚Ì‚ÅAmenu‚ğ“Ç‚İ‚Ü‚È‚¢B
-" ‚½‚¾‚µ‚±‚Ìİ’è‚ğ‚µ‚Ä‚à“Ç‚İ‚ñ‚Å‚¢‚éB‚æ‚­•ª‚©‚ç‚È‚¢B
-" À—Ísg‚Åƒtƒ@ƒCƒ‹–¼‚ğ"menu.vim" -> "menu.vim.bak"‚É•ÏXB -> Œ‹‹Ç‚â‚ß‚½B
-" set guioptions+=M
-" set guioptions-=m
+" èµ·å‹•ã«æ™‚é–“ãŒã‹ã‹ã‚‹ã®ã§ã€menuã‚’èª­ã¿è¾¼ã¾ãªã„ã€‚
+" ãŸã ã—ã“ã®è¨­å®šã‚’ã—ã¦ã‚‚èª­ã¿è¾¼ã‚“ã§ã„ã‚‹ã€‚ã‚ˆãåˆ†ã‹ã‚‰ãªã„ã€‚
+" å®ŸåŠ›è¡Œä½¿ã§ãƒ•ã‚¡ã‚¤ãƒ«åã‚’"menu.vim" -> "menu.vim.bak"ã«å¤‰æ›´ã€‚ -> çµå±€ã‚„ã‚ãŸã€‚
+set guioptions-=m " ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼éè¡¨ç¤º
+set guioptions-=r " å³ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼éè¡¨ç¤º
+set guioptions-=L " å·¦ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼éè¡¨ç¤º
+set guioptions-=T " ãƒ„ãƒ¼ãƒ«ãƒãƒ¼éè¡¨ç¤º
 
-" í‚Éƒ^ƒuƒo[‚ğ•\¦‚·‚éB‚¿‚È‚İ‚Égvim‚Ö‚ÌSendToƒVƒ‡[ƒgƒJƒbƒg‚É‚Í"-p --remote-tab-silent"‚ª‘«‚µ‚Ä‚ ‚Á‚ÄA
-" gvim‚ğSendTo‚ÅŠJ‚¢‚½ê‡A‘½d‹N“®‚¹‚¸‚Éƒ^ƒu‚ÅŠJ‚­B
+" å¸¸ã«ã‚¿ãƒ–ãƒãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹ã€‚ã¡ãªã¿ã«gvimã¸ã®SendToã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã«ã¯"-p --remote-tab-silent"ãŒè¶³ã—ã¦ã‚ã£ã¦ã€
+" gvimã‚’SendToã§é–‹ã„ãŸå ´åˆã€å¤šé‡èµ·å‹•ã›ãšã«ã‚¿ãƒ–ã§é–‹ãã€‚
 set showtabline=2
 
-" ƒAƒ“ƒ_[ƒ‰ƒCƒ“‚ğˆø‚­(gui) -> Œ‹‹Ç‚â‚ß‚½B
+" ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ã‚¤ãƒ³ã‚’å¼•ã(gui) -> çµå±€ã‚„ã‚ãŸã€‚
 " highlight CursorLine gui=underline guifg=NONE guibg=NONE
