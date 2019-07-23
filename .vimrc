@@ -340,6 +340,7 @@ function s:CurlyBracket(text)
   endif
 endfunction
 
+" from `:help section`
 nnoremap [[ ?{<CR>w99[{zz
 nnoremap ]] j0?{<CR>w99[{%/{<CR>zz
 
