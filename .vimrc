@@ -404,9 +404,6 @@ inoremap <silent> <bs> <c-r>=<SID>BsForInsertMode()<cr>
 " cnoremap " ""<left>
 " cnoremap ' ''<left>
 
-nnoremap + :call <SID>ChangeFontSize(1)<cr>:echo &guifont<cr>
-nnoremap - :call <SID>ChangeFontSize(-1)<cr>:echo &guifont<cr>
-
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
@@ -611,26 +608,6 @@ function s:ToggleComment() range
     let l:substitute_text = a:firstline . ',' . a:lastline . 's/\m\(.*\)/' . l:comment_text . ' \1/g'
   endif
   execute l:substitute_text
-endfunction
-
-function s:ChangeFontSize(diff)
-  let l:sizeStartPos = stridx(&guifont, ":h")
-  if (l:sizeStartPos == -1)
-    echoerr "err"
-    return
-  else
-    let l:sizeStartPos += 2 " 数字開始部分まで移動
-  endif
-  let l:sizeEndPos = stridx(&guifont, ":", l:sizeStartPos)
-  if (l:sizeEndPos == -1)
-    echoerr "err"
-    return
-  else
-    let l:sizeEndPos -= 1 " 数字終了部分まで移動
-  endif
-  let l:orgFontSize = str2nr(&guifont[l:sizeStartPos:l:sizeEndPos])
-  let l:newFontSize = printf("%d", l:orgFontSize + a:diff)
-  let &guifont = &guifont[0:(l:sizeStartPos-1)] . l:newFontSize . &guifont[(l:sizeEndPos+1):-1]
 endfunction
 
 command ReloadWithEucJp :e ++enc=euc-jp
