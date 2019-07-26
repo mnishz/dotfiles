@@ -68,6 +68,13 @@ repo = 'mnishz/notes.vim'
 repo = 'mnishz/devotion.vim'
 
 [[plugins]]
+repo = 'mnishz/colorscheme-preview.vim'
+
+[[plugins]]
+repo = 'mnishz/rainfall.vim'
+rev = 'tenki_jp'
+
+[[plugins]]
 repo = 't9md/vim-quickhl'
 hook_add = '''
   nmap <Space>m <Plug>(quickhl-manual-this)
