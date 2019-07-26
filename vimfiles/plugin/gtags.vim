@@ -408,14 +408,12 @@ function! s:ExecLoad(option, long_option, pattern, flags)
 
     let l:result = system(l:cmd)
     if v:shell_error != 0
-        if v:shell_error != 0
-            if v:shell_error == 2
-                call s:Error('invalid arguments. please use the latest GLOBAL.')
-            elseif v:shell_error == 3
-                call s:Error('GTAGS not found.')
-            else
-                call s:Error('global command failed. command line: ' . l:cmd)
-            endif
+        if v:shell_error == 2
+            call s:Error('invalid arguments. please use the latest GLOBAL.')
+        elseif v:shell_error == 3
+            call s:Error('GTAGS not found.')
+        else
+            call s:Error('global command failed. command line: ' . l:cmd)
         endif
         return
     endif
