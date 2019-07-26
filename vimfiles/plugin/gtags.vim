@@ -430,6 +430,20 @@ function! s:ExecLoad(option, long_option, pattern, flags)
         return
     endif
 
+    " Parse the output of 'global -x or -t' and show in the quickfix window.
+    let l:efm_org = &efm
+    let &efm = g:Gtags_Efm
+    if a:flags =~# 'a'
+        cadde l:result		" append mode
+    elseif g:Gtags_No_Auto_Jump == 1
+        cgete l:result		" does not jump
+    else
+        " cexpr! l:result		" jump
+        " 変更内容を破棄したくない＆何を検索したのか見えるように
+        execute "cexpr l:result \"" . a:pattern . "\""
+    endif
+    let &efm = l:efm_org
+
     " Open the quickfix window
     if g:Gtags_OpenQuickfixWindow == 1
         let l:open = 1
@@ -448,19 +462,6 @@ function! s:ExecLoad(option, long_option, pattern, flags)
             botright copen
         endif
     endif
-    " Parse the output of 'global -x or -t' and show in the quickfix window.
-    let l:efm_org = &efm
-    let &efm = g:Gtags_Efm
-    if a:flags =~# 'a'
-        cadde l:result		" append mode
-    elseif g:Gtags_No_Auto_Jump == 1
-        cgete l:result		" does not jump
-    else
-        " cexpr! l:result		" jump
-        " 変更内容を破棄したくない＆何を検索したのか見えるように
-        execute "cexpr l:result \"" . a:pattern . "\""
-    endif
-    let &efm = l:efm_org
 endfunction
 
 "
