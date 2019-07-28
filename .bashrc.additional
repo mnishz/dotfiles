@@ -10,7 +10,7 @@ if [ $? != 0 ]; then
     alias tree='pwd;find . | sort | sed '\''1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'\'''
 fi
 
-export PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
+PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 if [ -n "$SSH_CONNECTION" ]; then
     PS1='\[\033[31m\](SSH)\[\033[0m\] '$PS1
 fi
