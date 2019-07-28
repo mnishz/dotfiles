@@ -59,7 +59,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
-hook_add = 'nnoremap <c-e> :NERDTreeToggle<cr>'
+hook_add = '''
+  nnoremap <c-e> :NERDTreeToggle<cr>
+  let g:NERDTreeHijackNetrw = 0
+'''
 
 [[plugins]]
 repo = 'mnishz/notes.vim'
