@@ -332,17 +332,17 @@ tnoremap @d N@d
 
 function s:CurlyBracket(text)
   if a:text == "}"
-    return &diff ? "]c" : ":cn\<cr>zz"
+    return &diff ? "]c" : ":cn\<cr>"
   elseif a:text == "{"
-    return &diff ? "[c" : ":cp\<cr>zz"
+    return &diff ? "[c" : ":cp\<cr>"
   else
     " do nothing
   endif
 endfunction
 
 " from `:help section`
-nnoremap [[ ?{<CR>w99[{zz
-nnoremap ]] j0?{<CR>w99[{%/{<CR>zz
+" nnoremap [[ ?{<CR>w99[{zz
+" nnoremap ]] j0?{<CR>w99[{%/{<CR>zz
 
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\(<cr>
