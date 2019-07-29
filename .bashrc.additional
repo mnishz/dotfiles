@@ -10,6 +10,11 @@ if [ $? != 0 ]; then
     alias tree='pwd;find . | sort | sed '\''1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'\'''
 fi
 
+if [ $MSYSTEM = 'MSYS' ]; then
+    source /c/msys64/usr/share/git/completion/git-prompt.sh
+    source /c/msys64/usr/share/git/completion/git-completion.bash
+fi
+
 PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 if [ -n "$SSH_CONNECTION" ]; then
     PS1='\[\033[31m\](SSH)\[\033[0m\] '$PS1
