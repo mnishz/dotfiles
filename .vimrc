@@ -255,27 +255,6 @@ nnoremap <c-w><space>l <c-w>:tabn<cr>
 tnoremap <c-w><space>h <c-w>:tabp<cr>
 tnoremap <c-w><space>l <c-w>:tabn<cr>
 
-" リモート環境では<ctrl + 特殊キー>はほとんど動かない
-if !has('kaoriya')
-  " <c-i> が置き換わってしまう
-  " noremap <tab> :tabn<cr>
-  noremap <a-right> :tabn<cr>
-  noremap <a-left> :tabp<cr>
-  tnoremap <a-right> <c-w>:tabn<cr>
-  tnoremap <a-left> <c-w>:tabp<cr>
-else
-  " ctrl-tabで次のtabに進む
-  noremap <c-tab> :tabn<cr>
-  noremap <c-s-tab> :tabp<cr>
-  inoremap <c-tab> <esc>:tabn<cr>
-  inoremap <c-s-tab> <esc>:tabp<cr>
-  tnoremap <c-tab> <c-w>:tabn<cr>
-  tnoremap <c-s-tab> <c-w>:tabp<cr>
-  " ctrl-+/ctrl--でtabを隣に移動
-  noremap <c-kPlus> :tabm+<cr>
-  noremap <c-kMinus> :tabm-<cr>
-endif
-
 " 改行、普段使わないので<cr>だけにマップしたいけど、grep結果にも影響あるので要検討
 noremap <c-cr> o<esc>
 
