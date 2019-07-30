@@ -330,9 +330,13 @@ if has('kaoriya')
   nnoremap ctags :!start ctags -R *<cr>
   nnoremap gtags :!start gtags -v<cr>
 else
-  nnoremap ctags :!ctags -R *<cr>
-  nnoremap gtags :!gtags -v<cr>
+  nnoremap ctags :call job_start('/bin/bash -c "ctags -R *"', {'close_cb': function('JobMessage')})<cr>
+  nnoremap gtags :call job_start('/bin/bash -c "gtags -v"', {'close_cb': function('JobMessage')})<cr>
 endif
+
+function JobMessage(channel) abort
+  call popup_notification('finished', {})
+endfunction
 
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
