@@ -159,8 +159,8 @@ set grepprg=git\ grep\ --line-number
 set tabstop=4
 " tabstopに合わせる
 set shiftwidth=0
-" shiftwidthに合わせる -> やっぱり使わない
-set softtabstop=0
+" bsでshiftwidth分削除する
+set smarttab
 " タブ文字の代わりに空白を入力する
 set expandtab
 
@@ -394,10 +394,6 @@ nnoremap <space>v :tabnew ~/.vimrc<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
-" うっかり改行してしまったときにインデントをすべて消す -> <expr>を使ったほうがきれいかも
-" <c-o>だとundoがおかしくなる
-inoremap <silent> <bs> <c-r>=<SID>BsForInsertMode()<cr>
-
 " cnoremap ( ()<left>
 " cnoremap { {}<left>
 " cnoremap [ []<left>
@@ -580,17 +576,6 @@ function s:CGoTo(listNumber)
     execute("silent" . l:diff . "colder")
   elseif (l:currListNumber < a:listNumber)
     execute("silent" . l:diff . "cnewer")
-  endif
-endfunction
-
-function s:BsForInsertMode()
-  let l:text = getline('.')
-  if l:text =~# '^\s\+$'
-    return "\<c-u>" " インデントのみの場合はすべて消す
-  elseif exists('b:comment_text') && l:text =~# '^\s*' . b:comment_text . '\s*$'
-    return repeat("\<c-h>", strlen(l:text) - stridx(l:text, b:comment_text))
-  else
-    return "\<c-h>" " それ以外の場合は1文字消す
   endif
 endfunction
 
