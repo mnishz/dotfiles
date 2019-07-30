@@ -258,7 +258,6 @@ tnoremap <c-w><space>l <c-w>:tabn<cr>
 " 改行、普段使わないので<cr>だけにマップしたいけど、grep結果にも影響あるので要検討
 noremap <c-cr> o<esc>
 
-noremap <c-f4> :tabc<cr>
 noremap <space>c :tabc<cr>
 noremap <c-n> :tabnew<cr>
 tnoremap <c-n> <c-w>:tabnew<cr>
@@ -345,15 +344,6 @@ nnoremap <f12> :GtagsCursor<cr>
 nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 " nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
-
-noremap <a-h> <c-w>h
-noremap <a-j> <c-w>j
-noremap <a-k> <c-w>k
-noremap <a-l> <c-w>l
-inoremap <a-h> <esc><c-w>h
-inoremap <a-j> <esc><c-w>j
-inoremap <a-k> <esc><c-w>k
-inoremap <a-l> <esc><c-w>l
 
 " 行末までヤンク
 nnoremap Y y$
