@@ -458,8 +458,12 @@ function! s:ExecLoad(option, long_option, pattern, flags)
             cclose
         elseif g:Gtags_VerticalWindow == 1
             topleft vertical copen
+            " focus to the initial window
+            cc 1
         else
             botright copen
+            " focus to the initial window
+            cc 1
         endif
     endif
 endfunction
