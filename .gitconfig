@@ -1,10 +1,10 @@
 [user]
-	# •K—v‚É‰‚¶‚Ä.gitconfig.local‚É’Ç‹L‚·‚é
+	# å¿…è¦ã«å¿œã˜ã¦.gitconfig.localã«è¿½è¨˜ã™ã‚‹
 	name = mnishz
 	email = mnishz@users.noreply.github.com
 [core]
 	pager = less -iF
-	# •K—v‚É‰‚¶‚Äutf-8‚É•ÏŠ·A.gitconfig.local‚É’Ç‹L‚·‚é
+	# å¿…è¦ã«å¿œã˜ã¦utf-8ã«å¤‰æ›ã€.gitconfig.localã«è¿½è¨˜ã™ã‚‹
 	# pager = nkf32 -w | less -iF
 	# pager = iconv -f cp932 -t utf-8 | less -iF
 	quotepath = false
@@ -13,7 +13,7 @@
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
 [include]
-	# ÅŒã‚Élocal‚Ì“à—e‚Åã‘‚«
+	# æœ€å¾Œã«localã®å†…å®¹ã§ä¸Šæ›¸ã
 	path = .gitconfig.local
 [merge]
 	ff = false
