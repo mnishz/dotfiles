@@ -12,9 +12,6 @@
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M' --date-order
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
-[include]
-	# 最後にlocalの内容で上書き
-	path = .gitconfig.local
 [merge]
 	ff = false
 [pull]
@@ -23,3 +20,6 @@
 	meta = reverse
 [color]
 	ui = true
+[include]
+	# 最後にlocalの内容で上書き
+	path = .gitconfig.local
