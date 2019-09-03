@@ -196,6 +196,8 @@ set clipboard+=unnamed
 
 set helplang=ja
 
+set termwinscroll=100000
+
 augroup WindowLocalOptions
   autocmd!
   autocmd BufWinEnter * set nofoldenable
@@ -254,6 +256,8 @@ nnoremap <c-w><space>h <c-w>:tabp<cr>
 nnoremap <c-w><space>l <c-w>:tabn<cr>
 tnoremap <c-w><space>h <c-w>:tabp<cr>
 tnoremap <c-w><space>l <c-w>:tabn<cr>
+
+tnoremap <c-w><c-w> <c-w>.
 
 " 改行、普段使わないので<cr>だけにマップしたいけど、grep結果にも影響あるので要検討
 noremap <c-cr> o<esc>
@@ -330,8 +334,9 @@ if has('kaoriya')
   nnoremap ctags :!start ctags -R *<cr>
   nnoremap gtags :!start gtags -v<cr>
 else
-  nnoremap ctags :call job_start('/bin/bash -c "ctags -R *"', {'close_cb': function('JobMessage')})<cr>
-  nnoremap gtags :call job_start('/bin/bash -c "gtags -v"', {'close_cb': function('JobMessage')})<cr>
+  " nnoremap ctags :call job_start('/bin/bash -c "ctags -R *"', {'close_cb': function('JobMessage')})<cr>
+  nnoremap ctags :call job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('JobMessage')})<cr>
+  nnoremap gtags :call job_start('/bin/bash -c "gtags"', {'close_cb': function('JobMessage')})<cr>
 endif
 
 function JobMessage(channel) abort
