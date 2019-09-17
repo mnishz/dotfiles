@@ -378,6 +378,8 @@ noremap <c-z> :echo "nop"<cr>
 " cnoremap " ""<left>
 " cnoremap ' ''<left>
 
+cnoremap w!! w !sudo tee > /dev/null %<cr>
+
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
