@@ -22,4 +22,6 @@
 	ui = true
 [include]
 	# 最後にlocalの内容で上書き
-	path = .gitconfig.local
+	path = .gitconfig.bak
+[gitreview]
+	remote = origin

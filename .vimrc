@@ -378,8 +378,6 @@ noremap <c-z> :echo "nop"<cr>
 " cnoremap " ""<left>
 " cnoremap ' ''<left>
 
-cnoremap w!! w !sudo tee > /dev/null %<cr>
-
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 
@@ -648,6 +646,9 @@ function s:Split(split_count) range
   call setline(a:firstline, l:new_text)
   call deletebufline('%', a:firstline + len(l:new_text), a:lastline)
 endfunction
+
+command WriteSudo :w !sudo tee > /dev/null %
+command OwnFile :!sudo chown nishihata %
 
 let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 

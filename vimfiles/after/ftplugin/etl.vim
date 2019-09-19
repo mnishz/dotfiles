@@ -1,3 +1,4 @@
+set shortmess+=S
 setlocal noautoindent
 setlocal nosmartindent
 " nnoremap <buffer> gf $B<c-w>gF

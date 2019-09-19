@@ -89,6 +89,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'rhysd/clever-f.vim'
+
+[[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
@@ -106,3 +109,6 @@ hook_add = '''
 '''
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'lyuts/vim-rtags'
