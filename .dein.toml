@@ -109,6 +109,3 @@ hook_add = '''
 '''
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
-repo = 'lyuts/vim-rtags'
