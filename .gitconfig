@@ -8,20 +8,34 @@
 	# pager = nkf32 -w | less -iF
 	# pager = iconv -f cp932 -t utf-8 | less -iF
 	quotepath = false
+	filemode = false
+	autocrlf = input
+	trustctime = false
+	warnambiguousrefs = false
 [alias]
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M' --date-order
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
 [merge]
 	ff = false
+	tool = bc
+	renameLimit = 999999
 [pull]
 	ff = only
+	rebase = true
 [color "diff"]
 	meta = reverse
 [color]
 	ui = true
-[include]
-	# 最後にlocalの内容で上書き
-	path = .gitconfig.bak
 [gitreview]
 	remote = origin
+[diff]
+	tool = bc
+	renameLimit = 999999
+[push]
+	default = current
+[rerere]
+	enabled = true
+[include]
+	# 最後にlocalの内容で上書き
+	path = .gitconfig.local
