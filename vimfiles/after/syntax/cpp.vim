@@ -1,1 +1,1 @@
-syntax match Error /TpValue([^)]\{17,\})/
+syntax match Error "\s\zsTpValue([^)]\{17,\})"
