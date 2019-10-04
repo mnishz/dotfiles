@@ -25,12 +25,9 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
+repo = 'Yggdroot/indentLine'
 hook_add = '''
-  let g:indent_guides_enable_on_vim_startup=1
-  let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * :hi link IndentGuidesOdd Normal
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=grey20
+  let g:indentLine_char = '┊'
 '''
 
 [[plugins]] # deniteはpythonが必要なので会社のPCに入れるのが面倒、という後ろ向きな理由でctrlpを入れる。
@@ -112,3 +109,6 @@ hook_add = '''
 '''
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'lyuts/vim-rtags'
