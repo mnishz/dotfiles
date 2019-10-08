@@ -415,13 +415,15 @@ endfunction
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 " command -nargs=0 Cd :cd %:p:h
-command Cd :call s:CdToGitRoot(v:false)
-command Lcd :call s:CdToGitRoot(v:true)
+
+command Cd :execute "cd " .. s:GetGitRootPath() | echo getcwd()
+command Lcd :execute "lcd " .. s:GetGitRootPath() | echo getcwd()
+command Tcd :execute "tcd " .. s:GetGitRootPath() | echo getcwd()
 
 function s:GetGitRootPath(...)
   if a:0 > 1
     echoerr "invalid args"
-    return ""
+    return getcwd()
   endif
 
   " current file for no arg
@@ -437,21 +439,11 @@ function s:GetGitRootPath(...)
     " let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
     let l:result = fnamemodify(l:result, ':p:h:h')
   endif
-  return l:result
-endfunction
-
-function s:CdToGitRoot(isLcd)
-  let l:gitRootPath = s:GetGitRootPath()
-  if empty(l:gitRootPath)
+  if empty(l:result)
     echo "no root..."
-  else
-    if a:isLcd
-      execute "lcd " . l:gitRootPath
-    else
-      execute "cd " . l:gitRootPath
-    endif
-    echo l:gitRootPath
+    let l:result = getcwd()
   endif
+  return l:result
 endfunction
 
 function s:DoGrep(tabnew)
