@@ -8,6 +8,9 @@ repo = 'vim-jp/vimdoc-ja'
 repo = 'nightsense/office'
 hook_add = '''
   set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
   autocmd MyAutoCmd VimEnter * nested colorscheme office-dark
