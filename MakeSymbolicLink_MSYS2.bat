@@ -2,9 +2,10 @@ mklink %~dp0..\.vimrc %~dp0.vimrc
 mklink %~dp0..\.gvimrc %~dp0.gvimrc
 mklink %~dp0..\.dein.toml %~dp0.dein.toml
 mklink %~dp0..\.gitconfig %~dp0.gitconfig
-mklink %~dp0..\.gdbinit %~dp0.gdbinit
-mklink %~dp0..\.screenrc %~dp0.screenrc
-mklink %~dp0..\.tmux.conf %~dp0.tmux.conf
+rem mklink %~dp0..\.gdbinit %~dp0.gdbinit
+rem mklink %~dp0..\.screenrc %~dp0.screenrc
+rem mklink %~dp0..\.tmux.conf %~dp0.tmux.conf
 mklink %~dp0..\.minttyrc %~dp0.minttyrc
 mklink %~dp0..\.bashrc.additional %~dp0.bashrc.additional
+rem mklink %~dp0..\.git_prompt.sh %~dp0.git_prompt.sh
 mklink /d %~dp0..\.vim %~dp0vimfiles
