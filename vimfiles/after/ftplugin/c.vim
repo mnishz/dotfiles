@@ -1,5 +1,5 @@
 let b:comment_text = '//'
-inoremap <buffer> {<cr> {<cr>}<esc>ko
+" inoremap <buffer> {<cr> {<cr>}<esc>ko
 
 " check and set tabstop and expandtab from the file
 function! SetTabRelated()
