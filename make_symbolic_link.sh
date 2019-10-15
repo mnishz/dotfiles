@@ -5,6 +5,7 @@ ln -sf ~/dotfiles/.dein.toml ~/.dein.toml
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.gdbinit ~/.gdbinit
 ln -sf ~/dotfiles/.screenrc ~/.screenrc
+ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
 ln -sf ~/dotfiles/.git_prompt.sh ~/.git_prompt.sh
 rm ~/.vim
