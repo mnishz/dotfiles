@@ -416,14 +416,14 @@ endfunction
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 " command -nargs=0 Cd :cd %:p:h
 
-command Cd :execute "cd " .. s:GetGitRootPath() | echo getcwd()
-command Lcd :execute "lcd " .. s:GetGitRootPath() | echo getcwd()
-command Tcd :execute "tcd " .. s:GetGitRootPath() | echo getcwd()
+command Cd :execute "cd " .. s:GetGitRootPath().path | echo getcwd()
+command Lcd :execute "lcd " .. s:GetGitRootPath().path | echo getcwd()
+command Tcd :execute "tcd " .. s:GetGitRootPath().path | echo getcwd()
 
 function s:GetGitRootPath(...)
   if a:0 > 1
     echoerr "invalid args"
-    return getcwd()
+    return {'found': v:false, 'path': '.'}
   endif
 
   " current file for no arg
@@ -438,21 +438,20 @@ function s:GetGitRootPath(...)
   if !empty(l:result)
     " let l:result = fnameescape(fnamemodify(l:result, ':p:h:h'))
     let l:result = fnamemodify(l:result, ':p:h:h')
+    return {'found': v:true, 'path': l:result}
+  else
+    echo 'no root...'
+    return {'found': v:false, 'path': '.'}
   endif
-  if empty(l:result)
-    echo "no root..."
-    let l:result = getcwd()
-  endif
-  return l:result
 endfunction
 
 function s:DoGrep(tabnew)
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
-  if l:gitRootOfPwd != s:GetGitRootPath()
+  if l:gitRootOfPwd.path != s:GetGitRootPath().path
     let l:warnings = l:warnings . "NOT the same repository, "
   endif
-  if empty(l:gitRootOfPwd)
+  if !l:gitRootOfPwd.found
     let l:warnings = l:warnings . "NOT a git repository, "
   endif
   if l:warnings != ""
@@ -470,7 +469,7 @@ function s:DoGrep(tabnew)
   else
     let l:keyHeadStr .= "grep -iE"
   endif
-  if empty(l:gitRootOfPwd)
+  if !l:gitRootOfPwd.found
     let l:keyHeadStr = l:keyHeadStr . " --no-index"
   endif
   call feedkeys(l:keyHeadStr . " \"\" \<bar> cw\<left>\<left>\<left>\<left>\<left>\<left>")
