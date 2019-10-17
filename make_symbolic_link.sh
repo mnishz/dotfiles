@@ -9,5 +9,6 @@ ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 # ln -sf ~/dotfiles/.minttyrc ~/.minttyrc
 ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
 # ln -sf ~/dotfiles/.git_prompt.sh ~/.git_prompt.sh
+ln -sf ~/dotfiles/git_clean.sh ~/git_clean.sh
 rm ~/.vim
 ln -sf ~/dotfiles/vimfiles ~/.vim

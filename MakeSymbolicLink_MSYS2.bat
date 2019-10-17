@@ -8,4 +8,5 @@ rem mklink %~dp0..\.tmux.conf %~dp0.tmux.conf
 mklink %~dp0..\.minttyrc %~dp0.minttyrc
 mklink %~dp0..\.bashrc.additional %~dp0.bashrc.additional
 rem mklink %~dp0..\.git_prompt.sh %~dp0.git_prompt.sh
+mklink %~dp0..\git_clean.sh %~dp0git_clean.sh
 mklink /d %~dp0..\.vim %~dp0vimfiles
