@@ -36,4 +36,6 @@ fi
 
 # export LESS="-iMRF"
 
-source ~/.bashrc.local
+if [ -e ~/.bashrc.local ]; then
+    source ~/.bashrc.local
+fi
