@@ -6,6 +6,7 @@ alias la='ls -lA'
 alias trash='gio trash'
 alias smile='vim --clean -c "smile | call getchar() | q"'
 alias cdroot='cd $(git rev-parse --show-toplevel)'
+alias showbuildcomp='vim --remote-expr ''popup_create\(\"build\ completed!\",\ \{\"pos\":\ \"center\",\ \"close\":\ \"button\",\ \"border\":\ [],\ \"padding\":\ [0,\ 1,\ 0,\ 1]\}\)'''
 
 type "tree" > /dev/null 2>&1
 if [ $? != 0 ]; then
