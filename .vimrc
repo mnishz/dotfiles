@@ -84,7 +84,7 @@ else
     autocmd FocusGained * set transparency=255
   augroup END
 
-  function g:RestoreMouse(timer)
+  function g:RestoreMouse(timer) abort
     " 8.1.0011でもっと簡単に調べる方法が入ったけどまだ使えない。
     " if !empty(mapcheck('<leftmouse>', 'n'))
     let l:mapping = maparg('<leftmouse>', 'n', v:false, v:true)
@@ -312,7 +312,7 @@ nnoremap <expr> { <SID>CurlyBracket("{")
 let @d = '?^@/-l"aye?^---wll"bY:rightbelow vert new b:a'
 tnoremap @d N@d
 
-function s:CurlyBracket(text)
+function s:CurlyBracket(text) abort
   if a:text == "}"
     return &diff ? "]c" : ":cn\<cr>"
   elseif a:text == "{"
@@ -373,7 +373,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 " command -nargs=0 MyFunc :call s:MyFunc()
 " 
 " " ":help expression"とやると幸せになれるかも
-" function s:MyFunc()
+" function s:MyFunc() abort
 "   " EXコマンド(ex-cmd-indexもしくはexpression-commands)はそのまま呼び出せる
 "     echo "foo"
 "     normal gg
@@ -392,7 +392,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 " endfunction
 
 command FooBarTest :call s:FooBarTest()
-function s:FooBarTest(...)
+function s:FooBarTest(...) abort
   echo "bar"
   return ""
 endfunction
@@ -406,7 +406,7 @@ command Cd :execute "cd " .. s:GetGitRootPath().path | echo getcwd()
 command Lcd :execute "lcd " .. s:GetGitRootPath().path | echo getcwd()
 command Tcd :execute "tcd " .. s:GetGitRootPath().path | echo getcwd()
 
-function s:GetGitRootPath(...)
+function s:GetGitRootPath(...) abort
   if a:0 > 1
     echoerr "invalid args"
     return {'found': v:false, 'path': '.'}
@@ -431,7 +431,7 @@ function s:GetGitRootPath(...)
   endif
 endfunction
 
-function s:DoGrep(tabnew)
+function s:DoGrep(tabnew) abort
   let l:warnings = ""
   let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
   if l:gitRootOfPwd.path != s:GetGitRootPath().path
@@ -463,7 +463,7 @@ endfunction
 
 command CloseRightTabs :call s:CloseRightTabs()
 
-function s:CloseRightTabs()
+function s:CloseRightTabs() abort
   " 自分自身は閉じないので"+1"
   let l:firstTabNumberToClose = tabpagenr() + 1
   let l:totalTabCount = tabpagenr('$')
@@ -481,7 +481,7 @@ endfunction
 
 command Ccl :call s:Ccl()
 
-function s:Ccl()
+function s:Ccl() abort
   let l:orgTabNumber = tabpagenr()
   for currTabNumber in range(1, tabpagenr('$'))
     execute "tabnext " . currTabNumber
@@ -490,7 +490,7 @@ function s:Ccl()
   execute "tabnext " . l:orgTabNumber
 endfunction
 
-function s:GoToFirstColumn()
+function s:GoToFirstColumn() abort
   let l:orgColumn = col(".")
   " 一度'^'で移動
   normal ^
@@ -503,7 +503,7 @@ endfunction
 
 command CGrep :call s:CGrep()
 
-function s:CGrep()
+function s:CGrep() abort
   let l:found = v:false
   while v:true
     let l:currList = getqflist({'all': 1})
@@ -519,11 +519,11 @@ endfunction
 
 command -nargs=1 CGoTo :call s:CGoTo(<f-args>)
 
-function s:GetCurrQuickFixListNumber()
+function s:GetCurrQuickFixListNumber() abort
   return getqflist({"nr": 0})["nr"]
 endfunction
 
-function s:CGoTo(listNumber)
+function s:CGoTo(listNumber) abort
   if a:listNumber < 1 || a:listNumber > 10 | echo "invalid" | return | endif
   let l:currListNumber = s:GetCurrQuickFixListNumber()
   let l:diff = abs(l:currListNumber - a:listNumber)
@@ -534,7 +534,7 @@ function s:CGoTo(listNumber)
   endif
 endfunction
 
-function s:ToggleComment() range
+function s:ToggleComment() range abort
   if !exists('b:comment_text') | echoerr 'no b:comment_text' | return | endif
   let l:comment_text = escape(b:comment_text, '/$.*~')
   if getline(a:firstline) =~ '^\s*' . l:comment_text . ' '
@@ -556,7 +556,7 @@ command TermDot :vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
 command -nargs=1 -complete=command Redir :call s:Redir(<f-args>)
 
-function s:Redir(command)
+function s:Redir(command) abort
   if has('clipboard')
     " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
     redir @*
@@ -567,7 +567,7 @@ function s:Redir(command)
   redir END
 endfunction
 
-function s:MoveUpwardDownward(upward)
+function s:MoveUpwardDownward(upward) abort
   let l:searchStr = '^' . getline('.')[:getcurpos()[2]-2] . '\S'
   if a:upward
     call search(l:searchStr, 'bez')
@@ -587,8 +587,8 @@ endfunction
 command -nargs=1 -range=% Split :<line1>,<line2>call s:Split(<f-args>)
 
 " Kaoriya gVim doesn't support default parameter yet
-" function s:Split(split_count, separator = ', ') range
-function s:Split(split_count) range
+" function s:Split(split_count, separator = ', ') range abort
+function s:Split(split_count) range abort
   let l:separator = ', '
   " you can use "\<TAB>" for separator
   let l:num_lines = a:lastline + 1 - a:firstline
