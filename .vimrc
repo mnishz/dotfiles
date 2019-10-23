@@ -329,20 +329,6 @@ endfunction
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\(<cr>
 
-" gtags関連、ctagsも一応残す
-if has('kaoriya')
-  nnoremap ctags :!start ctags -R *<cr>
-  nnoremap gtags :!start gtags -v<cr>
-else
-  " nnoremap ctags :call job_start('/bin/bash -c "ctags -R *"', {'close_cb': function('JobMessage')})<cr>
-  nnoremap ctags :call job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('JobMessage')})<cr>
-  nnoremap gtags :call job_start('/bin/bash -c "gtags"', {'close_cb': function('JobMessage')})<cr>
-endif
-
-function JobMessage(channel) abort
-  call popup_notification('finished', {})
-endfunction
-
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
@@ -640,6 +626,22 @@ endfunction
 
 command WriteSudo :w !sudo tee > /dev/null %
 command OwnFile :!sudo chown nishihata %
+
+command UpdateTags :call s:UpdateTags()
+
+function s:UpdateTags() abort
+  if has('kaoriya')
+    !start ctags -R *
+    !start gtags -v
+  else
+    let l:channel = job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('s:JobCompMessage')}))
+    let l:channel = job_getchannel(job_start('/bin/bash -c "gtags"', {'close_cb': function('s:JobCompMessage')}))
+  endif
+endfunction
+
+function s:JobCompMessage(channel) abort
+  call popup_notification('finished', {})
+endfunction
 
 let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
