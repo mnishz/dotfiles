@@ -1,12 +1,13 @@
 #!/bin/bash
-
 set -eu
-dirs=$(find $(git rev-parse --show-toplevel) -maxdepth 1 -type d)
 
-for dir in ${dirs};
+gitroot=$(git rev-parse --show-toplevel)
+targetdirs=$(find ${gitroot} -maxdepth 1 -type d)
+
+for dir in ${targetdirs};
 do
-    if [ ${dir} != '.' ]; then
-        # echo ${dir}
-        git clean ${dir} -xdff
-    fi
+    if [ ${dir} == ${gitroot} ]; then continue; fi
+    if [ ${dir} == "${gitroot}/.git" ]; then continue; fi
+    # echo ${dir}
+    git clean ${dir} -xdff
 done
