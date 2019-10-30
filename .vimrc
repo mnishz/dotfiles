@@ -196,6 +196,7 @@ set clipboard+=unnamed
 
 set helplang=ja
 
+set history=10000
 set termwinscroll=100000
 
 augroup WindowLocalOptions
