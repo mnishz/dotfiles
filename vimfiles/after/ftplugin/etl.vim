@@ -7,3 +7,5 @@ noremap  <buffer> / /\c\v
 nnoremap <buffer> <space>/ /\c\vnishi<bar>do[ _]exe<bar>dr[ _]cmd<bar>dr[ _]invoke<bar>pipeline<bar>dlb[ _]entry<bar>nexttrack<bar>rw[ _]event<bar>continue[ _]rec<bar>pick[ _]cmd<cr>
 
 nnoremap <Leader>/ :let @/ = @/ .. '\|' .. substitute(@/, '_', ' ', 'g')<cr>
+
+IndentLinesDisable
