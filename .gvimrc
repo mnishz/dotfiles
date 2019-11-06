@@ -6,7 +6,7 @@ set guifont=Cica:h10:cSHIFTJIS
 if g:help_translation
   set columns=84
 else
-  au GUIEnter * simalt ~x
+  " au GUIEnter * simalt ~x
 endif
 
 " 起動に時間がかかるので、menuを読み込まない。
