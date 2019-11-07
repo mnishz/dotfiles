@@ -199,6 +199,10 @@ set helplang=ja
 set history=10000
 set termwinscroll=100000
 
+if !empty($TMUX)
+  set ttymouse=sgr
+endif
+
 augroup WindowLocalOptions
   autocmd!
   autocmd BufWinEnter * set nofoldenable
@@ -626,7 +630,7 @@ function s:Split(split_count) range abort
 endfunction
 
 command WriteSudo :w !sudo tee > /dev/null %
-command OwnFile :!sudo chown nishihata %
+command OwnFile :!sudo chown $USER:$USER %
 
 command UpdateTags :call s:UpdateTags()
 
