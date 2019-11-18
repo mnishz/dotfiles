@@ -31,6 +31,7 @@ hook_add = '''
 repo = 'Yggdroot/indentLine'
 hook_add = '''
   let g:indentLine_char = '┊'
+  let g:indentLine_fileType = ['c', 'cpp', 'ipp', 'hpp', 'hh']
 '''
 
 [[plugins]] # deniteはpythonが必要なので会社のPCに入れるのが面倒、という後ろ向きな理由でctrlpを入れる。
