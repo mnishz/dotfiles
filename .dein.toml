@@ -126,3 +126,9 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'lyuts/vim-rtags'
+
+# [[plugins]]
+# repo = 'jiangmiao/auto-pairs'
+#
+# [[plugins]]
+# repo = 'airblade/vim-gitgutter'
