@@ -1,0 +1,13 @@
+color date cyan default
+
+set main-view = id date author commit-title:graph=yes,refs=yes
+set blame-view = date author:width=8 file-name:no id:yes,color line-number:interval=1 text
+set vertical-split = false
+
+bind generic g move-first-line
+# bind generic G none
+bind generic G move-last-line
+bind generic <Ctrl-f> scroll-page-down
+bind generic <Ctrl-b> scroll-page-up
+
+bind main C !?git checkout %(commit)
