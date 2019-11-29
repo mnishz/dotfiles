@@ -1,13 +1,13 @@
-mklink %HOMEPATH%"\.vimrc" %HOMEPATH%"\dotfiles\.vimrc"
-mklink %HOMEPATH%"\.gvimrc" %HOMEPATH%"\dotfiles\.gvimrc"
-mklink %HOMEPATH%"\.dein.toml" %HOMEPATH%"\dotfiles\.dein.toml"
-mklink %HOMEPATH%"\.gitconfig" %HOMEPATH%"\dotfiles\.gitconfig"
-rem mklink %HOMEPATH%"\.gdbinit" %HOMEPATH%"\dotfiles\.gdbinit"
-rem mklink %HOMEPATH%"\.screenrc" %HOMEPATH%"\dotfiles\.screenrc"
-rem mklink %HOMEPATH%"\.tmux.conf" %HOMEPATH%"\dotfiles\.tmux.conf"
-mklink %HOMEPATH%"\.minttyrc" %HOMEPATH%"\dotfiles\.minttyrc"
-mklink %HOMEPATH%"\.tigrc" %HOMEPATH%"\dotfiles\.tigrc"
-mklink %HOMEPATH%"\.bashrc.additional" %HOMEPATH%"\dotfiles\.bashrc.additional"
-rem mklink %HOMEPATH%"\.git_prompt.sh" %HOMEPATH%"\dotfiles\.git_prompt.sh"
-mklink %HOMEPATH%"\git_clean.sh" %HOMEPATH%"\dotfiles\git_clean.sh"
-mklink /d %HOMEPATH%"\vimfiles" %HOMEPATH%"\dotfiles\vimfiles"
+mklink %~dp0..\.vimrc %~dp0.vimrc
+mklink %~dp0..\.gvimrc %~dp0.gvimrc
+mklink %~dp0..\.dein.toml %~dp0.dein.toml
+mklink %~dp0..\.gitconfig %~dp0.gitconfig
+rem mklink %~dp0..\.gdbinit %~dp0.gdbinit
+rem mklink %~dp0..\.screenrc %~dp0.screenrc
+rem mklink %~dp0..\.tmux.conf %~dp0.tmux.conf
+mklink %~dp0..\.minttyrc %~dp0.minttyrc
+mklink %~dp0..\.tigrc %~dp0.tigrc
+mklink %~dp0..\.bashrc.additional %~dp0.bashrc.additional
+rem mklink %~dp0..\.git_prompt.sh %~dp0.git_prompt.sh
+mklink %~dp0..\git_clean.sh %~dp0git_clean.sh
+mklink /d %~dp0..\.vim %~dp0vimfiles
