@@ -127,6 +127,16 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'lyuts/vim-rtags'
 
+[[plugins]]
+repo = 'previm/previm'
+hook_add = '''
+  if has('win32')
+    let g:previm_open_cmd = 'C:\\Program\ Files\\Mozilla\ Firefox\\firefox.exe'
+  endif
+  let g:previm_enable_realtime = 1
+  let g:previm_custom_css_path = '~/dotfiles/previm_my.css'
+'''
+
 # [[plugins]]
 # repo = 'jiangmiao/auto-pairs'
 #
