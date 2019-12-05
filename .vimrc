@@ -33,7 +33,7 @@ set writebackup
 set undofile
 set swapfile
 
-if !has('kaoriya')
+if !has('win32')
 
   set t_Co=256
   colorscheme torte
@@ -455,7 +455,7 @@ function s:DoGrep(tabnew) abort
   if a:tabnew
     let l:keyHeadStr = ":tabnew \<bar> "
   endif
-  if has('kaoriya')
+  if has('win32')
     let l:keyHeadStr .= "set transparency=200 \<bar> grep -iE"
   else
     let l:keyHeadStr .= "grep -iE"
@@ -635,7 +635,7 @@ command OwnFile :!sudo chown $USER:$USER %
 command UpdateTags :call s:UpdateTags()
 
 function s:UpdateTags() abort
-  if has('kaoriya')
+  if has('win32')
     !start ctags -R *
     !start gtags -v
   else
