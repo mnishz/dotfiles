@@ -349,13 +349,6 @@ nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 nnoremap Y y$
 " ノーマルモードでのWindowsクリップボードへの単語コピー
 nnoremap <c-insert> viw"*y
-" 毎度レジスタを指定するのが面倒なので、a, b, cだけヤンクとペーストを割り当てておく
-nnoremap <space>ya "ayiw
-nnoremap <space>yb "byiw
-nnoremap <space>yc "cyiw
-nnoremap <space>pa "ap
-nnoremap <space>pb "bp
-nnoremap <space>pc "cp
 " gpは常にレジスタ0を貼り付ける
 noremap gp "0p
 
@@ -371,6 +364,7 @@ noremap <c-z> :echo "nop"<cr>
 
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
+nnoremap <space>p :call popup_clear()<cr>
 
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
