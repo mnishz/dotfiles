@@ -47,7 +47,9 @@ if !has('win32')
     let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
   endif
   " ESC キーを押してから挿入モードを出るまでの時間を短くする -> defaults.vim で設定
-  " set ttimeoutlen=100
+  if &term =~ 'tmux'
+    set ttimeoutlen=50
+  endif
 
   " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
 
