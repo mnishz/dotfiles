@@ -39,29 +39,23 @@ if !has('win32')
   colorscheme torte
   set fileencodings=utf-8,cp932,euc-jp,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
 
-  if &term == "xterm"
-    " https://qiita.com/mwmsnn/items/0b40662a22162907efae
-    " Tera Termでしか動いていない。。。 -> mintty 3.0.2 でも動くようになった
-    " 挿入モードに入る時，前回の挿入モードにおける IME の状態を復元する．
-    " set t_SI+=[<r
-    " 挿入モードを出る時，IME をオフにする．
-    if !empty($TMUX)
-      let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
-    else
-      let &t_EI .= "\e[<0t"
-    endif
-    " Vim 終了時，IME を無効にし，無効にした状態を保存する．
-    " set t_te+=[<0t[<s
-    " ESC キーを押してから挿入モードを出るまでの時間を短くする -> defaults.vim で設定
-    " set ttimeoutlen=100
-    " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
+  " https://qiita.com/m_nish/items/f6e5f875c2d0954a6630
+  " 挿入モードを出る時，IME をオフにする．
+  if &term == 'xterm'
+    let &t_EI .= "\e[<0t"
+  elseif &term =~ 'tmux'
+    let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
   endif
+  " ESC キーを押してから挿入モードを出るまでの時間を短くする -> defaults.vim で設定
+  " set ttimeoutlen=100
 
-  if &term =~ "xterm"
-      let &t_ti.="\e[1 q"
-      let &t_SI.="\e[5 q"
-      let &t_EI.="\e[1 q"
-      let &t_te.="\e[0 q"
+  " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
+
+  if &term =~ 'xterm' || &term =~ 'tmux'
+    let &t_ti .= "\e[1 q"
+    let &t_SI .= "\e[5 q"
+    let &t_EI .= "\e[1 q"
+    let &t_te .= "\e[0 q"
   endif
 
   filetype on
