@@ -200,7 +200,7 @@ set history=10000
 set termwinscroll=100000
 
 if !empty($TMUX)
-  set ttymouse=sgr
+  set ttymouse=xterm2
 endif
 
 augroup WindowLocalOptions
