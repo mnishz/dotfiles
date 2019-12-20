@@ -35,9 +35,8 @@ set swapfile
 
 if !has('win32')
 
-  set t_Co=256
   colorscheme torte
-  set fileencodings=utf-8,cp932,euc-jp,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
+  " set fileencodings=utf-8,cp932,euc-jp,euc-jisx0213,ucs-bom,ucs-2le,ucs-2,iso-2022-jp-3
 
   " https://qiita.com/m_nish/items/f6e5f875c2d0954a6630
   " 挿入モードを出る時，IME をオフにする．
@@ -60,12 +59,12 @@ if !has('win32')
     let &t_te .= "\e[0 q"
   endif
 
-  filetype on
-  filetype plugin on
-  filetype indent on
-
   " (:bro olで表示される)ファイルの履歴を60までに制限する。その他はデフォルトの設定。
-  set viminfo='60,<50,s10,h
+  " set viminfo='60,<50,s10,h
+
+  if &term =~ 'tmux'
+    set ttymouse=xterm2
+  endif
 
 else
 
@@ -200,10 +199,6 @@ set helplang=ja
 
 set history=10000
 set termwinscroll=100000
-
-if !empty($TMUX)
-  set ttymouse=xterm2
-endif
 
 augroup WindowLocalOptions
   autocmd!
