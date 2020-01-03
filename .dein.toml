@@ -119,7 +119,6 @@ hook_add = '''
   "     \ })
   " endif
   let g:lsp_diagnostics_echo_cursor = 1
-  let g:lsp_text_edit_enabled = 0
 '''
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
@@ -139,6 +138,9 @@ hook_add = '''
 
 # [[plugins]]
 # repo = 'jiangmiao/auto-pairs'
-#
+
 # [[plugins]]
 # repo = 'airblade/vim-gitgutter'
+
+# modeline
+# vim: expandtab tabstop=2 textwidth=0
