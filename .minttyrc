@@ -3,4 +3,5 @@ Font=Cica
 FontHeight=11
 RowSpacing=-1
 Scrollbar=none
+Term=xterm-256color
 IMECursorColour=255,0,0

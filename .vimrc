@@ -40,32 +40,30 @@ if !has('win32')
 
   " https://qiita.com/m_nish/items/f6e5f875c2d0954a6630
   " 挿入モードを出る時，IME をオフにする．
-  if &term == 'xterm'
-    let &t_EI .= "\e[<0t"
-  elseif &term =~ 'tmux'
-    let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
-  endif
-  " ESC キーを押してから挿入モードを出るまでの時間を短くする -> defaults.vim で設定
-  if &term =~ 'tmux'
-    set ttimeoutlen=50
+  if empty($GNOME_TERMINAL_SCREEN) && &term =~ 'xterm'
+    if empty($TMUX)
+      let &t_EI .= "\e[<0t"
+    else
+      let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
+      " ESC キーを押してから挿入モードを出るまでの時間を短くする -> defaults.vim で設定
+      set ttimeoutlen=50
+    endif
   endif
 
   " inoremap <silent> <esc> <esc>:call system('ibus engine "xkb:jp::jpn"')<cr><c-l>
 
-  if &term =~ 'xterm' || &term =~ 'tmux'
+  if &term =~ 'xterm'
+    " インサートモードでのカーソル切り替え
     let &t_ti .= "\e[1 q"
     let &t_SI .= "\e[5 q"
     let &t_EI .= "\e[1 q"
     let &t_te .= "\e[0 q"
+
+    set ttymouse=sgr
   endif
 
   " (:bro olで表示される)ファイルの履歴を60までに制限する。その他はデフォルトの設定。
   " set viminfo='60,<50,s10,h
-
-  if &term =~ 'tmux'
-    set ttymouse=xterm2
-  endif
-
 else
 
   if g:office_work
