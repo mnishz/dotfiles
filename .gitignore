@@ -1,1 +1,2 @@
 *.bat
+vimfiles/after/ftplugin/etl.vim
