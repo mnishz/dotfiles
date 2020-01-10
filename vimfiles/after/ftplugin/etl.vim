@@ -11,3 +11,26 @@ nnoremap <buffer> <space>/ /\c\vnishi<bar>do[ _]exe<bar>dr[ _]cmd<bar>dr[ _]invo
 nnoremap <Leader>/ :let @/ = @/ .. '\|' .. substitute(@/, '_', ' ', 'g')<cr>
 
 IndentLinesDisable
+
+command-buffer -nargs=1 EtlGrep :call s:grep(<f-args>)
+
+let s:grep_job = 0
+let s:grep_aborted = 0
+
+function s:handler(ch, msg) abort
+  if s:grep_aborted && ch_status(a:ch) == 'closed'
+    let s:grep_aborted = 0
+  else
+    caddexpr a:msg .. ch_status(a:ch)
+    cwindow
+  endif
+endfunction
+
+function s:grep(text) abort
+  if !empty(s:grep_job) && job_status(s:grep_job) == 'run'
+    call job_stop(s:grep_job)
+    let s:grep_aborted = 1
+  endif
+  call setqflist([])
+  let s:grep_job = job_start(['grep', '-nHie', a:text, expand('%')], {'out_cb': function('s:handler')})
+endfunction
