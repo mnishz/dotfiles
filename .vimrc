@@ -309,7 +309,7 @@ nnoremap <silent> g<c-g> :call <SID>DoGrep(v:false)<cr>
 nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
-let @d = '?^@/-l"aye?^---wll"bY:rightbelow vert new b:a'
+let @d = '?^@/-l"aye?^---wll"bY:rightbelow new b:a'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
@@ -618,12 +618,23 @@ function s:Split(split_count) range abort
   call deletebufline('%', a:firstline + len(l:new_text), a:lastline)
 endfunction
 
-command WriteSudo :w !sudo tee > /dev/null %
+command WriteSudo :call s:WriteSudo()
 command OwnFile :!sudo chown $USER:$USER %
+
+function s:WriteSudo() abort
+  w !sudo tee > /dev/null %
+  e!
+endfunction
 
 command UpdateTags :call s:UpdateTags()
 
 function s:UpdateTags() abort
+  " copy .notfunction for work environment
+  if !filereadable('.notfunction') && filereadable('~/.notfunction')
+    new ~/.notfunction
+    saveas .notfunction
+    quit
+  endif
   if has('win32')
     !start ctags -R *
     !start gtags -v
