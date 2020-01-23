@@ -327,7 +327,7 @@ endfunction
 " nnoremap ]] j0?{<CR>w99[{%/{<CR>zz
 
 " 関数っぽいものを検索(ハイライト)
-nnoremap <space>/ /\v\w+\(<cr>
+nnoremap <space>/ /\v\w+\ze\(<cr>
 
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
@@ -630,7 +630,7 @@ command UpdateTags :call s:UpdateTags()
 
 function s:UpdateTags() abort
   " copy .notfunction for work environment
-  if !filereadable('.notfunction') && filereadable('~/.notfunction')
+  if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
     new ~/.notfunction
     saveas .notfunction
     quit
