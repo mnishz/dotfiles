@@ -631,9 +631,7 @@ command UpdateTags :call s:UpdateTags()
 function s:UpdateTags() abort
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
-    new ~/.notfunction
-    saveas .notfunction
-    quit
+    call system('cp ~/.notfunction .notfunction')
   endif
   if has('win32')
     !start ctags -R *
