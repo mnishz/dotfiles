@@ -313,12 +313,13 @@ let @d = '?^@/-l"aye?^---wll"bY:rightbelow new b:a'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
-  if a:text == "}"
-    return &diff ? "]c" : ":cn\<cr>"
-  elseif a:text == "{"
-    return &diff ? "[c" : ":cp\<cr>"
+  if &diff
+    return a:text == "}" ? "]c" : "[c"
+  elseif !empty(getloclist(0))
+    return a:text == "}" ? ":lne\<cr>" : ":lp\<cr>"
   else
-    " do nothing
+    " assume it quickfix
+    return a:text == "}" ? ":cn\<cr>" : ":cp\<cr>"
   endif
 endfunction
 
