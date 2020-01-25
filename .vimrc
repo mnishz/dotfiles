@@ -649,6 +649,28 @@ endfunction
 
 let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
+" https://github.com/greymd/oscyank.vim
+function s:YankByOSC52() abort
+  let l:sub = empty($TMUX) ? '\\' : '\\\\'
+  let l:encodedText = substitute(@@, '\', l:sub, 'g')
+  let l:encodedText = substitute(l:encodedText, "\'", "'\\\\''", 'g')
+  let l:executeCmd = "echo -n '" .. l:encodedText .. "' | base64 | tr -d '\\n'"
+  let l:encodedText = system(l:executeCmd)
+  if !empty($TMUX)
+    let l:executeCmd = 'echo -en "\033Ptmux;\033\033]52;;' .. l:encodedText .. '\033\033\\\\\033\\" > /dev/tty'
+  elseif $TERM ==? "screen"
+    let l:executeCmd = 'echo -en "\033P\033]52;;'          .. l:encodedText .. '\007\033\\"         > /dev/tty'
+  else
+    let l:executeCmd = 'echo -en "\033]52;;'               .. l:encodedText .. '\033\\"             > /dev/tty'
+  endif
+  call system(l:executeCmd)
+endfunction
+
+augroup YankByOSC52
+  autocmd!
+  autocmd TextYankPost * call <SID>YankByOSC52()
+augroup END
+
 set secure
 
 " modeline
