@@ -129,5 +129,19 @@ function s:PlugUpdate() abort
   endfor
 endfunction
 
+command PlugDeleteAll :call s:PlugDeleteAll()
+function s:PlugDeleteAll() abort
+  for dir in readdir(s:plugins_path, {n -> isdirectory(s:plugins_path .. n)})
+    echon 'deleting ' .. dir .. ', '
+    if !empty(system('cd ' .. s:plugins_path .. dir .. ' && git status --porcelain'))
+      echon 'not clean, aborted'
+    else
+      echon 'done'
+      call delete(s:plugins_path .. dir, "rf")
+    endif
+    echo ''
+  endfor
+endfunction
+
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
