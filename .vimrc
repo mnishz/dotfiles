@@ -650,26 +650,25 @@ endfunction
 let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 " https://github.com/greymd/oscyank.vim
-function s:YankByOSC52() abort
-  let l:sub = empty($TMUX) ? '\\' : '\\\\'
-  let l:encodedText = substitute(@@, '\', l:sub, 'g')
-  let l:encodedText = substitute(l:encodedText, "\'", "'\\\\''", 'g')
-  let l:executeCmd = "echo -n '" .. l:encodedText .. "' | base64 | tr -d '\\n'"
+" how to use: yank -> type ':CopyToClipboard'
+command CopyToClipboard :call s:CopyToClipboardByOSC52()
+function s:CopyToClipboardByOSC52() abort
+  let l:txt_file = trim(system('mktemp /tmp/vim_txt_XXX'))
+  call writefile(split(@", '\n'), l:txt_file)
+  let l:enc_file = system('mktemp /tmp/vim_enc_XXX')
+  let l:executeCmd = "base64 " .. l:txt_file .. " | tr -d '\\n' > " .. l:enc_file
   let l:encodedText = system(l:executeCmd)
+  call system('rm ' .. l:txt_file)
   if !empty($TMUX)
-    let l:executeCmd = 'echo -en "\033Ptmux;\033\033]52;;' .. l:encodedText .. '\033\033\\\\\033\\" > /dev/tty'
+    let l:executeCmd = 'echo -en "\033Ptmux;\033\033]52;;$(cat ' .. l:enc_file .. ')\033\033\\\\\033\\" > /dev/tty'
   elseif $TERM ==? "screen"
-    let l:executeCmd = 'echo -en "\033P\033]52;;'          .. l:encodedText .. '\007\033\\"         > /dev/tty'
+    let l:executeCmd = 'echo -en "\033P\033]52;;$(cat '          .. l:enc_file .. ')\007\033\\"         > /dev/tty'
   else
-    let l:executeCmd = 'echo -en "\033]52;;'               .. l:encodedText .. '\033\\"             > /dev/tty'
+    let l:executeCmd = 'echo -en "\033]52;;$(cat '               .. l:enc_file .. ')\033\\"             > /dev/tty'
   endif
   call system(l:executeCmd)
+  call system('rm ' .. l:enc_file)
 endfunction
-
-augroup YankByOSC52
-  autocmd!
-  autocmd TextYankPost * call <SID>YankByOSC52()
-augroup END
 
 set secure
 
