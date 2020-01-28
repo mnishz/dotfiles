@@ -658,7 +658,7 @@ function s:CopyToClipboardByOSC52() abort
   let l:enc_file = system('mktemp /tmp/vim_enc_XXX')
   let l:executeCmd = "base64 " .. l:txt_file .. " | tr -d '\\n' > " .. l:enc_file
   let l:encodedText = system(l:executeCmd)
-  call system('rm ' .. l:txt_file)
+  call delete(l:txt_file)
   if !empty($TMUX)
     let l:executeCmd = 'echo -en "\033Ptmux;\033\033]52;;$(cat ' .. l:enc_file .. ')\033\033\\\\\033\\" > /dev/tty'
   elseif $TERM ==? "screen"
@@ -667,7 +667,7 @@ function s:CopyToClipboardByOSC52() abort
     let l:executeCmd = 'echo -en "\033]52;;$(cat '               .. l:enc_file .. ')\033\\"             > /dev/tty'
   endif
   call system(l:executeCmd)
-  call system('rm ' .. l:enc_file)
+  call delete(l:enc_file)
 endfunction
 
 set secure
