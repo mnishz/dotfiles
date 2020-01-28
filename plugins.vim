@@ -1,8 +1,14 @@
-let s:plugins_path = "~/.vim/pack/plugins/start"
+scriptencoding utf-8
+
+if has('win32')
+  const s:plugins_path = "~/vimfiles/pack/plugins/start"
+else
+  const s:plugins_path = "~/.vim/pack/plugins/start"
+endif
 if !isdirectory(s:plugins_path) | call mkdir(s:plugins_path, "p") | endif
 
 function s:Install(path, branch = '') abort
-  let l:dir = expand(s:plugins_path .. '/' .. substitute(a:path, '/', '_', 'g'))
+  const l:dir = expand(s:plugins_path .. '/' .. substitute(a:path, '/', '_', 'g'))
   if !isdirectory(l:dir)
     echo 'installing ' .. a:path
     if empty(a:branch)
