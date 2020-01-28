@@ -6,9 +6,9 @@ scriptencoding utf-8
 " * have a list of plugins
 
 if has('win32')
-  const s:plugins_path = "~/vimfiles/pack/plugins/start"
+  const s:plugins_path = expand("~/vimfiles/pack/plugins/start")
 else
-  const s:plugins_path = "~/.vim/pack/plugins/start"
+  const s:plugins_path = expand("~/.vim/pack/plugins/start")
 endif
 if !isdirectory(s:plugins_path) | call mkdir(s:plugins_path, "p") | endif
 
