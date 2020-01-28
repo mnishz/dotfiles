@@ -2,8 +2,8 @@ scriptencoding utf-8
 
 " TODO
 " * update function -> done
-" * disable function
-" * have a list of plugins
+" * disable function -> done
+" * have a list of plugins -> needed?
 
 if has('win32')
   const s:plugins_path = expand("~/vimfiles/pack/plugins/start/")
@@ -12,7 +12,8 @@ else
 endif
 if !isdirectory(s:plugins_path) | call mkdir(s:plugins_path, "p") | endif
 
-function s:Install(path, branch = '') abort
+function s:Install(path, condition = v:true, branch = '') abort
+  if !a:condition | return | endif
   const l:dir = expand(s:plugins_path .. substitute(a:path, '/', '_', 'g'))
   if !isdirectory(l:dir)
     echo 'installing ' .. a:path
@@ -25,7 +26,7 @@ function s:Install(path, branch = '') abort
 endfunction
 
 call s:Install('vim-jp/vimdoc-ja')
-call s:Install('lyuts/vim-rtags')
+call s:Install('lyuts/vim-rtags', (has('python') || has('python3')))
 call s:Install('mattn/vim-lexiv')
 " call s:Install('airblade/vim-gitgutter')
 
@@ -33,7 +34,7 @@ call s:Install('mnishz/notes.vim')
 call s:Install('mnishz/devotion.vim')
 call s:Install('mnishz/colorscheme-preview.vim')
 
-call s:Install('mnishz/rainfall.vim', 'tenki_jp')
+call s:Install('mnishz/rainfall.vim', executable('curl'), 'tenki_jp')
   let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 call s:Install('vim-airline/vim-airline')
