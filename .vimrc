@@ -611,8 +611,6 @@ function s:JobCompMessage(channel) abort
   call popup_notification('finished', {})
 endfunction
 
-let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
-
 " https://github.com/greymd/oscyank.vim
 " how to use: yank -> type ':CopyToClipboard'
 command CopyToClipboard :call s:CopyToClipboardByOSC52()

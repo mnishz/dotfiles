@@ -32,7 +32,9 @@ call s:Install('mattn/vim-lexiv')
 call s:Install('mnishz/notes.vim')
 call s:Install('mnishz/devotion.vim')
 call s:Install('mnishz/colorscheme-preview.vim')
+
 call s:Install('mnishz/rainfall.vim', 'tenki_jp')
+  let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 call s:Install('vim-airline/vim-airline')
 call s:Install('mnishz/current-func-info.vim')
