@@ -1,5 +1,10 @@
 scriptencoding utf-8
 
+" TODO
+" * update function
+" * disable function
+" * have a list of plugins
+
 if has('win32')
   const s:plugins_path = "~/vimfiles/pack/plugins/start"
 else
