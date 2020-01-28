@@ -1,19 +1,19 @@
 scriptencoding utf-8
 
 " TODO
-" * update function
+" * update function -> done
 " * disable function
 " * have a list of plugins
 
 if has('win32')
-  const s:plugins_path = expand("~/vimfiles/pack/plugins/start")
+  const s:plugins_path = expand("~/vimfiles/pack/plugins/start/")
 else
-  const s:plugins_path = expand("~/.vim/pack/plugins/start")
+  const s:plugins_path = expand("~/.vim/pack/plugins/start/")
 endif
 if !isdirectory(s:plugins_path) | call mkdir(s:plugins_path, "p") | endif
 
 function s:Install(path, branch = '') abort
-  const l:dir = expand(s:plugins_path .. '/' .. substitute(a:path, '/', '_', 'g'))
+  const l:dir = expand(s:plugins_path .. substitute(a:path, '/', '_', 'g'))
   if !isdirectory(l:dir)
     echo 'installing ' .. a:path
     if empty(a:branch)
@@ -117,6 +117,14 @@ call s:Install('prabirshrestha/vim-lsp')
   "     \ })
   " endif
   let g:lsp_diagnostics_echo_cursor = 1
+
+command PlugUpdate :call s:PlugUpdate()
+function s:PlugUpdate() abort
+  for dir in readdir(s:plugins_path, {n -> isdirectory(s:plugins_path .. n)})
+    echo 'updating ' .. dir
+    call system('cd ' .. s:plugins_path .. dir .. ' && git pull')
+  endfor
+endfunction
 
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
