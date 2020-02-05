@@ -592,8 +592,14 @@ function s:WriteSudo() abort
 endfunction
 
 command UpdateTags :call s:UpdateTags()
+augroup TAGS
+  autocmd!
+  autocmd BufWritePost * call s:UpdateTags()
+augroup END
+
 
 function s:UpdateTags() abort
+  if !isdirectory(getcwd() .. '/.git') || !filereadable(getcwd() .. '/tags') | return | endif
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
     call system('cp ~/.notfunction .notfunction')
@@ -602,14 +608,16 @@ function s:UpdateTags() abort
     !start ctags -R *
     !start gtags -v
   else
-    let l:channel = job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('s:JobCompMessage')}))
-    let l:channel = job_getchannel(job_start('/bin/bash -c "gtags"', {'close_cb': function('s:JobCompMessage')}))
+"     let l:channel = job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('s:JobCompMessage')}))
+"     let l:channel = job_getchannel(job_start('/bin/bash -c "gtags"', {'close_cb': function('s:JobCompMessage')}))
+    call job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"'))
+    call job_getchannel(job_start('/bin/bash -c "gtags"'))
   endif
 endfunction
 
-function s:JobCompMessage(channel) abort
-  call popup_notification('finished', {})
-endfunction
+" function s:JobCompMessage(channel) abort
+"   call popup_notification('finished', {})
+" endfunction
 
 " https://github.com/greymd/oscyank.vim
 " how to use: yank -> type ':CopyToClipboard'
