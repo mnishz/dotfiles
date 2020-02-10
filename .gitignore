@@ -1,2 +1,4 @@
 *.bat
-vimfiles/after/ftplugin/etl.vim
+.vim/.netrwhist
+.vim/after/ftplugin/etl.vim
+.vim/pack

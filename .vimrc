@@ -107,42 +107,6 @@ else
 
 endif
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" reset augroup
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
-" https://qiita.com/kawaz/items/ee725f6214f91337b42b
-" dein自体の自動インストール
-let s:dein_dir = s:cache_home . '/dein'
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
-" プラグイン読み込み＆キャッシュ作成
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.dein.toml'
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-  call dein#load_toml(s:toml_file)
-  call dein#end()
-endif
-let g:dein#types#git#clone_depth = 1
-" 不足プラグインの自動インストール
-if has('vim_starting') && dein#check_install()
-  call dein#install()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-"End dein Scripts-------------------------
-
 set title titlestring=%F
 set number
 
@@ -197,6 +161,11 @@ set helplang=ja
 
 set history=10000
 set termwinscroll=100000
+
+augroup FORMATOPTIONS
+  autocmd!
+  autocmd FileType * setlocal formatoptions-=ro
+augroup END
 
 augroup WindowLocalOptions
   autocmd!
@@ -365,7 +334,7 @@ nnoremap <space>p :call popup_clear()<cr>
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
-" command -nargs=0 MyFunc :call s:MyFunc()
+" command -nargs=0 MyFunc call s:MyFunc()
 " 
 " " ":help expression"とやると幸せになれるかも
 " function s:MyFunc() abort
@@ -386,7 +355,7 @@ noremap! <expr> <c-r>/ <SID>PasteSlash()
 "   " 特殊な表現を文字列に展開したいときはexpand
 " endfunction
 
-command FooBarTest :call s:FooBarTest()
+command FooBarTest call s:FooBarTest()
 function s:FooBarTest(...) abort
   echo "bar"
   return ""
@@ -395,11 +364,11 @@ endfunction
 " 現在ファイルの位置に移動するコマンド
 " コマンドは将来的に別ファイルにしたほうがいいかも。
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
-" command -nargs=0 Cd :cd %:p:h
+" command -nargs=0 Cd cd %:p:h
 
-command Cd :execute "cd " .. s:GetGitRootPath().path | echo getcwd()
-command Lcd :execute "lcd " .. s:GetGitRootPath().path | echo getcwd()
-command Tcd :execute "tcd " .. s:GetGitRootPath().path | echo getcwd()
+command Cd execute "cd " .. s:GetGitRootPath().path | echo getcwd()
+command Lcd execute "lcd " .. s:GetGitRootPath().path | echo getcwd()
+command Tcd execute "tcd " .. s:GetGitRootPath().path | echo getcwd()
 
 function s:GetGitRootPath(...) abort
   if a:0 > 1
@@ -453,10 +422,10 @@ function s:DoGrep(tabnew) abort
   if !l:gitRootOfPwd.found
     let l:keyHeadStr = l:keyHeadStr . " --no-index"
   endif
-  call feedkeys(l:keyHeadStr . " \"\" \<bar> cw\<left>\<left>\<left>\<left>\<left>\<left>")
+  call feedkeys(l:keyHeadStr . " \"\" \<bar> botright cw\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>")
 endfunction
 
-command CloseRightTabs :call s:CloseRightTabs()
+command CloseRightTabs call s:CloseRightTabs()
 
 function s:CloseRightTabs() abort
   " 自分自身は閉じないので"+1"
@@ -474,7 +443,7 @@ function s:CloseRightTabs() abort
   echo "done!"
 endfunction
 
-command Ccl :call s:Ccl()
+command Ccl call s:Ccl()
 
 function s:Ccl() abort
   let l:orgTabNumber = tabpagenr()
@@ -496,7 +465,7 @@ function s:GoToFirstColumn() abort
   endif
 endfunction
 
-command CGrep :call s:CGrep()
+command CGrep call s:CGrep()
 
 function s:CGrep() abort
   let l:found = v:false
@@ -512,7 +481,7 @@ function s:CGrep() abort
   if l:found | echo "found" | else | echo "not found" | endif
 endfunction
 
-command -nargs=1 CGoTo :call s:CGoTo(<f-args>)
+command -nargs=1 CGoTo call s:CGoTo(<f-args>)
 
 function s:GetCurrQuickFixListNumber() abort
   return getqflist({"nr": 0})["nr"]
@@ -545,11 +514,11 @@ function s:ToggleComment() range abort
   execute l:substitute_text
 endfunction
 
-command ReloadWithEucJp :e ++enc=euc-jp
-command Term :vert term ++noclose bash
-command TermDot :vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
+command ReloadWithEucJp e ++enc=euc-jp
+command Term vert term ++noclose bash
+command TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 
-command -nargs=1 -complete=command Redir :call s:Redir(<f-args>)
+command -nargs=1 -complete=command Redir call s:Redir(<f-args>)
 
 function s:Redir(command) abort
   if has('clipboard')
@@ -579,7 +548,7 @@ function s:PasteSlash() abort
   endif
 endfunction
 
-command -nargs=1 -range=% Split :<line1>,<line2>call s:Split(<f-args>)
+command -nargs=1 -range=% Split <line1>,<line2>call s:Split(<f-args>)
 
 " Kaoriya gVim doesn't support default parameter yet
 " function s:Split(split_count, separator = ', ') range abort
@@ -619,17 +588,23 @@ function s:Split(split_count) range abort
   call deletebufline('%', a:firstline + len(l:new_text), a:lastline)
 endfunction
 
-command WriteSudo :call s:WriteSudo()
-command OwnFile :!sudo chown $USER:$USER %
+command WriteSudo call s:WriteSudo()
+command OwnFile !sudo chown $USER:$USER %
 
 function s:WriteSudo() abort
   w !sudo tee > /dev/null %
   e!
 endfunction
 
-command UpdateTags :call s:UpdateTags()
+command UpdateTags call s:UpdateTags()
+augroup TAGS
+  autocmd!
+  autocmd BufWritePost * call s:UpdateTags()
+augroup END
+
 
 function s:UpdateTags() abort
+  if !isdirectory(getcwd() .. '/.git') || !filereadable(getcwd() .. '/tags') | return | endif
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
     call system('cp ~/.notfunction .notfunction')
@@ -638,20 +613,20 @@ function s:UpdateTags() abort
     !start ctags -R *
     !start gtags -v
   else
-    let l:channel = job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('s:JobCompMessage')}))
-    let l:channel = job_getchannel(job_start('/bin/bash -c "gtags"', {'close_cb': function('s:JobCompMessage')}))
+"     let l:channel = job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"', {'close_cb': function('s:JobCompMessage')}))
+"     let l:channel = job_getchannel(job_start('/bin/bash -c "gtags"', {'close_cb': function('s:JobCompMessage')}))
+    call job_getchannel(job_start('/bin/bash -c "ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *"'))
+    call job_getchannel(job_start('/bin/bash -c "gtags"'))
   endif
 endfunction
 
-function s:JobCompMessage(channel) abort
-  call popup_notification('finished', {})
-endfunction
-
-let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
+" function s:JobCompMessage(channel) abort
+"   call popup_notification('finished', {})
+" endfunction
 
 " https://github.com/greymd/oscyank.vim
 " how to use: yank -> type ':CopyToClipboard'
-command CopyToClipboard :call s:CopyToClipboardByOSC52()
+command CopyToClipboard call s:CopyToClipboardByOSC52()
 function s:CopyToClipboardByOSC52() abort
   let l:txt_file = trim(system('mktemp /tmp/vim_txt_XXX'))
   call writefile(split(@", '\n'), l:txt_file)
@@ -669,6 +644,8 @@ function s:CopyToClipboardByOSC52() abort
   call system(l:executeCmd)
   call delete(l:enc_file)
 endfunction
+
+source ~/dotfiles/plugins.vim
 
 set secure
 

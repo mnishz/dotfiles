@@ -1,7 +1,6 @@
 #!/bin/bash
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 # ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
-ln -sf ~/dotfiles/.dein.toml ~/.dein.toml
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.gdbinit ~/.gdbinit
 ln -sf ~/dotfiles/.screenrc ~/.screenrc
@@ -18,4 +17,4 @@ if [ -d ~/.vim ]; then
         unlink ~/.vim
     fi
 fi
-ln -sf ~/dotfiles/vimfiles ~/.vim
+ln -sf ~/dotfiles/.vim ~/.vim
