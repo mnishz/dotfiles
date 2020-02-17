@@ -5,7 +5,8 @@ alias ll='ls -lhF'
 alias la='ls -lAF'
 alias trash='gio trash'
 alias smile='vim --clean -c "smile | call getchar() | q"'
-alias cdroot='cd $(realpath --relative-to=. $(git rev-parse --show-toplevel))'
+alias echoroot='realpath --relative-to=. $(git rev-parse --show-toplevel)'
+alias cdroot='cd $(echoroot)'
 
 type "tree" > /dev/null 2>&1
 if [ $? != 0 ]; then
