@@ -651,6 +651,20 @@ function s:CopyToClipboardByOSC52() abort
   call delete(l:enc_file)
 endfunction
 
+command ToggleClipboard call s:ToggleClipboard()
+function s:ToggleClipboard() abort
+  if execute('autocmd TextYankPost') =~# 's:CopyToClipboardByOSC52'
+    augroup CLIPBOARD
+      autocmd!
+    augroup END
+  else
+    augroup CLIPBOARD
+      autocmd!
+      autocmd TextYankPost * call s:CopyToClipboardByOSC52()
+    augroup END
+  endif
+endfunction
+
 source ~/dotfiles/plugins.vim
 
 set secure
