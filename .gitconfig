@@ -12,6 +12,7 @@
 	autocrlf = input
 	trustctime = false
 	warnambiguousrefs = false
+	editor = ~/bin/vim
 [alias]
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M' --date-order
 	windiff = difftool -y -d -t WinMerge
