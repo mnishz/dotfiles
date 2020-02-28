@@ -284,7 +284,7 @@ tnoremap @d N@d
 function s:CurlyBracket(text) abort
   if &diff
     return a:text == "}" ? "]c" : "[c"
-  elseif !empty(getloclist(0))
+  elseif getloclist(0, {'winid' : 0}).winid != 0
     return a:text == "}" ? ":lne\<cr>" : ":lp\<cr>"
   else
     " assume it quickfix
@@ -657,11 +657,13 @@ function s:ToggleClipboard() abort
     augroup CLIPBOARD
       autocmd!
     augroup END
+    echo 'disabled'
   else
     augroup CLIPBOARD
       autocmd!
       autocmd TextYankPost * call s:CopyToClipboardByOSC52()
     augroup END
+    echo 'enabled'
   endif
 endfunction
 
