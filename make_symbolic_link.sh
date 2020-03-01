@@ -1,4 +1,11 @@
 #!/bin/bash
+set -eu
+
+if [ $(uname) != 'Linux' ]; then
+    echo 'This script is for Linux. Run MakeSymbolicLink.bat as admin instead.'
+    exit 1
+fi
+
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 # ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
