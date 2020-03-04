@@ -23,6 +23,7 @@ function s:Install(path, condition = v:true, branch = '') abort
       call system('git clone --depth 1 -b ' .. a:branch .. ' --single-branch https://github.com/' .. a:path .. ' ' .. l:dir)
     endif
   endif
+  if isdirectory(l:dir .. '/doc') | execute 'helptag' l:dir .. '/doc' | endif
 endfunction
 
 call s:Install('vim-jp/vimdoc-ja')
@@ -134,7 +135,7 @@ function s:PlugDeleteAll() abort
   for dir in readdir(s:plugins_path, {n -> isdirectory(s:plugins_path .. n)})
     echon 'deleting ' .. dir .. ', '
     if !empty(system('cd ' .. s:plugins_path .. dir .. ' && git status --porcelain'))
-      echon 'not clean, aborted'
+      echohl Error | echon 'not clean, aborted' | echohl None
     else
       echon 'done'
       call delete(s:plugins_path .. dir, "rf")
