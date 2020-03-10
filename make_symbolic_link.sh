@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eu
 
+git config --local user.name mnishz
+git config --local user.email mnishz@users.noreply.github.com
+
 if [ $(uname) != 'Linux' ]; then
     echo 'This script is for Linux. Run MakeSymbolicLink.bat as admin instead.'
     exit 1

@@ -1,5 +1,8 @@
 @echo off
 
+git config --local user.name mnishz
+git config --local user.email mnishz@users.noreply.github.com
+
 if %~dp0 == %USERPROFILE%\dotfiles\ (
     set windows=true
 ) else (
