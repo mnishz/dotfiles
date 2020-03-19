@@ -5,6 +5,8 @@ if !exists("g:help_translation") | let g:help_translation = v:false | endif
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
+let g:loaded_matchparen = 1
+
 if g:help_translation
   " settings for vimdoc-ja-working
   set fileencoding=utf-8
@@ -549,11 +551,11 @@ function s:MoveUpwardDownward(upward) abort
 endfunction
 
 function s:PasteSlash() abort
-  if @/[0:1] ==? '\v'
-    return @/[2:-1]
-  else
-    return @/
-  endif
+  let l:i = 0
+  while @/[l:i:l:i+1] =~? '^\\\w'
+    let l:i += 2
+  endwhile
+  return @/[l:i:]
 endfunction
 
 command -nargs=1 -range=% Split <line1>,<line2>call s:Split(<f-args>)
