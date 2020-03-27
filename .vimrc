@@ -255,6 +255,8 @@ nnoremap /  :set imsearch=0<cr>/\v
 nnoremap // :set imsearch=2<cr>/\v
 " comment, uncomment
 noremap <space><space> :call <SID>ToggleComment()<cr>
+" folding a block
+nnoremap <space>- <s-v>$%kojzf
 " 検索の履歴をたどるときはvery magicをはずす
 noremap  /<up> /<up>
 nnoremap /<up> :set imsearch=0<cr>/<up>
@@ -631,7 +633,7 @@ function s:UpdateTags(refresh = v:false) abort
       call job_start('/bin/bash -c "gtags"')
     else
       call job_start('/bin/bash -c "ctags -f ' .. s:temp_tags .. ' ' .. l:ctags_options .. '"', {'close_cb': function('s:ReplaceTags')})
-      call job_start('/bin/bash -c "gtags -u"')
+      call job_start('/bin/bash -c "global -u"')
     endif
   endif
 endfunction
