@@ -334,6 +334,7 @@ noremap <c-z> :echo "nop"<cr>
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 nnoremap <space>p :call popup_clear()<cr>
+nnoremap <space>s :setlocal invspell spelllang=en_us<cr>
 
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
