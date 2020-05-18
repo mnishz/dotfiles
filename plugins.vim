@@ -153,5 +153,12 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
+if (&columns / &lines) < 2
+  let g:etl_digest#split_below = v:true
+  let g:etl_digest#window_ratio = 25
+endif
+
+let g:etl_digest#highlight = 'Normal'
+
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
