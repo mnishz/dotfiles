@@ -282,7 +282,8 @@ nnoremap <silent> g<c-g> :call <SID>DoGrep(v:false)<cr>
 nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
-let @d = '?^@/-l"aye?^---wll"bY:rightbelow new b:a'
+" let @d = '?^@/-l"aye?^--- awll"bY:rightbelow new b:a'
+let @d = '?^@/-l"aye?^--- awll"bY:rightbelow vnew b:a'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
@@ -325,11 +326,7 @@ nnoremap <space>v :tabnew ~/.vimrc<cr>
 
 noremap <c-z> :echo "nop"<cr>
 
-" cnoremap ( ()<left>
-" cnoremap { {}<left>
-" cnoremap [ []<left>
-" cnoremap " ""<left>
-" cnoremap ' ''<left>
+cnoremap <c-p> <up>
 
 nnoremap <space>k :call <SID>MoveUpwardDownward(v:true)<cr>
 nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
