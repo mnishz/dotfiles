@@ -14,7 +14,8 @@
 	warnambiguousrefs = false
 	editor = ~/bin/vim
 [alias]
-	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M' --date-order
+	# --date-order
+	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M'
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
 [merge]
