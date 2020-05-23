@@ -104,31 +104,29 @@ call s:Install('prabirshrestha/asyncomplete.vim')
 call s:Install('prabirshrestha/async.vim')
 call s:Install('prabirshrestha/asyncomplete-lsp.vim')
 call s:Install('prabirshrestha/vim-lsp')
-  if executable('clangd')
+  if executable('ccls')
     au User lsp_setup call lsp#register_server({
-      \ 'name': 'clangd',
-      \ 'cmd': {server_info->['clangd']},
-      \ 'whitelist': ['c', 'cpp', 'cc'],
-      \ })
+          \ 'name': 'ccls',
+          \ 'cmd': {server_info->['ccls']},
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ })
+  elseif executable('clangd')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'clangd',
+          \ 'cmd': {server_info->['clangd']},
+          \ 'whitelist': ['c', 'cpp', 'cc'],
+          \ })
+  elseif executable('cquery')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'cquery',
+          \ 'cmd': {server_info->['cquery']},
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+          \ 'whitelist': ['c', 'cpp', 'cc'],
+          \ })
   endif
-  " if executable('cquery')
-  "   au User lsp_setup call lsp#register_server({
-  "     \ 'name': 'cquery',
-  "     \ 'cmd': {server_info->['cquery']},
-  "     \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-  "     \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
-  "     \ 'whitelist': ['c', 'cpp', 'cc'],
-  "     \ })
-  " endif
-  " if executable('ccls')
-  "   au User lsp_setup call lsp#register_server({
-  "         \ 'name': 'ccls',
-  "         \ 'cmd': {server_info->['ccls']},
-  "         \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-  "         \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
-  "         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-  "         \ })
-  " endif
   let g:lsp_diagnostics_echo_cursor = 1
 
 command PlugUpdate :call s:PlugUpdate()
