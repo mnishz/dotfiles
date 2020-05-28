@@ -68,7 +68,7 @@ call s:Install('nightsense/office')
 
 call s:Install('Yggdroot/indentLine')
   let g:indentLine_char = '┊'
-  let g:indentLine_fileType = ['c', 'cpp', 'ipp', 'hpp', 'hh']
+  let g:indentLine_fileType = ['c', 'cpp', 'ipp', 'hpp', 'hh', 'python']
 
 call s:Install('ctrlpvim/ctrlp.vim')
   let g:ctrlp_clear_cache_on_exit = 0
