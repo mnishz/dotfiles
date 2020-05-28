@@ -177,7 +177,7 @@ augroup END
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup BinaryXXD
   autocmd!
-  autocmd BufReadPre  *.bin let &binary =1
+  autocmd BufReadPre  *.bin setlocal binary
 
   autocmd BufReadPost * if &binary
   autocmd BufReadPost *   silent %!xxd -g 1
