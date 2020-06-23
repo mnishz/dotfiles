@@ -102,7 +102,6 @@ call s:Install('previm/previm')
   let g:previm_custom_css_path = '~/dotfiles/previm_my.css'
 
 call s:Install('prabirshrestha/asyncomplete.vim')
-call s:Install('prabirshrestha/async.vim')
 call s:Install('prabirshrestha/asyncomplete-lsp.vim')
 call s:Install('prabirshrestha/vim-lsp')
   if executable('ccls')
