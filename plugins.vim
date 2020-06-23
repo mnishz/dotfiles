@@ -156,7 +156,15 @@ if g:vertical_monitor
   let g:etl_digest#window_ratio = 25
 endif
 
-let g:etl_digest#highlight = 'Normal'
+let g:etl_digest#highlight = ''
+let g:etl_digest#indent_str = '  '
+
+function g:EtlDigestBufCallback(buf) abort
+  call setbufvar(a:buf, 'indentLine_enabled', 1)
+  call setbufvar(a:buf, '&shiftwidth', 2)
+endfunction
+
+let g:etl_digest#buf_callback = 'g:EtlDigestBufCallback'
 
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
