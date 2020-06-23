@@ -606,17 +606,21 @@ function s:WriteSudo() abort
   e!
 endfunction
 
-command CreateTags if isdirectory(getcwd() .. '/.git') | call system('touch tags') | call s:UpdateTags(v:true) | else | echo 'not repository' | endif
+const s:temp_tags = 'tags_'
+
+function s:IsRepository() abort
+  return (isdirectory(getcwd() .. '/.git') || isdirectory(getcwd() .. '/.svn'))
+endfunction
+
+command CreateTags if s:IsRepository() | call system('touch tags') | call system('rm -f ' .. s:temp_tags) | call s:UpdateTags(v:true) | else | echo 'not repository' | endif
 
 augroup TAGS
   autocmd!
   autocmd BufWritePost * call s:UpdateTags()
 augroup END
 
-const s:temp_tags = 'tags_'
-
-function s:UpdateTags(refresh = v:false) abort
-  if !isdirectory(getcwd() .. '/.git') || !filereadable(getcwd() .. '/tags') | return | endif
+function s:UpdateTags(recreate = v:false) abort
+  if !s:IsRepository() || !filereadable(getcwd() .. '/tags') | return | endif
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
     call system('cp ~/.notfunction .notfunction')
@@ -626,7 +630,7 @@ function s:UpdateTags(refresh = v:false) abort
     !start gtags -v
   else
     let l:ctags_options = '-R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *'
-    if a:refresh
+    if a:recreate
       call job_start('/bin/bash -c "ctags ' .. l:ctags_options .. '"')
       call job_start('/bin/bash -c "gtags"')
     else
