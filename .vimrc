@@ -697,6 +697,13 @@ function s:CreatePopupComment(text, direction) abort
   endif
 endfunction
 
+command TrimEtl call s:trim_etl()
+
+function s:trim_etl() abort
+  %s/\v \| {21}\|\n/ |\r/g
+  %s/\v^(.{119}s) \| .*/\1/g
+endfunction
+
 let g:vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
 
 source ~/dotfiles/plugins.vim
