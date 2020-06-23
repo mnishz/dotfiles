@@ -681,6 +681,22 @@ function s:ToggleClipboard() abort
   endif
 endfunction
 
+command -nargs=1 Comment call s:CreatePopupComment(<args>, '<')
+command -nargs=1 CommentUpper call s:CreatePopupComment(<args>, '^')
+command -nargs=1 CommentLower call s:CreatePopupComment(<args>, 'v')
+command -nargs=1 CommentRight call s:CreatePopupComment(<args>, '>')
+function s:CreatePopupComment(text, direction) abort
+  if a:direction == '<'
+    call popup_create('- ' .. a:text, #{border: [0, 0, 0, 1], borderchars: ['^', '>', 'v', '<'], drag: v:true, close: 'click'})
+  elseif a:direction == '^'
+    call popup_create(a:text, #{border: [1, 0, 0, 0], borderchars: ['^', '>', 'v', '<'], drag: v:true, close: 'click'})
+  elseif a:direction == 'v'
+    call popup_create(a:text, #{border: [0, 0, 1, 0], borderchars: ['^', '>', 'v', '<'], drag: v:true, close: 'click'})
+  elseif a:direction == '>'
+    call popup_create(a:text .. ' -', #{border: [0, 1, 0, 0], borderchars: ['^', '>', 'v', '<'], drag: v:true, close: 'click'})
+  endif
+endfunction
+
 let g:vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
 
 source ~/dotfiles/plugins.vim
