@@ -677,6 +677,8 @@ function s:ToggleClipboard() abort
   endif
 endfunction
 
+let g:vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
+
 source ~/dotfiles/plugins.vim
 
 set secure

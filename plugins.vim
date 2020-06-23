@@ -151,7 +151,7 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
-if (&columns / &lines) < 2
+if g:vertical_monitor
   let g:etl_digest#split_below = v:true
   let g:etl_digest#window_ratio = 25
 endif
