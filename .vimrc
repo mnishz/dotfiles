@@ -368,11 +368,11 @@ endfunction
 " kaoriyaの場合、cmdex.vimにまったく同じものがCdCurrentで定義してある。
 " command -nargs=0 Cd cd %:p:h
 
-command Cd execute "cd " .. s:GetGitRootPath().path | echo getcwd()
-command Lcd execute "lcd " .. s:GetGitRootPath().path | echo getcwd()
-command Tcd execute "tcd " .. s:GetGitRootPath().path | echo getcwd()
+command Cd execute "cd " .. g:GetGitRootPath().path | echo getcwd()
+command Lcd execute "lcd " .. g:GetGitRootPath().path | echo getcwd()
+command Tcd execute "tcd " .. g:GetGitRootPath().path | echo getcwd()
 
-function s:GetGitRootPath(...) abort
+function g:GetGitRootPath(...) abort
   if a:0 > 1
     echoerr "invalid args"
     return {'found': v:false, 'path': '.'}
@@ -399,8 +399,8 @@ endfunction
 
 function s:DoGrep(tabnew) abort
   let l:warnings = ""
-  let l:gitRootOfPwd = s:GetGitRootPath(getcwd())
-  if l:gitRootOfPwd.path != s:GetGitRootPath().path
+  let l:gitRootOfPwd = g:GetGitRootPath(getcwd())
+  if l:gitRootOfPwd.path != g:GetGitRootPath().path
     let l:warnings = l:warnings . "NOT the same repository, "
   endif
   if !l:gitRootOfPwd.found

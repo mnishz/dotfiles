@@ -79,8 +79,9 @@ call s:Install('ctrlpvim/ctrlp.vim')
   nnoremap mru :CtrlPMRUFiles<cr>
 
 call s:Install('scrooloose/nerdtree')
-  nnoremap <c-e> :NERDTreeToggle<cr>
+  nnoremap <silent> <c-e> :execute 'NERDTreeToggle ' .. g:GetGitRootPath().path<cr>
   let g:NERDTreeHijackNetrw = 0
+  let g:NERDTreeShowBookmarks = 1
 
 call s:Install('t9md/vim-quickhl')
   nmap <Space>m <Plug>(quickhl-manual-this)
