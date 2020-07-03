@@ -19,10 +19,21 @@ if [ $? != 0 ]; then
     source /c/msys64/usr/share/git/completion/git-completion.bash
 fi
 
-PS1='\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
+PS1='$(__return_code)\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 if [ -n "$SSH_CONNECTION" ]; then
     PS1='\[\033[31m\](SSH)\[\033[0m\] '$PS1
 fi
+
+function __return_code() {
+    local rc=$?
+    if [[ ${rc} == 0 ]]; then
+        echo -en '\033[32m✅\033[0m '
+    elif [[ ${rc} == 130 ]]; then
+        echo -en '\033[31m🚫\033[0m '
+    else
+        echo -en '\033[33m💥\033[0m '
+    fi
+}
 
 # I'm not sure, but this doesn't work. Change .bashrc itself.
 # export HISTSIZE=1000000
