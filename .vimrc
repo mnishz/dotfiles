@@ -157,7 +157,9 @@ set complete-=i
 
 set diffopt+=vertical
 
-set clipboard+=unnamed
+if has('win32')
+  set clipboard+=unnamed
+endif
 
 set helplang=ja
 
@@ -531,7 +533,7 @@ command TermDot vert new | lcd ~/dotfiles | term ++noclose ++curwin bash
 command -nargs=1 -complete=command Redir call s:Redir(<f-args>)
 
 function s:Redir(command) abort
-  if has('clipboard')
+  if &clipboard =~# 'unnamed'
     " clipboard+=unnamed を使う場合は、" ではなく * からペーストされるのでこっちのほうが都合がいい
     redir @*
   else
