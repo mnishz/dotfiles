@@ -19,19 +19,29 @@ if [ $? != 0 ]; then
     source /c/msys64/usr/share/git/completion/git-completion.bash
 fi
 
-PS1='$(__return_code)\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
-if [ -n "$SSH_CONNECTION" ]; then
-    PS1='\[\033[31m\](SSH)\[\033[0m\] '$PS1
-fi
+PROMPT_COMMAND=__prompt_command
 
-function __return_code() {
-    local rc=$?
-    if [[ ${rc} == 0 ]]; then
-        echo -en '\033[32m✅\033[0m '
-    elif [[ ${rc} == 130 ]]; then
-        echo -en '\033[31m🚫\033[0m '
+function __prompt_command() {
+    local EXIT="$?"
+
+    local RCol='\[\e[0m\]'
+    local Green='\[\e[0;32m\]'
+    local Red='\[\e[0;31m\]'
+    local Yellow='\[\e[0;33m\]'
+    local Cyan='\[\e[0;36m\]'
+
+    PS1="\w${Cyan}$(__git_ps1 ' (%s)')${RCol}\$ "
+
+    if [[ ${EXIT} == 0 ]]; then
+        PS1="${Green}✅${RCol} "$PS1
+    elif [[ ${EXIT} == 130 ]]; then
+        PS1="${Red}🚫${RCol} "$PS1
     else
-        echo -en '\033[33m💥\033[0m '
+        PS1="${Yellow}💥${RCol} "$PS1
+    fi
+
+    if [ -n "$SSH_CONNECTION" ]; then
+        PS1="${Red}(SSH)${RCol} "$PS1
     fi
 }
 
