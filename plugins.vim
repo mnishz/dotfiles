@@ -28,8 +28,10 @@ endfunction
 
 call s:Install('vim-jp/vimdoc-ja')
 call s:Install('lyuts/vim-rtags', (has('python') || has('python3')))
-call s:Install('mattn/vim-lexiv')
 " call s:Install('airblade/vim-gitgutter')
+
+call s:Install('mattn/vim-lexiv')
+  inoremap <expr> <c-h> lexiv#paren_delete()
 
 call s:Install('mnishz/notes.vim')
 call s:Install('mnishz/devotion.vim')
