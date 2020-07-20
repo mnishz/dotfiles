@@ -136,8 +136,10 @@ set nowrap
 set showmatch
 set matchtime=1
 set list
-set listchars=tab:>-,trail:-
+set listchars=tab:>-,trail:␣
 set cursorline
+
+au TerminalOpen * if &buftype == 'terminal' | setlocal nolist | endif
 
 set showcmd
 set cmdheight=2
