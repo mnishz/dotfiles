@@ -1,12 +1,22 @@
 # Add the following line to the end of original ".bashrc" to enable this settings.
 # source ~/.bashrc.additional
 
+export EDITOR=~/bin/vim
+
 alias ll='ls -lhF'
 alias la='ls -lAF'
 alias trash='gio trash'
 alias smile='vim --clean -c "smile | call getchar() | q"'
 alias echoroot='realpath --relative-to=. $(git rev-parse --show-toplevel)'
 alias cdroot='cd $(echoroot)'
+
+git_check_remote() {
+    # if any, fetch first
+    if [ ${1} ]; then
+        git fetch $(git rev-parse --abbrev-ref HEAD@{upstream} | sed "s/\// /")
+    fi
+    git graph HEAD $(git rev-parse --abbrev-ref HEAD@{upstream})
+}
 
 type "tree" > /dev/null 2>&1
 if [ $? != 0 ]; then
@@ -19,7 +29,7 @@ if [ $? != 0 ]; then
     source /c/msys64/usr/share/git/completion/git-completion.bash
 fi
 
-PROMPT_COMMAND=__prompt_command
+export PROMPT_COMMAND=__prompt_command
 
 function __prompt_command() {
     local EXIT="$?"
@@ -30,18 +40,18 @@ function __prompt_command() {
     local Yellow='\[\e[0;33m\]'
     local Cyan='\[\e[0;36m\]'
 
-    PS1="\w${Cyan}$(__git_ps1 ' (%s)')${RCol}\$ "
+    export PS1="\w${Cyan}$(__git_ps1 ' (%s)')${RCol}\$ "
 
     if [[ ${EXIT} == 0 ]]; then
-        PS1="${Green}✅${RCol} "$PS1
+        export PS1="${Green}✅${RCol} "$PS1
     elif [[ ${EXIT} == 130 ]]; then
-        PS1="${Red}🚫${RCol} "$PS1
+        export PS1="${Red}🚫${RCol} "$PS1
     else
-        PS1="${Yellow}💥${RCol} "$PS1
+        export PS1="${Yellow}💥${RCol} "$PS1
     fi
 
     if [ -n "$SSH_CONNECTION" ]; then
-        PS1="${Red}(SSH)${RCol} "$PS1
+        export PS1="${Red}(SSH)${RCol} "$PS1
     fi
 }
 
@@ -50,6 +60,7 @@ function __prompt_command() {
 # export HISTFILESIZE=1000000
 export HISTIGNORE=ls:ll:la
 export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
 export LS_COLORS="di=01;94"
 
 if [[ -t 0 ]]; then
