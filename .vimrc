@@ -122,8 +122,6 @@ set nowrapscan
 set incsearch
 set hlsearch
 
-let &grepprg = 'git grep --line-number'
-
 " 既にファイル内にあるタブ文字を空白何個分で表示するか
 set tabstop=4
 " tabstopに合わせる
@@ -412,7 +410,9 @@ function s:DoGrep(tabnew) abort
   endif
   if !l:gitRootOfPwd.found
     let l:warnings = l:warnings . "NOT a git repository, "
-    " let &grepprg = 'grep -inrEI --exclude=tags --exclude-dir=.svn'
+    let &grepprg = 'grep -nr --exclude=tags --exclude-dir=.svn'
+  else
+    let &grepprg = 'git grep --line-number'
   endif
   if l:warnings != ""
     echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
@@ -431,11 +431,11 @@ function s:DoGrep(tabnew) abort
   endif
   let l:keyTailStr = "\<bar> botright cw"
   let l:leftKeyCount = 15
-  if !l:gitRootOfPwd.found
-    let l:keyHeadStr = l:keyHeadStr . " --no-index"
-    let l:keyTailStr = "-- \":!.svn/\" " . l:keyTailStr
-    let l:leftKeyCount += 13
-  endif
+"   if !l:gitRootOfPwd.found
+"     let l:keyHeadStr = l:keyHeadStr . " --no-index"
+"     let l:keyTailStr = "-- \":!.svn/\" " . l:keyTailStr
+"     let l:leftKeyCount += 13
+"   endif
   call feedkeys(l:keyHeadStr . " \"\" " . l:keyTailStr)
   for i in range(l:leftKeyCount)
       call feedkeys("\<left>")
