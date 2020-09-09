@@ -41,6 +41,7 @@ call s:Install('mnishz/rainfall.vim', executable('curl'), 'tenki_jp')
   let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 call s:Install('vim-airline/vim-airline')
+  let g:airline#extensions#searchcount#enabled = 0
 call s:Install('mnishz/current-func-info.vim')
   augroup current-func-info.vim
     autocmd!
@@ -66,17 +67,20 @@ call s:Install('nightsense/office')
     " 微調整
     autocmd ColorScheme * highlight Comment guifg=#676760
     autocmd ColorScheme * highlight SpecialKey guifg=#684f76
+    autocmd ColorScheme * highlight DiffText guifg=#557b9e
   augroup END
 
 call s:Install('Yggdroot/indentLine')
   let g:indentLine_char = '┊'
-  let g:indentLine_fileType = ['c', 'cpp', 'ipp', 'hpp', 'hh', 'python']
+  let g:indentLine_fileType = ['c', 'cpp', 'ipp', 'hpp', 'hh', 'python', 'tcl']
 
 call s:Install('ctrlpvim/ctrlp.vim')
   let g:ctrlp_clear_cache_on_exit = 0
   let g:ctrlp_lazy_update = 1
   let g:ctrlp_root_markers = ['gtags']
   let g:ctrlp_match_window = 'max:30'
+  let g:ctrlp_custom_ignore = #{dir: '\v(library[\/][^\/]+[\/][^\/]+|generated)$'}
+  let g:ctrlp_max_files = 20000
   " <c-m>は使えません！！！enterの挙動も変わってしまう
   nnoremap mru :CtrlPMRUFiles<cr>
 
