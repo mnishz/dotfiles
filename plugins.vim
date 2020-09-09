@@ -157,7 +157,7 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
-if g:vertical_monitor
+if g:is_vertical_monitor
   let g:etl_digest#split_below = v:true
   let g:etl_digest#window_ratio = 25
 endif

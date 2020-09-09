@@ -35,6 +35,10 @@ set writebackup
 set undofile
 set swapfile
 
+" 変数じゃなくて関数にすればサイズが変わっても対応できる。けどそこまでする必要ある？
+let g:is_vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
+let g:new_vnew = g:is_vertical_monitor ? 'new' : 'vnew'
+
 if !has('win32')
 
   colorscheme torte
@@ -286,8 +290,7 @@ nnoremap <silent> g<c-g> :call <SID>DoGrep(v:false)<cr>
 nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
-" let @d = '?^@/-l"aye?^--- awll"bY:rightbelow new b:a'
-let @d = '?^@/-l"aye?^--- awll"bY:rightbelow vnew b:a'
+let @d = '?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:a'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
@@ -707,8 +710,6 @@ function s:trim_etl() abort
   %s/\v \| {21}\|\n/ |\r/g
   %s/\v^(.{119}s) \| .*/\1/g
 endfunction
-
-let g:vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
 
 source ~/dotfiles/plugins.vim
 
