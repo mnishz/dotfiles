@@ -15,7 +15,7 @@
 	editor = ~/bin/vim
 [alias]
 	# --date-order
-	graph = log --graph -C -M --pretty=format:'%C(auto)%h %ad [%an]%d %s' --date=format:'%Y/%m/%d %H:%M'
+	graph = log --graph -C -M --pretty=format:'%C(auto)%h %cd [%an]%d %s' --date=format:'%Y/%m/%d %H:%M'
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
 [merge]
@@ -35,7 +35,7 @@
 	tool = bc
 	renameLimit = 999999
 [push]
-	default = current
+	default = simple
 [rerere]
 	enabled = true
 [include]
