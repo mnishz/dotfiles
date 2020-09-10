@@ -338,6 +338,9 @@ nnoremap <space>j :call <SID>MoveUpwardDownward(v:false)<cr>
 nnoremap <space>p :call popup_clear()<cr>
 nnoremap <space>s :setlocal invspell spelllang=en_us<cr>
 
+" よく打ち間違えるので。。。<c-@> は多分使わない。
+inoremap <c-@> <c-[>
+
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
@@ -688,10 +691,10 @@ function s:ToggleClipboard() abort
   endif
 endfunction
 
-command -nargs=1 Comment call s:CreatePopupComment(<args>, '<')
-command -nargs=1 CommentUpper call s:CreatePopupComment(<args>, '^')
-command -nargs=1 CommentLower call s:CreatePopupComment(<args>, 'v')
-command -nargs=1 CommentRight call s:CreatePopupComment(<args>, '>')
+command -nargs=1 Comment call s:CreatePopupComment(<q-args>, '<')
+command -nargs=1 CommentUpper call s:CreatePopupComment(<q-args>, '^')
+command -nargs=1 CommentLower call s:CreatePopupComment(<q-args>, 'v')
+command -nargs=1 CommentRight call s:CreatePopupComment(<q-args>, '>')
 function s:CreatePopupComment(text, direction) abort
   if a:direction == '<'
     call popup_create('- ' .. a:text, #{border: [0, 0, 0, 1], borderchars: ['^', '>', 'v', '<'], drag: v:true, close: 'click'})
