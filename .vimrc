@@ -706,6 +706,21 @@ endfunction
 
 command TrimEtl call s:trim_etl()
 
+command -nargs=+ Git call s:GitCommand(<q-args>)
+function s:GitCommand(args) abort
+  let l:buf_name = 'git ' .. a:args
+  if expand('%') !=# l:buf_name
+    execute g:new_vnew l:buf_name
+  endif
+  set ft=diff
+  set bt=nofile
+  set noswapfile
+  %d
+  silent execute 'r !git ' .. a:args
+  1d
+  execute 'nnoremap <buffer> :e<cr> :Git' a:args .. '<cr>'
+endfunction
+
 function s:trim_etl() abort
   %s/\v \| {21}\|\n/ |\r/g
   %s/\v^(.{119}s) \| .*/\1/g
