@@ -81,6 +81,7 @@ call s:Install('ctrlpvim/ctrlp.vim')
   let g:ctrlp_match_window = 'max:30'
   let g:ctrlp_custom_ignore = #{dir: '\v(library[\/][^\/]+[\/][^\/]+|generated)$'}
   let g:ctrlp_max_files = 20000
+  let g:ctrlp_switch_buffer = 'E'
   " <c-m>は使えません！！！enterの挙動も変わってしまう
   nnoremap mru :CtrlPMRUFiles<cr>
 
