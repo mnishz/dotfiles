@@ -289,6 +289,7 @@ nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
 let @d = '?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:a'
+let @d = ':let @c=@/?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:a:let @/=@c'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
