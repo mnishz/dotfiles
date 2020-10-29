@@ -144,7 +144,8 @@ set cursorline
 au TerminalOpen * if &buftype == 'terminal' | setlocal nolist | endif
 
 set showcmd
-set cmdheight=2
+set cmdheight=3
+set cmdwinheight=15
 set laststatus=2
 set shortmess-=S
 
@@ -289,7 +290,7 @@ nnoremap <expr> } <SID>CurlyBracket("}")
 nnoremap <expr> { <SID>CurlyBracket("{")
 
 let @d = '?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:a'
-let @d = ':let @c=@/?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:a:let @/=@c'
+let @d = ':let @c=@/?^@/\+l"aye?^+++ bwll"bY:rightbelow ' .. g:new_vnew .. ' b:azz:let @/=@c'
 tnoremap @d N@d
 
 function s:CurlyBracket(text) abort
@@ -310,6 +311,14 @@ endfunction
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\ze\(<cr>
 
+" nnoremap <c-f7> :vert rightbelow LspDefinition<cr>
+nnoremap <c-f7> :vs<cr><c-w>l:LspDefinition<cr>
+" nnoremap <s-f7> :aboveleft LspDefinition<cr>
+nnoremap <s-f7> :sp<cr>:LspDefinition<cr>
+nnoremap <f8> :LspDefinition<cr>
+nnoremap <c-f8> :tab LspDefinition<cr>
+nnoremap <c-f8> :sp<cr><c-w>T:LspDefinition<cr>
+nnoremap <s-f8> :LspReferences<cr>
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
@@ -419,10 +428,7 @@ function s:DoGrep(tabnew) abort
     let &grepprg = 'git grep --line-number'
   endif
   if l:warnings != ""
-    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue... " | echohl None
-    let l:c = getchar()
-    " やりたいのは == "\<esc>" なんだけど、うまくいかない。直したい。。
-    if l:c == 27 | redraw | echo "" | return | endif " もっとうまく消す方法はないものか。。
+    echohl ErrorMsg | echo "Caution: " . l:warnings . "continue..." | echohl None | echo ""
   endif
   let l:keyHeadStr = ":"
   if a:tabnew
@@ -637,8 +643,12 @@ function s:UpdateTags(recreate = v:false) abort
     call system('cp ~/.notfunction .notfunction')
   endif
   if has('win32')
-    !start ctags -R *
-    !start gtags -v
+    if executable('ctags')
+      !start ctags -R *
+    endif
+    if executable('gtags')
+      !start gtags -v
+    endif
   else
     let l:ctags_options = '-R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *'
     if a:recreate
