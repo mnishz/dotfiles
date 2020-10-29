@@ -1,7 +1,11 @@
 # Add the following line to the end of original ".bashrc" to enable this settings.
 # source ~/.bashrc.additional
 
-export EDITOR=~/bin/vim
+if [ -e ~/bin/vim ]; then
+    export EDITOR=~/bin/vim
+else
+    export EDITOR=vim
+fi
 
 alias ll='ls -lhF'
 alias la='ls -lAF'
