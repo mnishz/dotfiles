@@ -12,7 +12,7 @@
 	autocrlf = input
 	trustctime = false
 	warnambiguousrefs = false
-	editor = ~/bin/vim
+	editor = vim
 [alias]
 	# --date-order
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %cd [%an]%d %s' --date=format:'%Y/%m/%d %H:%M'
@@ -20,7 +20,7 @@
 	vimdiff = difftool -t vimdiff --no-prompt
 [merge]
 	ff = false
-	tool = bc
+	tool = vimdiff
 	renameLimit = 999999
 [pull]
 	ff = only
@@ -32,7 +32,7 @@
 [gitreview]
 	remote = origin
 [diff]
-	tool = bc
+	tool = vimdiff
 	renameLimit = 999999
 [push]
 	default = simple
