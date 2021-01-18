@@ -2,7 +2,7 @@ let s:is_match = execute('syntax case') =~# 'match'
 syntax case ignore
 syntax match DiffAdd "nishi.*"
 syntax match Statement "DR[ _]CmdStepStart"
-syntax match Identifier "CE[ _]rw[ _]analyze\(_exit\)\? "
+syntax match Identifier "CE[ _]rw[ _]analyze\([ _]exit\)\? \|DR[ _]step[ _]complete\(_exit\)\? "
 syntax match Special "SingleSectorRecovery"
 syntax match WarningMsg "uec"
 syntax match Error "tmf\(CmdCode\)\?"
