@@ -311,14 +311,6 @@ endfunction
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\ze\(<cr>
 
-" nnoremap <c-f7> :vert rightbelow LspDefinition<cr>
-nnoremap <c-f7> :vs<cr><c-w>l:LspDefinition<cr>
-" nnoremap <s-f7> :aboveleft LspDefinition<cr>
-nnoremap <s-f7> :sp<cr>:LspDefinition<cr>
-nnoremap <f8> :LspDefinition<cr>
-nnoremap <c-f8> :tab LspDefinition<cr>
-nnoremap <c-f8> :sp<cr><c-w>T:LspDefinition<cr>
-nnoremap <s-f8> :LspReferences<cr>
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T

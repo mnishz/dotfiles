@@ -108,37 +108,14 @@ call s:Install('previm/previm')
   let g:previm_enable_realtime = 1
   let g:previm_custom_css_path = '~/dotfiles/previm_my.css'
 
-call s:Install('prabirshrestha/asyncomplete.vim')
-call s:Install('prabirshrestha/asyncomplete-lsp.vim')
-call s:Install('prabirshrestha/vim-lsp')
-  if executable('ccls')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'ccls',
-          \ 'cmd': {server_info->['ccls']},
-          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-          \ 'initialization_options': {
-          \   'cache': {'directory': '/tmp/ccls/cache' },
-          \   'highlight': {'lsRanges': v:true},
-          \ },
-          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-          \ })
-  elseif executable('clangd')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'clangd',
-          \ 'cmd': {server_info->['clangd']},
-          \ 'whitelist': ['c', 'cpp', 'cc'],
-          \ })
-  elseif executable('cquery')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'cquery',
-          \ 'cmd': {server_info->['cquery']},
-          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
-          \ 'whitelist': ['c', 'cpp', 'cc'],
-          \ })
-  endif
-  let g:lsp_diagnostics_echo_cursor = 1
-call s:Install('jackguo380/vim-lsp-cxx-highlight')
+call s:Install('m-pilia/vim-ccls')
+  let g:ccls_orientation = 'horizontal'
+  let g:ccls_size = 10
+call s:Install('neoclide/coc.nvim')
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 
 command PlugUpdate :call s:PlugUpdate()
 function s:PlugUpdate() abort
