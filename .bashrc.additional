@@ -17,9 +17,38 @@ alias cdroot='cd $(echoroot)'
 git_check_remote() {
     # if any, fetch first
     if [ ${1} ]; then
-        git fetch $(git rev-parse --abbrev-ref HEAD@{upstream} | sed "s/\// /")
+        fetch_target=$(git rev-parse --abbrev-ref HEAD@{upstream} | sed "s/\// /")
+        echo "fetching ${fetch_target}..."
+        git fetch ${fetch_target}
     fi
     git graph HEAD $(git rev-parse --abbrev-ref HEAD@{upstream})
+}
+
+git_worktree_checkout() {
+    if [ ${#} != 1 ]; then
+        echo 'How to use: git_worktree_checkout exist_branch_name'
+        return 1
+    fi
+    git worktree add ./worktree_${1} ${1}
+    if [ ${?} == 0 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+git_worktree_delete() {
+    if [ ${#} != 1 ]; then
+        echo 'How to use: git_worktree_delete exist_branch_name'
+        return 1
+    fi
+    if [ ! -e ./worktree_${1} ]; then
+        echo 'Directory doesn't exist.
+        return 1
+    fi
+    rm -rf ./worktree_${1}
+    git worktree prune
+    return 0
 }
 
 type "tree" > /dev/null 2>&1
