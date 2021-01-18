@@ -15,6 +15,7 @@
 	editor = vim
 [alias]
 	# --date-order
+	fulllog = log --pretty=fuller
 	graph = log --graph -C -M --pretty=format:'%C(auto)%h %cd [%an]%d %s' --date=format:'%Y/%m/%d %H:%M'
 	windiff = difftool -y -d -t WinMerge
 	vimdiff = difftool -t vimdiff --no-prompt
@@ -35,7 +36,7 @@
 	tool = vimdiff
 	renameLimit = 999999
 [push]
-	default = simple
+	default = current
 [rerere]
 	enabled = true
 [include]
