@@ -314,6 +314,8 @@ endfunction
 " 関数っぽいものを検索(ハイライト)
 nnoremap <space>/ /\v\w+\ze\(<cr>
 
+set <xF4>=[1;*S
+set <F4>=OS
 " 現在のウィンドウを別タブに移動する
 nnoremap <f10> <c-w>T
 nnoremap <c-f10> :sp<cr><c-w>T
