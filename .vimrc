@@ -256,6 +256,9 @@ vnoremap ; $h
 noremap <silent> 0 :call <SID>GoToFirstColumn()<cr>
 vnoremap 0 ^
 
+nnoremap zl zL
+nnoremap zh zH
+
 " 常にvery magicで検索する
 noremap  /  /\v
 nnoremap /  :set imsearch=0<cr>/\v
