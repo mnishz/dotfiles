@@ -735,7 +735,7 @@ function s:GitCommand(args) abort
   %d
   silent execute 'r !git ' .. a:args
   1d
-  execute 'nnoremap <buffer> :e<cr> :Git' a:args .. '<cr>'
+  execute 'nnoremap <buffer> \\ :Git' a:args .. '<cr>'
 endfunction
 
 function s:trim_etl() abort
