@@ -412,6 +412,12 @@ function g:GetGitRootPath(...) abort
   endif
 endfunction
 
+if empty(finddir('.git'))
+  let &grepprg = 'grep -nr --exclude=tags --exclude-dir=.svn'
+else
+  let &grepprg = 'git grep --line-number'
+endif
+
 function s:DoGrep(tabnew) abort
   let l:warnings = ""
   let l:gitRootOfPwd = g:GetGitRootPath(getcwd())
