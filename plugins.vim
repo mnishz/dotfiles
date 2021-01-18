@@ -116,7 +116,10 @@ call s:Install('prabirshrestha/vim-lsp')
           \ 'name': 'ccls',
           \ 'cmd': {server_info->['ccls']},
           \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+          \ 'initialization_options': {
+          \   'cache': {'directory': '/tmp/ccls/cache' },
+          \   'highlight': {'lsRanges': v:true},
+          \ },
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
           \ })
   elseif executable('clangd')
@@ -135,6 +138,7 @@ call s:Install('prabirshrestha/vim-lsp')
           \ })
   endif
   let g:lsp_diagnostics_echo_cursor = 1
+call s:Install('jackguo380/vim-lsp-cxx-highlight')
 
 command PlugUpdate :call s:PlugUpdate()
 function s:PlugUpdate() abort
