@@ -636,8 +636,21 @@ command CreateTags if s:IsRepository() | call system('touch tags') | call system
 
 augroup TAGS
   autocmd!
-  autocmd BufWritePost * call s:UpdateTags()
+  autocmd BufWritePost * call s:UpdateTagsIfNeeded()
 augroup END
+
+let s:tagsLastPath = ''
+let s:tagsLastTime = 0
+
+function s:UpdateTagsIfNeeded() abort
+  const l:pwd = getcwd()
+  const l:curtime = localtime()
+  if s:tagsLastPath !=# l:pwd || (l:curtime - s:tagsLastTime) > 60
+    let s:tagsLastPath = l:pwd
+    let s:tagsLastTime = l:curtime
+    call s:UpdateTags()
+  endif
+endfunction
 
 function s:UpdateTags(recreate = v:false) abort
   if !s:IsRepository() || !filereadable(getcwd() .. '/tags') | return | endif
