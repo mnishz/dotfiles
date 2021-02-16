@@ -35,6 +35,7 @@
 [diff]
 	tool = vimdiff
 	renameLimit = 999999
+	noprefix = true
 [push]
 	default = current
 [rerere]
