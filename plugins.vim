@@ -113,7 +113,7 @@ call s:Install('previm/previm')
 call s:Install('m-pilia/vim-ccls')
   let g:ccls_orientation = 'horizontal'
   let g:ccls_size = 10
-call s:Install('neoclide/coc.nvim')
+call s:Install('neoclide/coc.nvim', executable('node'))
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
