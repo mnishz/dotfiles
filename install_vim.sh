@@ -13,5 +13,5 @@ cd vim/src
 # for GUI
 # ./configure --prefix=${HOME} --with-features=huge --enable-fail-if-missing --enable-python3interp --enable-gui=gtk3 --enable-autoservername
 make -j
-make test
+# make test
 make install

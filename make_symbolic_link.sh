@@ -19,6 +19,7 @@ ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/.tigrc ~/.tigrc
 ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
 # ln -sf ~/dotfiles/.git_prompt.sh ~/.git_prompt.sh
+mkdir -p ~/bin
 ln -sf ~/dotfiles/git_clean.sh ~/bin/git_clean.sh
 ln -sf ~/dotfiles/tmux_disk_avail.sh ~/bin/tmux_disk_avail.sh
 if [ -d ~/.vim ]; then
