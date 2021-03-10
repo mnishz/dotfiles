@@ -1,10 +1,10 @@
 #!/bin/bash
 set -eu
 
-# sudo apt install git gcc make gettext libtinfo-dev libacl1-dev libgpm-dev libtool-bin python3-dev curl
-sudo apt install git gcc make libtinfo-dev libtool-bin python3-dev curl
+# sudo apt install -y git gcc make gettext libtinfo-dev libacl1-dev libgpm-dev libtool-bin python3-dev curl
+sudo apt install -y git gcc make libtinfo-dev libtool-bin python3-dev curl
 # for GUI
-# sudo apt install libxmu-dev libgtk-3-dev libxpm-dev
+# sudo apt install -y libxmu-dev libgtk-3-dev libxpm-dev
 
 cd ~
 git clone https://github.com/vim/vim

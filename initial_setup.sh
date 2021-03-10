@@ -2,7 +2,7 @@
 set -eu
 
 sudo apt update
-sudo apt install vim tmux
+sudo apt install -y vim tmux
 
 # ./install_vim.sh
 ./make_symbolic_link.sh
