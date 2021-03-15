@@ -1,0 +1,27 @@
+set editing-mode vi
+set show-mode-in-prompt on
+# set vi-ins-mode-string \1\e[31;1m\2(bsh) \1\e[0m\2
+set vi-ins-mode-string
+set vi-cmd-mode-string \1\e[32;1m\2(vim) \1\e[0m\2
+
+# ctrl
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-b": backward-char
+"\C-f": forward-char
+"\C-l": clear-screen
+"\C-d": delete-char
+# alt
+"\eb": backward-word
+"\ef": forward-word
+"\et": transpose-words
+# home
+"\e[1~": beginning-of-line
+# end
+"\e[4~": end-of-line
+# left
+"\e[1;5D": backward-word
+# right
+"\e[1;5C": forward-word
