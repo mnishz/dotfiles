@@ -622,13 +622,13 @@ function s:WriteSudo() abort
   e!
 endfunction
 
-const s:temp_tags = 'tags_'
+let s:TEMP_TAGS = 'tags_'
 
 function s:IsRepository() abort
   return (isdirectory(getcwd() .. '/.git') || isdirectory(getcwd() .. '/.svn'))
 endfunction
 
-command CreateTags if s:IsRepository() | call system('touch tags') | call system('rm -f ' .. s:temp_tags) | call s:UpdateTags(v:true) | else | echo 'not repository' | endif
+command CreateTags if s:IsRepository() | call system('touch tags') | call system('rm -f ' .. s:TEMP_TAGS) | call s:UpdateTags(v:true) | else | echo 'not repository' | endif
 
 augroup TAGS
   autocmd!
@@ -639,16 +639,16 @@ let s:tagsLastPath = ''
 let s:tagsLastTime = 0
 
 function s:UpdateTagsIfNeeded() abort
-  const l:pwd = getcwd()
-  const l:curtime = localtime()
-  if s:tagsLastPath !=# l:pwd || (l:curtime - s:tagsLastTime) > 60
-    let s:tagsLastPath = l:pwd
-    let s:tagsLastTime = l:curtime
-    call s:UpdateTags()
+  let l:PWD = getcwd()
+  let l:CURR_TIME = localtime()
+  if s:tagsLastPath !=# l:PWD || (l:CURR_TIME - s:tagsLastTime) > 60
+    let s:tagsLastPath = l:PWD
+    let s:tagsLastTime = l:CURR_TIME
+    call s:UpdateTags(v:false)
   endif
 endfunction
 
-function s:UpdateTags(recreate = v:false) abort
+function s:UpdateTags(recreate) abort
   if !s:IsRepository() || !filereadable(getcwd() .. '/tags') | return | endif
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
@@ -667,7 +667,7 @@ function s:UpdateTags(recreate = v:false) abort
       call job_start('/bin/bash -c "ctags ' .. l:ctags_options .. '"')
       call job_start('/bin/bash -c "gtags"')
     else
-      call job_start('/bin/bash -c "ctags -f ' .. s:temp_tags .. ' ' .. l:ctags_options .. '"', {'close_cb': function('s:ReplaceTags')})
+      call job_start('/bin/bash -c "ctags -f ' .. s:TEMP_TAGS .. ' ' .. l:ctags_options .. '"', {'close_cb': function('s:ReplaceTags')})
       call job_start('/bin/bash -c "global -u"')
     endif
   endif
