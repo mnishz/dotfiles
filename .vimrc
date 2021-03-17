@@ -632,7 +632,7 @@ command CreateTags if s:IsRepository() | call system('touch tags') | call system
 
 augroup TAGS
   autocmd!
-  autocmd BufWritePost * call s:UpdateTagsIfNeeded()
+  autocmd BufRead * call s:UpdateTagsIfNeeded()
 augroup END
 
 let s:tagsLastPath = ''
@@ -760,9 +760,9 @@ function s:SvnDiff() abort
   execute 'nnoremap <buffer> \\ :SvnDiff<cr>'
 endfunction
 
-let @d = ':OpenDiffLine'
+let @d = ':DiffLine'
 tnoremap @d N@d
-command -nargs=0 OpenDiffLine call s:OpenDiffLine()
+command -nargs=0 DiffLine call s:OpenDiffLine()
 " requires `git config --global diff.noprefix true`
 function s:OpenDiffLine() abort
   let l:diff_line_line_num = search('^@@.*+', 'bn')
