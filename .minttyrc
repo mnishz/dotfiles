@@ -7,3 +7,4 @@ Term=xterm-256color
 IMECursorColour=255,0,0
 AllowSetSelection=yes
 BellType=0
+ZoomFontWithWindow=no
