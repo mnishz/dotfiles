@@ -20,7 +20,6 @@ ln -sf ~/dotfiles/.tigrc ~/.tigrc
 ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
 ln -sf ~/dotfiles/.inputrc ~/.inputrc
 mkdir -p ~/bin
-ln -sf ~/dotfiles/git_clean.sh ~/bin/git_clean.sh
 ln -sf ~/dotfiles/tmux_disk_avail.sh ~/bin/tmux_disk_avail.sh
 if [ -d ~/.vim ]; then
     if [ ! -L ~/.vim ]; then

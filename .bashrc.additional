@@ -51,6 +51,20 @@ git_worktree_delete() {
     return 0
 }
 
+git_clean() {
+    gitroot=$(git rev-parse --show-toplevel)
+    targetdirs=$(find ${gitroot} -maxdepth 1 -type d)
+
+    for dir in ${targetdirs};
+    do
+        if [ ${dir} == ${gitroot} ]; then continue; fi
+        if [ ${dir} == "${gitroot}/.git" ]; then continue; fi
+        if [[ ${dir} =~ ${gitroot}/worktree_.* ]]; then continue; fi
+        #     echo ${dir}
+        git clean ${dir} -xdff
+    done
+}
+
 type "tree" > /dev/null 2>&1
 if [ $? != 0 ]; then
     alias tree='pwd;find . | sort | sed '\''1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'\'''

@@ -18,11 +18,9 @@ rem mklink %~dp0..\.git_prompt.sh %~dp0.git_prompt.sh
 if %windows% == true (
     mklink /d %~dp0..\vimfiles %~dp0.vim
     mklink %~dp0..\.gvimrc %~dp0.gvimrc
-    mklink %~dp0..\git_clean.sh %~dp0git_clean.sh
 ) else (
     mklink %~dp0..\.bashrc.additional %~dp0.bashrc.additional
     mklink /d %~dp0..\.vim %~dp0.vim
-    mklink %~dp0..\bin\git_clean.sh %~dp0git_clean.sh
     mklink %~dp0..\.gdbinit %~dp0.gdbinit
     mklink %~dp0..\.tmux.conf %~dp0.tmux.conf
 )
