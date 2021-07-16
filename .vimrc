@@ -742,6 +742,7 @@ function s:GitCommand(args) abort
   %d
   silent execute 'r !git ' .. a:args
   1d
+  %s/\v^([+-]{3}) [ab]\//\1 /g
   execute 'nnoremap <buffer> \\ :Git' a:args .. '<cr>'
 endfunction
 
