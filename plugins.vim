@@ -118,6 +118,10 @@ call s:Install('neoclide/coc.nvim', executable('node'))
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+  let g:coc_disable_transparent_cursor = 1
+
+call s:Install('vim-python/python-syntax')
+  let g:python_highlight_all = 1
 
 command PlugUpdate :call s:PlugUpdate()
 function s:PlugUpdate() abort
@@ -146,6 +150,7 @@ if g:is_vertical_monitor
   let g:etl_digest#window_ratio = 25
 endif
 
+let g:etl_digest#window_ratio = 45
 let g:etl_digest#highlight = ''
 let g:etl_digest#indent_str = '  '
 
