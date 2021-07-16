@@ -641,7 +641,7 @@ let s:tagsLastTime = 0
 function s:UpdateTagsIfNeeded() abort
   let l:PWD = getcwd()
   let l:CURR_TIME = localtime()
-  if s:tagsLastPath !=# l:PWD || (l:CURR_TIME - s:tagsLastTime) > 60
+  if s:tagsLastPath !=# l:PWD || (l:CURR_TIME - s:tagsLastTime) > 60 * 10  " 10 min
     let s:tagsLastPath = l:PWD
     let s:tagsLastTime = l:CURR_TIME
     call s:UpdateTags(v:false)
@@ -789,7 +789,7 @@ endfunction
 command TrimEtl call s:trim_etl()
 function s:trim_etl() abort
   %s/\v \| {21}\|\n/ |\r/g
-  %s/\v^(.{119}s) \| .*/\1/g
+  %s/\v^(.{124}s) \| .*/\1/g
 endfunction
 
 source ~/dotfiles/plugins.vim
