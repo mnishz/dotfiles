@@ -408,7 +408,7 @@ function g:GetGitRootPath(...) abort
   endif
 endfunction
 
-if empty(finddir('.git'))
+if empty(getftype('.git'))
   let &grepprg = 'grep -nr --exclude=tags --exclude-dir=.svn'
 else
   let &grepprg = 'git grep --line-number'
@@ -625,7 +625,7 @@ endfunction
 let s:TEMP_TAGS = 'tags_'
 
 function s:IsRepository() abort
-  return (isdirectory(getcwd() .. '/.git') || isdirectory(getcwd() .. '/.svn'))
+  return (!empty(getftype(getcwd() .. '/.git')) || !empty(getftype(getcwd() .. '/.svn')))
 endfunction
 
 command CreateTags if s:IsRepository() | call system('touch tags') | call system('rm -f ' .. s:TEMP_TAGS) | call s:UpdateTags(v:true) | else | echo 'not repository' | endif
@@ -741,8 +741,8 @@ function s:GitCommand(args) abort
   set noswapfile
   %d
   silent execute 'r !git ' .. a:args
-  1d
   %s/\v^([+-]{3}) [ab]\//\1 /g
+  1d
   execute 'nnoremap <buffer> \\ :Git' a:args .. '<cr>'
 endfunction
 
