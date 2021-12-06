@@ -29,10 +29,11 @@ git_worktree_checkout() {
         echo 'How to use: git_worktree_checkout existing_branch_name {directory_name: optional}'
         return 1
     fi
+    CURR_DIR_NAME=$(basename $(pwd))
     if [ ${#} == 1 ]; then
-        git worktree add ./worktree_${1} ${1}
+        git worktree add ../${CURR_DIR_NAME}_worktree_${1} ${1}
     else
-        git worktree add ./worktree_${2} ${1}
+        git worktree add ../${CURR_DIR_NAME}_worktree_${2} ${1}
     fi
     if [ ${?} == 0 ]; then
         return 0
@@ -46,15 +47,25 @@ git_worktree_delete() {
         echo 'How to use: git_worktree_delete existing_branch_name'
         return 1
     fi
-    branch_name=${1}
-    if [[ $branch_name =~ ^worktree_ ]]; then
-        branch_name=${branch_name:9}
-    fi
-    if [ ! -e ./worktree_$branch_name ]; then
-        echo 'Directory doesn't exist.
+    CURR_DIR_NAME=$(basename $(pwd))
+    if [ ! -e ${1} ]; then
+        echo "Directory doesn't exist."
         return 1
     fi
-    rm -rf ./worktree_$branch_name
+    dirname=${1}
+    if [ ${dirname: -1} == / ]; then
+        dirname=${dirname:0:-1}
+    fi
+    if [ ${dirname:0:3} == ../ ]; then
+        dirname=${dirname:3}
+    fi
+    echo $dirname
+    git worktree list | grep /$dirname
+    if [ ${?} != 0 ]; then
+        echo "Directory doesn't belong to this repository."
+        return 0
+    fi
+    rm -rf ${1}
     git worktree prune
     return 0
 }
