@@ -730,7 +730,7 @@ function s:CreatePopupComment(text, direction) abort
   endif
 endfunction
 
-command -nargs=+ Git call s:GitCommand(<q-args>)
+command -nargs=+ -complete=file Git call s:GitCommand(<q-args>)
 function s:GitCommand(args) abort
   let l:buf_name = 'git ' .. a:args
   if expand('%') !=# l:buf_name
@@ -741,7 +741,6 @@ function s:GitCommand(args) abort
   set noswapfile
   %d
   silent execute 'r !git ' .. a:args
-  %s/\v^([+-]{3}) [ab]\//\1 /g
   1d
   execute 'nnoremap <buffer> \\ :Git' a:args .. '<cr>'
 endfunction
@@ -774,14 +773,13 @@ function s:OpenDiffLine() abort
   let l:diff_line = l:diff_line[l:diff_line_idx_start:l:diff_line_idx_end]
   let l:diff_file_line_num = search('^+++', 'bn')
   let l:diff_file = getline(l:diff_file_line_num)
-  let l:diff_file_idx_start = 4
   let l:diff_file_idx_end = match(l:diff_file, '\t')
   if l:diff_file_idx_end == -1
     " git
-    let l:diff_file = l:diff_file[l:diff_file_idx_start:]
+    let l:diff_file = l:diff_file[6:]
   else
     " svn
-    let l:diff_file = l:diff_file[l:diff_file_idx_start:l:diff_file_idx_end]
+    let l:diff_file = l:diff_file[4:l:diff_file_idx_end]
   endif
   execute 'rightbelow' g:new_vnew '+' .. l:diff_line l:diff_file
 endfunction
