@@ -68,6 +68,7 @@ call s:Install('nightsense/office')
     autocmd ColorScheme * highlight Comment guifg=#676760
     autocmd ColorScheme * highlight SpecialKey guifg=#684f76
     autocmd ColorScheme * highlight DiffText guifg=#557b9e
+    autocmd ColorScheme * highlight CursorLine guibg=#101010
   augroup END
 
 call s:Install('Yggdroot/indentLine')
