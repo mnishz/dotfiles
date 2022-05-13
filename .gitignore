@@ -1,4 +1,5 @@
 *.bat
 .vim/.netrwhist
 .vim/after/ftplugin/etl.vim
+.vim/after/syntax/etl.vim
 .vim/pack
