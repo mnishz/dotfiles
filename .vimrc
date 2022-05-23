@@ -403,8 +403,14 @@ function g:GetGitRootPath(...) abort
     let l:result = fnamemodify(l:result, ':p:h:h')
     return {'found': v:true, 'path': l:result}
   else
-    echo 'no root...'
-    return {'found': v:false, 'path': '.'}
+    let l:result = findfile('.git', l:targetPath)
+    if !empty(l:result)
+      let l:result = fnamemodify(l:result, ':p:h')
+      return {'found': v:true, 'path': l:result}
+    else
+      echo 'no root...'
+      return {'found': v:false, 'path': '.'}
+    endif
   endif
 endfunction
 

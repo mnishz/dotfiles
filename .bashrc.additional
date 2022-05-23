@@ -13,6 +13,7 @@ alias trash='gio trash'
 alias smile='vim --clean -c "smile | call getchar() | q"'
 alias echoroot='realpath --relative-to=. $(git rev-parse --show-toplevel)'
 alias cdroot='cd $(echoroot)'
+alias mydate='date "+%Y%m%d"'
 
 git_check_remote() {
     # if any, fetch first
@@ -29,6 +30,7 @@ git_worktree_checkout() {
         echo 'How to use: git_worktree_checkout existing_branch_name {directory_name: optional}'
         return 1
     fi
+    cdroot
     CURR_DIR_NAME=$(basename $(pwd))
     if [ ${#} == 1 ]; then
         git worktree add ../${CURR_DIR_NAME}_worktree_${1} ${1}
