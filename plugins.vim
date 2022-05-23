@@ -146,21 +146,7 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
-if g:is_vertical_monitor
-  let g:etl_digest#split_below = v:true
-  let g:etl_digest#window_ratio = 25
-endif
-
-let g:etl_digest#window_ratio = 45
-let g:etl_digest#highlight = ''
-let g:etl_digest#indent_str = '  '
-
-function g:EtlDigestBufCallback(buf) abort
-  call setbufvar(a:buf, 'indentLine_enabled', 1)
-  call setbufvar(a:buf, '&shiftwidth', 2)
-endfunction
-
-let g:etl_digest#buf_callback = 'g:EtlDigestBufCallback'
+source ~/dotfiles/plugins_local.vim
 
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
