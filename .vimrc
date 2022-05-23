@@ -790,12 +790,6 @@ function s:OpenDiffLine() abort
   execute 'rightbelow' g:new_vnew '+' .. l:diff_line l:diff_file
 endfunction
 
-command TrimEtl call s:trim_etl()
-function s:trim_etl() abort
-  %s/\v \| {21}\|\n/ |\r/g
-  %s/\v^(.{124}s) \| .*/\1/g
-endfunction
-
 source ~/dotfiles/plugins.vim
 
 set secure
