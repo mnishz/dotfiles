@@ -146,7 +146,7 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
-if filereadable('~/dotfiles/plugins.vim')
+if filereadable(expand('~/dotfiles/plugins_local.vim'))
   source ~/dotfiles/plugins_local.vim
 endif
 
