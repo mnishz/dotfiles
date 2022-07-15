@@ -146,7 +146,9 @@ function s:PlugDeleteAll() abort
   endfor
 endfunction
 
-source ~/dotfiles/plugins_local.vim
+if filereadable('~/dotfiles/plugins.vim')
+  source ~/dotfiles/plugins_local.vim
+endif
 
 " modeline
 " vim: expandtab tabstop=2 textwidth=0
