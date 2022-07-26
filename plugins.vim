@@ -26,6 +26,8 @@ function s:Install(path, condition = v:true, branch = '') abort
   if isdirectory(l:dir .. '/doc') | execute 'helptag' l:dir .. '/doc' | endif
 endfunction
 
+call s:Install('airblade/vim-gitgutter')
+
 call s:Install('vim-jp/vimdoc-ja')
 call s:Install('lyuts/vim-rtags', (has('python') || has('python3')))
 " call s:Install('airblade/vim-gitgutter')

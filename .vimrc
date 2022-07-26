@@ -658,7 +658,7 @@ function s:UpdateTags(recreate) abort
   if !s:IsRepository() || !filereadable(getcwd() .. '/tags') | return | endif
   " copy .notfunction for work environment
   if !filereadable('.notfunction') && filereadable(expand('~/.notfunction'))
-    call system('cp ~/.notfunction .notfunction')
+    call system('cp ~/.notfunction .')
   endif
   if has('win32')
     if executable('ctags')
