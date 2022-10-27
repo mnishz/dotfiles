@@ -17,7 +17,11 @@ alias mydate='date "+%Y%m%d"'
 
 vimt() {
     local FILE=$(readlink -f ${1})
-    echo -e "\x1b]51;[\"drop\", \"${FILE}\"]\x07"
+    if [ ${VIM_TERMINAL} ]; then
+        echo -e "\x1b]51;[\"drop\", \"${FILE}\"]\x07"
+    else
+        vim ${FILE}
+    fi
 }
 
 git_check_remote() {
