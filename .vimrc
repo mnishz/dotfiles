@@ -749,6 +749,7 @@ function s:GitCommand(args) abort
   silent execute 'r !git ' .. a:args
   1d
   execute 'nnoremap <buffer> \\ :Git' a:args .. '<cr>'
+  doautocmd FileType
 endfunction
 
 command -nargs=0 SvnDiff call s:SvnDiff()
