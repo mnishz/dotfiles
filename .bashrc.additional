@@ -7,8 +7,8 @@ else
     export EDITOR=vim
 fi
 
-alias ll='ls -lhF'
-alias la='ls -lAF'
+alias ll='ls -lhFv'
+alias la='ls -lAFv'
 alias trash='gio trash'
 alias smile='vim --clean -c "smile | call getchar() | q"'
 alias echoroot='realpath --relative-to=. $(git rev-parse --show-toplevel)'

@@ -27,10 +27,8 @@ function s:Install(path, condition = v:true, branch = '') abort
 endfunction
 
 call s:Install('airblade/vim-gitgutter')
-
-call s:Install('vim-jp/vimdoc-ja')
 call s:Install('lyuts/vim-rtags', (has('python') || has('python3')))
-" call s:Install('airblade/vim-gitgutter')
+call s:Install('vim-jp/vimdoc-ja')
 
 call s:Install('mattn/vim-lexiv')
   inoremap <expr> <c-h> lexiv#paren_delete()
@@ -58,19 +56,13 @@ call s:Install('nightsense/office')
     autocmd!
     " Colorscheme イベントの発生が抑制されないよう nested を付ける
     autocmd VimEnter * nested colorscheme office-dark
-    if g:help_translation
-      " アクティブウィンドウのステータスラインの色を目立たせる
-      autocmd ColorScheme * highlight StatusLine ctermfg=100 guifg=SeaGreen
-      " Boldをつける
-      autocmd ColorScheme * highlight Error gui=Bold guifg=Red
-    endif
     " 日本語表示でカーソルを赤くする
     autocmd ColorScheme * highlight CursorIM guibg=Red
     " 微調整
     autocmd ColorScheme * highlight Comment guifg=#676760
     autocmd ColorScheme * highlight SpecialKey guifg=#684f76
     autocmd ColorScheme * highlight DiffText guifg=#557b9e
-    autocmd ColorScheme * highlight CursorLine guibg=#101010
+    autocmd ColorScheme * highlight CursorLine guibg=#404040
   augroup END
 
 call s:Install('Yggdroot/indentLine')
@@ -113,9 +105,11 @@ call s:Install('previm/previm')
   let g:previm_enable_realtime = 1
   let g:previm_custom_css_path = '~/dotfiles/previm_my.css'
 
+" LSP として別途 ccls を入れる必要がある
 call s:Install('m-pilia/vim-ccls')
   let g:ccls_orientation = 'horizontal'
   let g:ccls_size = 10
+" coc.nvim には Node.js が必要
 call s:Install('neoclide/coc.nvim', executable('node'))
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
