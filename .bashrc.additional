@@ -134,6 +134,10 @@ function __prompt_command() {
     if [ -n "$SSH_CONNECTION" ]; then
         export PS1="${Red}(SSH)${RCol} "$PS1
     fi
+
+    if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+        export PS1="${Red}(WSL)${RCol} "$PS1
+    fi
 }
 
 # I'm not sure, but this doesn't work. Change .bashrc itself.
