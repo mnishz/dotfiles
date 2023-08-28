@@ -762,7 +762,7 @@ function s:SvnDiff() abort
   set bt=nofile
   set noswapfile
   %d
-  silent execute 'r !svn diff'
+  silent execute 'r !LANG=C svn diff'
   1d
   execute 'nnoremap <buffer> \\ :SvnDiff<cr>'
 endfunction

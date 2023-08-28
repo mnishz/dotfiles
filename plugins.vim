@@ -37,8 +37,8 @@ call s:Install('mnishz/notes.vim')
 call s:Install('mnishz/devotion.vim')
 call s:Install('mnishz/colorscheme-preview.vim')
 
-call s:Install('mnishz/rainfall.vim', executable('curl'), 'tenki_jp')
-  let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
+" call s:Install('mnishz/rainfall.vim', executable('curl'), 'tenki_jp')
+"   let g:rainfall#url = 'https://tenki.jp/amedas/3/17/46141.html'
 
 call s:Install('vim-airline/vim-airline')
   let g:airline#extensions#searchcount#enabled = 0
