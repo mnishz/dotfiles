@@ -670,11 +670,11 @@ function s:UpdateTags(recreate) abort
   else
     let l:ctags_options = '-R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *'
     if a:recreate
-      call job_start('/bin/bash -c "ctags ' .. l:ctags_options .. '"')
-      call job_start('/bin/bash -c "gtags"')
+      let g:ctags_job = job_start('/bin/bash -c "ctags ' .. l:ctags_options .. '"')
+      let g:gtags_job = job_start('/bin/bash -c "gtags"')
     else
-      call job_start('/bin/bash -c "ctags -f ' .. s:TEMP_TAGS .. ' ' .. l:ctags_options .. '"', {'close_cb': function('s:ReplaceTags')})
-      call job_start('/bin/bash -c "global -u"')
+      let g:ctags_job = job_start('/bin/bash -c "ctags -f ' .. s:TEMP_TAGS .. ' ' .. l:ctags_options .. '"', {'close_cb': function('s:ReplaceTags')})
+      let g:gtags_job = job_start('/bin/bash -c "global -u"')
     endif
   endif
 endfunction
