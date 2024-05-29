@@ -35,6 +35,8 @@
 [diff]
 	tool = vimdiff
 	renameLimit = 999999
+	algorithm = histogram
+	colorMoved = dimmed-zebra
 [push]
 	default = current
 [rerere]

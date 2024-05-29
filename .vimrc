@@ -344,6 +344,8 @@ nnoremap <space>s :setlocal invspell spelllang=en_us<cr>
 " よく打ち間違えるので。。。<c-@> は多分使わない。
 inoremap <c-@> <c-[>
 
+nnoremap <Leader>e :e %:p:h<cr>
+
 noremap! <expr> <c-r>/ <SID>PasteSlash()
 
 " " 自作コマンドサンプル(引数なしならnargsは要らないかも)
