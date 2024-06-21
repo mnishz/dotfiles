@@ -17,7 +17,7 @@ ln -sf ~/dotfiles/.screenrc ~/.screenrc
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 # ln -sf ~/dotfiles/.minttyrc ~/.minttyrc
 ln -sf ~/dotfiles/.tigrc ~/.tigrc
-ln -sf ~/dotfiles/.bashrc.additional ~/.bashrc.additional
+ln -sf ~/dotfiles/.bash_aliases ~/.bash_aliases
 ln -sf ~/dotfiles/.inputrc ~/.inputrc
 mkdir -p ~/bin
 ln -sf ~/dotfiles/tmux_disk_avail.sh ~/bin/tmux_disk_avail.sh

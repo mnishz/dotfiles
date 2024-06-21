@@ -19,7 +19,7 @@ if %windows% == true (
     mklink /d %~dp0..\vimfiles %~dp0.vim
     mklink %~dp0..\.gvimrc %~dp0.gvimrc
 ) else (
-    mklink %~dp0..\.bashrc.additional %~dp0.bashrc.additional
+    mklink %~dp0..\.bash_aliases %~dp0.bash_aliases
     mklink /d %~dp0..\.vim %~dp0.vim
     mklink %~dp0..\.gdbinit %~dp0.gdbinit
     mklink %~dp0..\.tmux.conf %~dp0.tmux.conf

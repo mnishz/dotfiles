@@ -1,6 +1,3 @@
-# Add the following line to the end of original ".bashrc" to enable this settings.
-# source ~/.bashrc.additional
-
 if [ -e ~/bin/vim ]; then
     export EDITOR=~/bin/vim
 else
@@ -91,7 +88,7 @@ git_clean() {
         if [ ${dir} == "${gitroot}/.git" ]; then continue; fi
         if [[ ${dir} =~ ${gitroot}/worktree_.* ]]; then continue; fi
         #     echo ${dir}
-        git clean ${dir} -xdff
+        git clean ${dir} -xdff --exclude=compile_commands.json
     done
 }
 
@@ -102,8 +99,12 @@ fi
 
 type "__git_ps1" > /dev/null 2>&1
 if [ $? != 0 ]; then
-    source /c/msys64/usr/share/git/completion/git-prompt.sh
-    source /c/msys64/usr/share/git/completion/git-completion.bash
+    if [ -f /c/msys64/usr/share/git/completion/git-prompt.sh ]; then
+        source /c/msys64/usr/share/git/completion/git-prompt.sh
+    fi
+    if [ -f /c/msys64/usr/share/git/completion/git-completion.bash ]; then
+        source /c/msys64/usr/share/git/completion/git-completion.bash
+    fi
 fi
 
 export PROMPT_COMMAND=__prompt_command
@@ -155,6 +156,6 @@ fi
 
 # export LESS="-iMRF"
 
-if [ -e ~/.bashrc.local ]; then
+if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
