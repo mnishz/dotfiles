@@ -12,6 +12,9 @@ alias echoroot='realpath --relative-to=. $(git rev-parse --show-toplevel)'
 alias cdroot='cd $(echoroot)'
 alias mydate='date "+%Y%m%d"'
 
+alias gs='git status'
+alias gg='git graph'
+
 vimt() {
     local FILE=$(readlink -f ${1})
     if [ ${VIM_TERMINAL} ]; then

@@ -43,9 +43,11 @@ call s:Install('mnishz/colorscheme-preview.vim')
 call s:Install('vim-airline/vim-airline')
   let g:airline#extensions#searchcount#enabled = 0
 call s:Install('mnishz/current-func-info.vim')
+  " Python で遅いのでとりあえず disable にしておく
+  let g:loaded_cfi_ftplugin_python = v:true
   augroup current-func-info.vim
     autocmd!
-    autocmd VimEnter * let g:airline_section_c = airline#section#create(['[%n] %<', 'file', " / %{cfi#format('%s','')} ", 'readonly'])
+    autocmd VimEnter * let g:airline_section_c = airline#section#create(['[%n] %<', 'file', " / %{cfi#format('%s','')} / %{coc#status()}", 'readonly'])
   augroup END
 
 call s:Install('nightsense/office')
@@ -75,8 +77,9 @@ call s:Install('ctrlpvim/ctrlp.vim')
   let g:ctrlp_root_markers = ['gtags']
   let g:ctrlp_match_window = 'max:30'
   let g:ctrlp_custom_ignore = #{dir: '\v(library[\/][^\/]+[\/][^\/]+|generated)$'}
-  let g:ctrlp_max_files = 20000
+  let g:ctrlp_max_files = 30000
   let g:ctrlp_switch_buffer = 'E'
+  let g:ctrlp_regexp = 1
   " <c-m>は使えません！！！enterの挙動も変わってしまう
   nnoremap mru :CtrlPMRUFiles<cr>
 
@@ -110,12 +113,15 @@ call s:Install('m-pilia/vim-ccls')
   let g:ccls_orientation = 'horizontal'
   let g:ccls_size = 10
 " coc.nvim には Node.js が必要
-call s:Install('neoclide/coc.nvim', executable('node'))
+if executable('node')
+  call s:Install('neoclide/coc.nvim')
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gr :call CocAction('jumpReferences')<cr>:sleep 10m<cr><c-w>J<c-w>p:cc<cr>
+  nmap <silent> gc :call CocAction('showIncomingCalls')<cr>
   let g:coc_disable_transparent_cursor = 1
+endif
 
 call s:Install('vim-python/python-syntax')
   let g:python_highlight_all = 1
