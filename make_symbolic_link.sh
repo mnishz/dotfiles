@@ -21,6 +21,7 @@ ln -sf ~/dotfiles/.bash_aliases ~/.bash_aliases
 ln -sf ~/dotfiles/.inputrc ~/.inputrc
 mkdir -p ~/bin
 ln -sf ~/dotfiles/tmux_disk_avail.sh ~/bin/tmux_disk_avail.sh
+ln -sf ~/dotfiles/tmux_cpu.sh ~/bin/tmux_cpu.sh
 if [ -d ~/.vim ]; then
     if [ ! -L ~/.vim ]; then
         gio trash ~/.vim
