@@ -181,24 +181,33 @@ augroup WindowLocalOptions
   autocmd BufWinEnter * set nofoldenable
 augroup END
 
-"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+autocmd BufRead *.bz2 set readonly
+
+" バイナリ編集(xxd)モード(*.bin ファイルを開くと発動します)
+" gzip.vim と競合するため *.bin のみ support
 augroup BinaryXXD
   autocmd!
   autocmd BufReadPre  *.bin setlocal binary
 
-  autocmd BufReadPost * if &binary
-  autocmd BufReadPost *   silent %!xxd -g 1
-  autocmd BufReadPost *   set ft=xxd
-  autocmd BufReadPost * endif
+  autocmd BufReadPost *.bin {
+    if &binary
+      silent :%!xxd -g 1
+      set ft=xxd
+    endif
+  }
 
-  autocmd BufWritePre * if &binary
-  autocmd BufWritePre *   %!xxd -r
-  autocmd BufWritePre * endif
+  autocmd BufWritePre *.bin {
+    if &binary
+      %!xxd -r
+    endif
+  }
 
-  autocmd BufWritePost * if &binary
-  autocmd BufWritePost *   silent %!xxd -g 1
-  autocmd BufWritePost *   set nomod
-  autocmd BufWritePost * endif
+  autocmd BufWritePost *.bin {
+    if &binary
+      silent :%!xxd -g 1
+      set nomod
+    endif
+  }
 augroup END
 
 " shell側で対応する？
