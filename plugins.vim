@@ -27,7 +27,7 @@ function s:Install(path, condition = v:true, branch = '') abort
 endfunction
 
 call s:Install('airblade/vim-gitgutter')
-call s:Install('lyuts/vim-rtags', (has('python') || has('python3')))
+  let g:gitgutter_max_signs = 500
 call s:Install('vim-jp/vimdoc-ja')
 
 call s:Install('mattn/vim-lexiv')
