@@ -802,6 +802,18 @@ function s:OpenDiffLine() abort
   execute 'rightbelow' g:new_vnew '+' .. l:diff_line l:diff_file
 endfunction
 
+" diff file の中から HEAD^ と current file の diffsplit を新しい tab で開く
+let @s = ':OpenDiffSplit'
+command -nargs=0 OpenDiffSplit call s:OpenDiffSplit()
+function s:OpenDiffSplit() abort
+  let l:diff_file_line_num = search('^+++', 'bn')
+  let l:diff_file = getline(l:diff_file_line_num)[6:]
+  call s:GitCommand("show HEAD^:" .. l:diff_file)
+  set ft=cpp
+  normal T
+  execute 'rightbelow diffsplit ' .. l:diff_file
+endfunction
+
 source ~/dotfiles/plugins.vim
 
 set secure
