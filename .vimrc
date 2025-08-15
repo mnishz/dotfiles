@@ -700,7 +700,7 @@ command CopyToClipboard call s:CopyToClipboardByOSC52()
 function s:CopyToClipboardByOSC52() abort
   let l:txt_file = trim(system('mktemp /tmp/vim_txt_XXX'))
   call writefile(split(@", '\n'), l:txt_file)
-  let l:enc_file = system('mktemp /tmp/vim_enc_XXX')
+  let l:enc_file = trim(system('mktemp /tmp/vim_enc_XXX'))
   let l:executeCmd = "base64 " .. l:txt_file .. " | tr -d '\\n' > " .. l:enc_file
   let l:encodedText = system(l:executeCmd)
   call delete(l:txt_file)
