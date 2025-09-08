@@ -14,7 +14,6 @@ alias mydate='date "+%Y%m%d"'
 
 alias gs='git status'
 alias gg='git log --graph -C -M --pretty=format:"%C(auto)%h %cd [%an]%d %s" --date=format:"%Y/%m/%d %H:%M"'
-alias ggoh='git log --graph -C -M --pretty=format:"%C(auto)%h %cd [%an]%d %s" --date=format:"%Y/%m/%d %H:%M" origin/$(git_firm_generation) HEAD'
 
 vimt() {
     local FILE=$(readlink -f ${1})
