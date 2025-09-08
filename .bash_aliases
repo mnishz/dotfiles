@@ -90,7 +90,7 @@ git_clean() {
     do
         if [ ${dir} == ${gitroot} ]; then continue; fi
         if [ ${dir} == "${gitroot}/.git" ]; then continue; fi
-        if [[ ${dir} =~ ${gitroot}/worktree_.* ]]; then continue; fi
+        if [[ ${dir} =~ ${gitroot}/venv.* ]]; then continue; fi
         #     echo ${dir}
         git clean ${dir} -xdff --exclude=compile_commands.json
     done
@@ -131,9 +131,9 @@ function __prompt_command() {
     if [[ ${EXIT} == 0 ]]; then
         export PS1="${Green}✅${RCol} "$PS1
     elif [[ ${EXIT} == 130 ]]; then
-        export PS1="${Red}🚫${RCol} "$PS1
+        export PS1="${Yellow}🚫${RCol} "$PS1
     else
-        export PS1="${Yellow}💥${RCol} "$PS1
+        export PS1="${Red}💥${RCol} "$PS1
     fi
 
     if [ -n "$SSH_CONNECTION" ]; then
