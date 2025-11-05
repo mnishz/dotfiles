@@ -126,7 +126,9 @@ endif
 call s:Install('vim-python/python-syntax')
   let g:python_highlight_all = 1
 
-command PlugUpdate :call s:PlugUpdate()
+call s:Install('Exafunction/windsurf.vim')
+
+command! PlugUpdate :call s:PlugUpdate()
 function s:PlugUpdate() abort
   for dir in readdir(s:plugins_path, {n -> isdirectory(s:plugins_path .. n)})
     echo 'updating ' .. dir
@@ -134,7 +136,7 @@ function s:PlugUpdate() abort
   endfor
 endfunction
 
-command PlugDeleteAll :call s:PlugDeleteAll()
+command! PlugDeleteAll :call s:PlugDeleteAll()
 function s:PlugDeleteAll() abort
   for dir in readdir(s:plugins_path, {n -> isdirectory(s:plugins_path .. n)})
     echon 'deleting ' .. dir .. ', '

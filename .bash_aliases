@@ -88,8 +88,11 @@ git_clean() {
     for dir in ${targetdirs};
     do
         if [ ${dir} == ${gitroot} ]; then continue; fi
-        if [ ${dir} == "${gitroot}/.git" ]; then continue; fi
+        # exclude dot files including .git
+        dirname=$(basename ${dir})
+        if [[ ${dirname} =~ ^\. ]]; then continue; fi
         if [[ ${dir} =~ ${gitroot}/venv.* ]]; then continue; fi
+        # Skip hidden directories (starting with dot)
         #     echo ${dir}
         git clean ${dir} -xdff --exclude=compile_commands.json
     done
