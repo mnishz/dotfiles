@@ -15,6 +15,15 @@ alias mydate='date "+%Y%m%d"'
 alias gs='git status'
 alias gg='git log --graph -C -M --pretty=format:"%C(auto)%h %cd [%an]%d %s" --date=format:"%Y/%m/%d %H:%M"'
 
+my_tar() {
+    if [ ${#} != 1 ]; then
+        echo "How to use: my_tar target_file_or_dir"
+        return 1
+    fi
+
+    tar czvf ${1%/}.tar.gz ${1}
+}
+
 vimt() {
     local FILE=$(readlink -f ${1})
     if [ ${VIM_TERMINAL} ]; then
