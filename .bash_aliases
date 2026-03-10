@@ -97,13 +97,10 @@ git_clean() {
     for dir in ${targetdirs};
     do
         if [ ${dir} == ${gitroot} ]; then continue; fi
-        # exclude dot files including .git
-        dirname=$(basename ${dir})
-        if [[ ${dirname} =~ ^\. ]]; then continue; fi
-        if [[ ${dir} =~ ${gitroot}/venv.* ]]; then continue; fi
-        # Skip hidden directories (starting with dot)
-        #     echo ${dir}
-        git clean ${dir} -xdff --exclude=compile_commands.json
+        # git の tracked file が存在する場合だけ git clean を実行
+        if git -C "${gitroot}" ls-files -- "${dir}" | grep -q .; then
+            git clean ${dir} -xdff --exclude=compile_commands.json
+        fi
     done
 }
 

@@ -161,6 +161,7 @@ set path+=**
 set complete-=i
 
 set diffopt+=vertical
+set diffopt+=iwhiteall
 
 if has('win32')
   set clipboard+=unnamed
