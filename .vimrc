@@ -333,6 +333,8 @@ nnoremap <c-f12> :sp<cr><c-w>T:GtagsCursor<cr>
 nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:Gtags -r <c-r><c-w><cr>
 " nnoremap <s-f12> :sp<cr><c-w>T:tabm-<cr>:execute("Gtags -r " . cfi#format('%s', '')[0:-3])<cr>
 
+" file 名 yandk
+nnoremap yn :let @" = expand('%:.')<cr>
 " 行末までヤンク
 nnoremap Y y$
 " ノーマルモードでのWindowsクリップボードへの単語コピー
@@ -680,7 +682,7 @@ function s:UpdateTags(recreate) abort
       !start gtags -v
     endif
   else
-    let l:ctags_options = '-R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extra=+q --exclude=library/*/* --exclude=*[Tt]est/* *'
+    let l:ctags_options = '-R --sort=yes --c++-kinds=+p --fields=+iaS --langmap=c++:+.ipp.tpp --extras=+q --exclude="library/*/*" --exclude="*[Tt]est/*" *'
     if a:recreate
       let g:ctags_job = job_start('/bin/bash -c "ctags ' .. l:ctags_options .. '"')
       let g:gtags_job = job_start('/bin/bash -c "gtags"')
