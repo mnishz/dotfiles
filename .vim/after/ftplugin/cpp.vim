@@ -1,4 +1,5 @@
 setlocal textwidth=132
+setlocal colorcolumn=133
 nnoremap <silent> <buffer> [[ :let @a=@/<cr>?\v^[^ _#/A].*(\w+::)*\w+\(<cr>:let @/=@a<cr>
 nnoremap <silent> <buffer> ]] :let @a=@/<cr>/\v^[^ _#/A].*(\w+::)*\w+\(<cr>:let @/=@a<cr>
 nnoremap <silent> <buffer> <leader>tp o<cr>Tracepoint(foo_).<cr>TpEnd();<esc>k0f_a

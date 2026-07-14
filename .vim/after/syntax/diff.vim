@@ -6,3 +6,5 @@ highlight diffNewFile cterm=NONE gui=NONE
 highlight diffIndexLine cterm=NONE gui=NONE
 highlight link diffLine Type
 highlight diffSubname cterm=NONE gui=NONE
+
+syntax match Error "^diff.*/test/.*"
