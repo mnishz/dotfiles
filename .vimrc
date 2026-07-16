@@ -702,13 +702,7 @@ endfunction
 command CopyToClipboard call s:CopyToClipboardByOSC52()
 function s:CopyToClipboardByOSC52() abort
   let l:encoded = system('base64 | tr -d "\n"', @")
-  if !empty($TMUX)
-    let l:seq = "\ePtmux;\e\e]52;;" .. l:encoded .. "\e\e\\\e\\"
-  elseif $TERM ==? "screen"
-    let l:seq = "\eP\e]52;;" .. l:encoded .. "\007\e\\"
-  else
-    let l:seq = "\e]52;;" .. l:encoded .. "\e\\"
-  endif
+  let l:seq = "\e]52;;" .. l:encoded .. "\e\\"
   call writefile([l:seq], '/dev/tty', 'b')
 endfunction
 
