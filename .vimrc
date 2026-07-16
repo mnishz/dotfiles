@@ -701,21 +701,15 @@ endfunction
 " how to use: yank -> type ':CopyToClipboard'
 command CopyToClipboard call s:CopyToClipboardByOSC52()
 function s:CopyToClipboardByOSC52() abort
-  let l:txt_file = trim(system('mktemp /tmp/vim_txt_XXX'))
-  call writefile(split(@", '\n'), l:txt_file)
-  let l:enc_file = trim(system('mktemp /tmp/vim_enc_XXX'))
-  let l:executeCmd = "base64 " .. l:txt_file .. " | tr -d '\\n' > " .. l:enc_file
-  let l:encodedText = system(l:executeCmd)
-  call delete(l:txt_file)
+  let l:encoded = system('base64 | tr -d "\n"', @")
   if !empty($TMUX)
-    let l:executeCmd = 'echo -en "\033Ptmux;\033\033]52;;$(cat ' .. l:enc_file .. ')\033\033\\\\\033\\" > /dev/tty'
+    let l:seq = "\ePtmux;\e\e]52;;" .. l:encoded .. "\e\e\\\e\\"
   elseif $TERM ==? "screen"
-    let l:executeCmd = 'echo -en "\033P\033]52;;$(cat '          .. l:enc_file .. ')\007\033\\"         > /dev/tty'
+    let l:seq = "\eP\e]52;;" .. l:encoded .. "\007\e\\"
   else
-    let l:executeCmd = 'echo -en "\033]52;;$(cat '               .. l:enc_file .. ')\033\\"             > /dev/tty'
+    let l:seq = "\e]52;;" .. l:encoded .. "\e\\"
   endif
-  call system(l:executeCmd)
-  call delete(l:enc_file)
+  call writefile([l:seq], '/dev/tty', 'b')
 endfunction
 
 command ToggleClipboard call s:ToggleClipboard()
