@@ -13,7 +13,13 @@ alias cdroot='cd $(echoroot)'
 alias mydate='date "+%Y%m%d"'
 
 alias gs='git status'
-alias gg='git log --graph -C -M --pretty=format:"%C(auto)%h %cd [%an]%d %s" --date=format:"%Y/%m/%d %H:%M"'
+
+gg() {
+    TZ=Asia/Tokyo git log --graph -C -M \
+        --pretty=format:"%C(auto)%h %cd [%an]%d %s" \
+        --date=format-local:"%Y/%m/%d %H:%M" \
+        "$@"
+}
 
 my_tar() {
     if [ ${#} != 1 ]; then
