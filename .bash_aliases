@@ -110,6 +110,28 @@ git_clean() {
     done
 }
 
+# Stacked PR 向けに、最初の別の branch の tip を探す
+git_parent_branch() {
+    local current
+    current=$(git branch --show-current)
+
+    git rev-list HEAD^ | while read -r sha; do
+    branches=$(
+        git for-each-ref \
+            --format='%(refname:short) %(objectname)' \
+            refs/heads refs/remotes |
+            awk -v sha="$sha" '$2==sha {print $1}' |
+            grep -v "^${current}$" |
+            grep -v "^origin/${current}$"
+        )
+
+        if [ -n "$branches" ]; then
+            echo "$branches"
+            return 0
+        fi
+    done
+}
+
 type "tree" > /dev/null 2>&1
 if [ $? != 0 ]; then
     alias tree='pwd;find . | sort | sed '\''1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'\'''
@@ -123,6 +145,17 @@ if [ $? != 0 ]; then
     if [ -f /c/msys64/usr/share/git/completion/git-completion.bash ]; then
         source /c/msys64/usr/share/git/completion/git-completion.bash
     fi
+fi
+
+type "__git_complete" > /dev/null 2>&1
+if [ $? != 0 ]; then
+    if [ -f /usr/share/bash-completion/completions/git ]; then
+        source /usr/share/bash-completion/completions/git
+    fi
+fi
+type "__git_complete" > /dev/null 2>&1
+if [ $? = 0 ]; then
+    __git_complete gg git_log
 fi
 
 export PROMPT_COMMAND=__prompt_command
