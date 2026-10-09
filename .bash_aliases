@@ -115,21 +115,22 @@ git_parent_branch() {
     local current
     current=$(git branch --show-current)
 
-    git rev-list HEAD^ | while read -r sha; do
+    while read -r sha; do
     branches=$(
         git for-each-ref \
             --format='%(refname:short) %(objectname)' \
             refs/heads refs/remotes |
             awk -v sha="$sha" '$2==sha {print $1}' |
             grep -v "^${current}$" |
-            grep -v "^origin/${current}$"
+            grep -v "^origin/${current}$" |
+            head -n 1
         )
 
         if [ -n "$branches" ]; then
             echo "$branches"
             return 0
         fi
-    done
+    done < <(git rev-list HEAD^)
 }
 
 type "tree" > /dev/null 2>&1
