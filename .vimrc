@@ -39,6 +39,12 @@ set swapfile
 let g:is_vertical_monitor = ((&columns / &lines) < 2) ? v:true : v:false
 let g:new_vnew = g:is_vertical_monitor ? 'new' : 'vnew'
 
+command! -nargs=0 ToggleVerticalMonitor call s:ToggleVerticalMonitor()
+function! s:ToggleVerticalMonitor() abort
+  let g:is_vertical_monitor = !g:is_vertical_monitor
+  let g:new_vnew = g:is_vertical_monitor ? 'new' : 'vnew'
+endfunction
+
 if !has('win32')
 
   colorscheme torte
@@ -803,6 +809,53 @@ function s:OpenDiffSplit() abort
   set ft=cpp
   normal T
   execute 'rightbelow diffsplit ' .. l:diff_file
+endfunction
+
+command! -nargs=1 BdFiletype call s:bd_filetype(<q-args>)
+function! s:bd_filetype(ft) abort
+  for bufnr in range(1, bufnr('$'))
+    if bufexists(bufnr) && getbufvar(bufnr, '&filetype') ==# a:ft && buflisted(bufnr)
+      echo bufname(bufnr)
+      execute 'bdelete' bufnr
+    endif
+  endfor
+endfunction
+
+command! -nargs=0 GitReview call s:GitCommand("show -b -- . ':(exclude)**/test/**'")
+
+" 親 branch と思しき場所から引数までの diff を出す
+command! -nargs=? GitParentDiff call s:GitParentDiff(<q-args>)
+function! s:GitParentDiff(revision) abort
+  if !empty(a:revision)
+    call system('git rev-parse --verify --quiet ' .. shellescape(a:revision .. '^{commit}'))
+    if v:shell_error != 0
+      echoerr 'GitParentDiff: invalid revision: ' .. a:revision
+      return
+    endif
+  endif
+  let l:candidates = systemlist('bash -c ''source "$HOME/.bash_aliases"; git_parent_branch'' 2>/dev/null')
+  if v:shell_error != 0
+    echoerr 'GitParentDiff: failed to run git_parent_branch'
+    return
+  endif
+  let l:parent = get(l:candidates, 0, '')
+  call system('git rev-parse --verify --quiet ' .. shellescape(l:parent))
+  if v:shell_error != 0
+    echoerr 'GitParentDiff: parent branch not found'
+    return
+  endif
+  if empty(a:revision)
+    let l:base = get(systemlist('git merge-base ' .. shellescape(l:parent) .. ' HEAD'), 0, '')
+    if empty(l:base)
+      echoerr 'GitParentDiff: no merge base between ' .. l:parent .. ' and HEAD'
+      return
+    endif
+    call s:GitCommand('diff ' .. shellescape(l:base))
+    nnoremap <buffer> \\ :GitParentDiff<cr>
+  else
+    call s:GitCommand('diff ' .. shellescape(l:parent .. '...' .. a:revision))
+    execute 'nnoremap <buffer> \\ :GitParentDiff ' .. escape(a:revision, ' |') .. '<cr>'
+  endif
 endfunction
 
 source ~/dotfiles/plugins.vim
