@@ -47,7 +47,7 @@ call s:Install('mnishz/current-func-info.vim')
   let g:loaded_cfi_ftplugin_python = v:true
   augroup current-func-info.vim
     autocmd!
-    autocmd VimEnter * let g:airline_section_c = airline#section#create(['[%n] %<', 'file', " / %{cfi#format('%s','')} / %{coc#status()}", 'readonly'])
+    autocmd VimEnter * let g:airline_section_c = airline#section#create(['[%n] %<', 'file', " / %{cfi#format('%s','')}", 'readonly'])
   augroup END
 
 call s:Install('nightsense/office')
@@ -109,9 +109,9 @@ call s:Install('previm/previm')
   let g:previm_custom_css_path = '~/dotfiles/previm_my.css'
 
 " LSP として別途 ccls を入れる必要がある
-call s:Install('m-pilia/vim-ccls')
-  let g:ccls_orientation = 'horizontal'
-  let g:ccls_size = 10
+" call s:Install('m-pilia/vim-ccls')
+"   let g:ccls_orientation = 'horizontal'
+"   let g:ccls_size = 10
 " coc.nvim には Node.js が必要
 if executable('node')
   call s:Install('neoclide/coc.nvim')
@@ -121,12 +121,14 @@ if executable('node')
   nmap <silent> gr :call CocAction('jumpReferences')<cr>:sleep 10m<cr><c-w>J<c-w>p:cc<cr>
   nmap <silent> gc :call CocAction('showIncomingCalls')<cr>
   let g:coc_disable_transparent_cursor = 1
+  augroup current-func-info.vim
+    autocmd!
+    autocmd VimEnter * let g:airline_section_c = airline#section#create(['[%n] %<', 'file', " / %{cfi#format('%s','')} / %{coc#status()}", 'readonly'])
+  augroup END
 endif
 
 call s:Install('vim-python/python-syntax')
   let g:python_highlight_all = 1
-
-call s:Install('Exafunction/windsurf.vim')
 
 command! PlugUpdate :call s:PlugUpdate()
 function s:PlugUpdate() abort
